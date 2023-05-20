@@ -18,7 +18,6 @@ return new class extends Migration
             $table->float('precio_unitario');
             $table->string('factura_recibo_id');
             $table->string('destino:id');
-            $table->timestamps();
 
             $table->foreignId('destinos')->constrained(
                 table: 'destinos'
