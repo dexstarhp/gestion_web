@@ -11,24 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detañlles__ventas', function (Blueprint $table) {
+        Schema::create('detalle_ventas', function (Blueprint $table) {
             $table->id();
-            $table->string('productos_id');
-            $table->string('cantidad');
-            $table->string('precio_unitario');
-            $table->string('importe');
-            $table->string('ventas_id');
-            $table->string('tipo(producto, servicio)');
-            $table->timestamps();
 
-            $table->foreignId('productos_id')->constrained(
-                table: 'productos'
+            $table->float('cantidad',7,2);
+            $table->float('precio_unitario',7,2);
+            $table->float('importe',7,2);
+
+            $table->foreignId('venta_id')->constrained(
+                table: 'ventas'
             );
 
-                $table->foreignId('user_id')->constrained();
+            $table->enum('tipo', ['producto', 'servicio']);
+            $table->foreignId('item_id')->constrained(
+                table: 'items'
+            );
+            $table->foreignId('user_id')->constrained();
 
-                $table->timestamps();
-
+            $table->timestamps();
         });
     }
 
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detañlles__ventas');
+        Schema::dropIfExists('detalle_ventas');
     }
 };

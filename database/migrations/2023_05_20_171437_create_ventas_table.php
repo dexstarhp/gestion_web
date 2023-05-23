@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
-            $table->string('total');
-            $table->date('fecha_de_ventas');
-            $table->string('cliente_id');
-            $table->string('usuario_id');
+
+            $table->float('total', 7,2);
+            $table->date('fecha_venta');
+            // Llave foranea
+            $table->foreignId('cliente_id')->constrained(
+                table: 'clientes'
+            );
+            $table->foreignId('user_id')->constrained();
+
             $table->timestamps();
         });
     }

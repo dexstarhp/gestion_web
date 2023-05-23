@@ -13,18 +13,13 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('ci');
-            $table->string('telef');
+
+            $table->string('nombre', 50);
+            $table->string('ci', 10);
+            $table->string('telefono');
+            $table->foreignId('user_id')->constrained();
+
             $table->timestamps();
-
-            $table->foreignId('ventas_id')->constrained(
-                table: 'ventas'
-            );
-
-                $table->foreignId('user_id')->constrained();
-
-                $table->timestamps();
 
         });
     }
