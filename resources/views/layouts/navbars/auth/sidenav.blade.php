@@ -6,7 +6,7 @@
         <a class="navbar-brand m-0" href="{{ route('home') }}"
             target="_blank">
             <img src="./img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold">Argon Dashboard 2 Laravel</span>
+            <span class="ms-1 font-weight-bold">Sistema de control</span>
         </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -18,51 +18,22 @@
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Dashboard</span>
+                    <span class="nav-link-text ms-1">Inicio</span>
                 </a>
             </li>
             <li class="nav-item mt-3 d-flex align-items-center">
                 <div class="ps-4">
-                    <i class="fab fa-laravel" style="color: #f4645f;"></i>
+                    <i class="ni ni-cart" style="color: #f4645f;"></i>
                 </div>
-                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Laravel </h6>
+                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Compras </h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
+                <a class="nav-link {{ Route::currentRouteName() == 'proveedores' ? 'active' : '' }}" href="{{ route('proveedores.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                        <i class="ni ni-app text-info text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Profile</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ str_contains(request()->url(), 'user-management') == true ? 'active' : '' }}" href="{{ route('page', ['page' => 'user-management']) }}">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">User Management</span>
-                </a>
-            </li>
-            <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Pages</h6>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ str_contains(request()->url(), 'tables') == true ? 'active' : '' }}" href="{{ route('page', ['page' => 'tables']) }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Tables</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{  str_contains(request()->url(), 'billing') == true ? 'active' : '' }}" href="{{ route('page', ['page' => 'billing']) }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Billing</span>
+                    <span class="nav-link-text ms-1">Proveedores</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -71,9 +42,58 @@
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-app text-info text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Virtual Reality</span>
+                    <span class="nav-link-text ms-1">Registro de compras</span>
                 </a>
             </li>
+
+
+            <li class="nav-item mt-3 d-flex align-items-center">
+                <div class="ps-4">
+                    <i class="ni ni-cart" style="color: #f4645f;"></i>
+                </div>
+                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Inventarios </h6>
+            </li>
+            <li class="nav-item mt-3 d-flex align-items-center">
+                <div class="ps-4">
+                    <i class="ni ni-cart" style="color: #f4645f;"></i>
+                </div>
+                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Ventas </h6>
+            </li>
+            <li class="nav-item mt-3 d-flex align-items-center">
+                <div class="ps-4">
+                    <i class="ni ni-cart" style="color: #f4645f;"></i>
+                </div>
+                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Configuraciones </h6>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Mi perfil</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ str_contains(request()->url(), 'user-management') == true ? 'active' : '' }}" href="{{ route('page', ['page' => 'user-management']) }}">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Gestor de usuarios</span>
+                </a>
+            </li>
+
+
+            {{-- <li class="nav-item">
+                <a class="nav-link {{  str_contains(request()->url(), 'billing') == true ? 'active' : '' }}" href="{{ route('page', ['page' => 'billing']) }}">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Billing</span>
+                </a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'rtl' ? 'active' : '' }}" href="{{ route('rtl') }}">
                     <div
@@ -112,8 +132,8 @@
                     </div>
                     <span class="nav-link-text ms-1">Sign Up</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
-    
+
 </aside>
