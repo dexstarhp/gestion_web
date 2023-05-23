@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('plan_cobros', function (Blueprint $table) {
             $table->id();
             $table->foreignId('venta_id')->constrained(
-                table: 'ventas'
-            );
+                table: 'ventas');
             $table->date('fecha');
             $table->float('monto_cobro', 7,2);
-            
+
             $table->timestamps();
         });
     }
