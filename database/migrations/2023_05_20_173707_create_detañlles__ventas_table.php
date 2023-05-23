@@ -19,13 +19,12 @@ return new class extends Migration
             $table->float('importe',7,2);
 
             $table->foreignId('venta_id')->constrained(
-                table: 'ventas'
-            );
+                table: 'ventas');
 
             $table->enum('tipo', ['producto', 'servicio']);
             $table->foreignId('item_id')->constrained(
-                table: 'items'
-            );
+                table: 'items');
+                
             $table->foreignId('user_id')->constrained();
 
             $table->timestamps();
