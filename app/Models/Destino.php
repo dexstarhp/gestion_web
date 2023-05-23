@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Destino extends Model
 {
     use HasFactory;
+
+    protected $table = 'destino';
+
+
+    protected $fillable = ['nombre', 'descripcion'];
 }

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Entrada_Salida extends Model
 {
     use HasFactory;
+
+    protected $table = 'clientes';
+
+
+    protected $fillable = ['fecha', 'total', 'usuarios_id'];
 }

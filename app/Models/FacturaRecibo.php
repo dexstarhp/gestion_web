@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class FacturaRecibo extends Model
 {
     use HasFactory;
+
+    protected $table = 'FacturaRecibo';
+
+
+    protected $fillable = ['nro', 'fecha', 'total'];
 }
