@@ -2,24 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Proveedor;
-use App\Http\Requests\StoreProveedorRequest;
-use App\Http\Requests\UpdateProveedorRequest;
+use App\Models\Clientes;
+use App\Http\Requests\StoreClientesRequest;
+use App\Http\Requests\UpdateClientesRequest;
 
-class ProveedorController extends Controller
+class ClientesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // $proveedores = Proveedor::all();
-        // select * from Proveedores
-        // conxion a base de datos
-        // consulta  a la base de datos
-        // mapeo e los datos
-        // mostrar datos
-        return view("proveedor.index");
+        //
     }
 
     /**
@@ -33,7 +27,7 @@ class ProveedorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProveedorRequest $request)
+    public function store(StoreClientesRequest $request)
     {
         //
     }
@@ -41,7 +35,7 @@ class ProveedorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Proveedor $proveedor)
+    public function show(Clientes $clientes)
     {
         //
     }
@@ -49,7 +43,7 @@ class ProveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Proveedor $proveedor)
+    public function edit(Clientes $clientes)
     {
         //
     }
@@ -57,7 +51,7 @@ class ProveedorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProveedorRequest $request, Proveedor $proveedor)
+    public function update(UpdateClientesRequest $request, Clientes $clientes)
     {
         //
     }
@@ -65,7 +59,7 @@ class ProveedorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Proveedor $proveedor)
+    public function destroy(Clientes $clientes)
     {
         //
     }

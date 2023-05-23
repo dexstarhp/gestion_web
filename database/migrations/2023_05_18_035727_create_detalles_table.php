@@ -13,23 +13,22 @@ return new class extends Migration
     {
         Schema::create('detalles', function (Blueprint $table) {
             $table->id();
-            $table->string('item_id');
-            $table->string('cantidad');
-            $table->float('precio_unitario');
-            $table->string('factura_recibo_id');
-            $table->string('destino:id');
-            $table->timestamps();
-
-            $table->foreignId('destinos')->constrained(
-                table: 'destinos'
-            );
-            $table->foreignId('items')->constrained(
+            // llave foranea (forean key)
+            $table->foreignId('item_id')->constrained(
                 table: 'items'
             );
+            // 1234567,12
+            $table->float('cantidad', 7, 2);
+            $table->float('precio_unitario',7,2);
+            $table->foreignId('factura_recibo_id')->constrained(
+                table: 'factura_recibos'
+            );
 
+            $table->foreignId('destino_id')->constrained(
+                table: 'destinos'
+            );
 
             $table->foreignId('user_id')->constrained();
-
             $table->timestamps();
 
         });
