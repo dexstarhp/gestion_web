@@ -12,5 +12,5 @@ class FacturaRecibo extends Model
     protected $table = 'FacturaRecibo';
 
 
-    protected $fillable = ['nro', 'fecha', 'total'];
+    protected $fillable = ['nro', 'fecha', 'total', 'proveedor', 'user_id'];
 }

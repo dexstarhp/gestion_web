@@ -11,5 +11,5 @@ class DetalleVenta extends Model
 
     protected $table = 'detalle_ventas';
 
-    protected $fillable = ['cantidad', 'precio unitario', 'importe', 'ventas_id'];
+    protected $fillable = ['cantidad', 'precio unitario', 'importe', 'ventas_id', 'tipo ENUM', 'item_id', 'user_id'];
 }

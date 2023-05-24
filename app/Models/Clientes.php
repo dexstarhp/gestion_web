@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Clientes extends Model
 {
@@ -14,4 +15,10 @@ class Clientes extends Model
 
     // campos de la tabla
     protected $fillable = ['nombre', 'ci', 'telefono', 'user_id'];
+
+    // relationship
+    public function ventas(): HasMany
+    {
+        return $this->hasMany(Ventas::class, 'id');
+    }
 }

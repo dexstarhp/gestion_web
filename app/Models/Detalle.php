@@ -12,5 +12,5 @@ class Detalle extends Model
     protected $table = 'detalle';
 
 
-    protected $fillable = ['cantidad', 'precio_unitario', 'factura_recibo_id', 'factura_recibos'];
+    protected $fillable = ['item_id', 'cantidad', 'precio_unitario', 'factura_recibo_id', 'factura_recibos', 'destino', 'user_id'];
 }
