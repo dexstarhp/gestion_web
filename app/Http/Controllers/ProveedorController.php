@@ -13,13 +13,16 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        // $proveedores = Proveedor::all();
+        $proveedores = Proveedor::all();
         // select * from Proveedores
         // conxion a base de datos
         // consulta  a la base de datos
         // mapeo e los datos
         // mostrar datos
-        return view("proveedor.index");
+        return view("proveedor.index")
+            ->with([
+                'proveedores' => $proveedores
+            ]);
     }
 
     /**
@@ -27,7 +30,7 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        //
+        return view('proveedor.crear');
     }
 
     /**

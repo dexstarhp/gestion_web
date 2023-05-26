@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     // rutas del sistema
     // proveedores
     Route::get('/proveedores', [ProveedorController::class, 'index'])->name('proveedores.index');
+    Route::get('proveedores/crear', [ProveedorController::class, 'create'])->name('proveedores.create');
 
 
 
