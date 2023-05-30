@@ -12,5 +12,10 @@ class Ventas extends Model
     protected $table = 'ventas';
 
 
-    protected $fillable = ['fecha', 'ventas'];
+    protected $fillable = [
+        'total',
+        'fecha_venta',
+        'cliente_id',
+        'user_id'
+    ];
 }
