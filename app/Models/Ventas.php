@@ -13,6 +13,15 @@ class Ventas extends Model
     protected $table = 'ventas';
     protected $fillable = ['fecha', 'ventas','clientes_id', 'users_id'];
 
+
+    protected $fillable = [
+        'total',
+        'fecha_venta',
+        'cliente_id',
+        'user_id'
+    ];
+
+
     // relationship
     public function cliente(): BelongsTo
     {
