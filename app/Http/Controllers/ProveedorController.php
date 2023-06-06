@@ -47,7 +47,7 @@ class ProveedorController extends Controller
             return redirect()
                 ->route('proveedores.index')
                 ->with('succes', 'Proveedor Registrado');
-        } catch(\Exception ){
+        } catch(\Exception $ex){
             DB::rollBack();
             return redirect()
                 ->route('proveedores.index')
@@ -68,7 +68,10 @@ class ProveedorController extends Controller
      */
     public function edit(Proveedor $proveedor)
     {
-        //
+        return view('proveedor.editar')
+            ->with([
+                'proveedor' => $proveedor
+            ]);
     }
 
     /**
@@ -76,7 +79,21 @@ class ProveedorController extends Controller
      */
     public function update(UpdateProveedorRequest $request, Proveedor $proveedor)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $proveedor->fill($request->all());
+            $proveedor->update();
+
+            DB::commit();
+            return redirect()
+                ->route('proveedores.index')
+                ->with('succes', 'Proveedor Editado');
+        } catch(\Exception $ex){
+            DB::rollBack();
+            return redirect()
+                ->route('proveedores.index')
+                ->with('Error', 'Error al editar '. $ex);
+        }
     }
 
     /**

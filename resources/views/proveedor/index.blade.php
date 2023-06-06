@@ -42,9 +42,9 @@
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $proveedor->tel_cel }}</span>
                                             </td>
                                             <td class="align-middle">
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
-                                                    Edit
+                                                <a href="{{ route('proveedores.edit',$proveedor) }}" class="text-secondary font-weight-bold text-xs"
+                                                    data-toggle="tooltip" data-original-title="Editar Proveedor">
+                                                    Editar
                                                 </a>
                                             </td>
                                         </tr>

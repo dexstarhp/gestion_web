@@ -11,7 +11,7 @@ class UpdateProveedorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,28 @@ class UpdateProveedorRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id_proveedor = $this->route('proveedor.id');
         return [
-            //
+            'nombre_razon_social' => 'required|unique:proveedores,nombre_razon_social,'.$id_proveedor.'|min:3',
+            'nit_ci' => 'required|min_digits:8|numeric',
+            'tel_cel' => 'required|min_digits:8|numeric',
+        ];
+    }
+
+    /***
+     * Mensajes de error perzonalizadas
+     */
+    public function messages(): array
+    {
+        return [
+            'nit_ci.min_digits' => 'El campo Nit/CI al menos debe de tener :min digitos',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'tel_cel' => 'Telefono/Cel',
         ];
     }
 }
