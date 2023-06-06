@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     // proveedores
     Route::get('/proveedores', [ProveedorController::class, 'index'])->name('proveedores.index');
     Route::get('proveedores/crear', [ProveedorController::class, 'create'])->name('proveedores.create');
+    Route::post('proveedores/crear', [ProveedorController::class, 'store'])->name('proveedores.store');
 
 
 

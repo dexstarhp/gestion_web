@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Proveedor;
 use App\Http\Requests\StoreProveedorRequest;
 use App\Http\Requests\UpdateProveedorRequest;
+use Illuminate\Support\Facades\DB;
 
 class ProveedorController extends Controller
 {
@@ -38,7 +39,20 @@ class ProveedorController extends Controller
      */
     public function store(StoreProveedorRequest $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $proveedor = new Proveedor($request->all());
+            $proveedor->save();
+            DB::commit();
+            return redirect()
+                ->route('proveedores.index')
+                ->with('succes', 'Proveedor Registrado');
+        } catch(\Exception ){
+            DB::rollBack();
+            return redirect()
+                ->route('proveedores.index')
+                ->with('Error', 'Error al registrar '. $ex);
+        }
     }
 
     /**

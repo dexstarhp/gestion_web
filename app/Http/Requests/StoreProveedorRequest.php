@@ -11,7 +11,7 @@ class StoreProveedorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,26 @@ class StoreProveedorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre_razon_social' => 'required|unique:proveedores|min:3',
+            'nit_ci' => 'required|min_digits:8|numeric',
+            'tel_cel' => 'required|min_digits:8|numeric',
+        ];
+    }
+
+    /***
+     * Mensajes de error perzonalizadas
+     */
+    public function messages(): array
+    {
+        return [
+            'nit_ci.min_digits' => 'El campo Nit/CI al menos debe de tener :min digitos',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'tel_cel' => 'Telefono/Cel',
         ];
     }
 }
