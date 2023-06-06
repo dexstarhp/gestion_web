@@ -5,7 +5,7 @@
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="{{ route('home') }}"
             target="_blank">
-            <img src="./img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
+            <img src="{{ asset('/img/logotipo.png') }}" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold">Sistema de control</span>
         </a>
     </div>
@@ -31,7 +31,7 @@
                 <a class="nav-link {{ Route::currentRouteName() == 'proveedores' ? 'active' : '' }}" href="{{ route('proveedores.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-app text-info text-sm opacity-10"></i>
+                        <i class="ni ni ni-active-40 text-info text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Proveedores</span>
                 </a>
