@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FacturaRecibo;
 use App\Http\Requests\StoreFacturaReciboRequest;
 use App\Http\Requests\UpdateFacturaReciboRequest;
+use App\Models\Proveedor;
 
 class FacturaReciboController extends Controller
 {
@@ -26,7 +27,11 @@ class FacturaReciboController extends Controller
      */
     public function create()
     {
-        //
+        $proveedores = Proveedor::all();
+        return view('factura_recibo.crear')
+            ->with([
+                'proveedores' => $proveedores
+            ]);
     }
 
     /**
