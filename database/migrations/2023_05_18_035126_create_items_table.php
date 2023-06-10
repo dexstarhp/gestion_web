@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->date('fecha_de_expiracion');
+            $table->date('fecha_de_expiracion')->nullable();
             $table->string('descripcion');
-            $table->date('fecha_de_elaboracion');
+            $table->date('fecha_de_elaboracion')->nullable();
             $table->timestamps();
         });
     }

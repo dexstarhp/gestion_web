@@ -21,6 +21,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\ProveedorController;
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
@@ -52,6 +53,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('proveedores/editar/{proveedor}', [ProveedorController::class, 'edit'])->name('proveedores.edit');
     Route::put('proveedores/editar/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
 
+
+    // Items
+    Route::get('/items', [ItemsController::class, 'index'])->name('items.index');
+    Route::get('items/crear', [ItemsController::class, 'create'])->name('items.create');
+    Route::post('items/crear', [ItemsController::class, 'store'])->name('items.store');
+    Route::get('items/editar/{item}', [ItemsController::class, 'edit'])->name('items.edit');
+    Route::put('items/editar/{item}', [ItemsController::class, 'update'])->name('items.update');
 
     Route::get('/{page}', [PageController::class, 'index'])->name('page');
 });
