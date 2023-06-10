@@ -21,6 +21,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ProveedorController;
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
@@ -52,6 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('proveedores/editar/{proveedor}', [ProveedorController::class, 'edit'])->name('proveedores.edit');
     Route::put('proveedores/editar/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
 
+
+    Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
 
     Route::get('/{page}', [PageController::class, 'index'])->name('page');
 });
