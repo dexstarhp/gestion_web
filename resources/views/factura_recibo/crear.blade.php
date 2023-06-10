@@ -25,3 +25,8 @@
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
+
+@section('script')
+@parent
+    <script src="{{ asset('assets/js/compra/compra.js') }}"></script>
+@endsection

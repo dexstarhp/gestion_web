@@ -68,7 +68,7 @@
             <div class="card-header pb-0">
                 <div class="d-flex align-items-center">
                     <p class="mb-0">Detalle compra</p>
-                    <button class="btn btn-primary btn-sm ms-auto" role="button" aria-pressed="true" onclick="addItem()">Añadir item</buttonf=>
+                    <button class="btn btn-primary btn-sm ms-auto" id=addItem>Añadir item</buttonf=>
                 </div>
             </div>
             <div class="card-body" id="detalle">
