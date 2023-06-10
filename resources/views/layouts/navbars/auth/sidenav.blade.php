@@ -37,8 +37,8 @@
                                 <span class="sidenav-normal"> Proveedores </span>
                             </a>
                         </li>
-                        <li class="nav-item {{ Route::currentRouteName() == 'proveedores.index' ? 'active' : '' }}">
-                            <a class="nav-link" href="#">
+                        <li class="nav-item {{ Route::currentRouteName() == 'compra.index' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('compra.index') }}">
                                 <span class="sidenav-mini-icon"> RC </span>
                                 <span class="sidenav-normal"> Registro de compra </span>
                             </a>
@@ -50,7 +50,7 @@
             <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link active" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
                     <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                        <i class="ni ni-shop text-primary text-sm opacity-10"></i>
+                        <i class="ni ni-world-2 text-primary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Inventarios</span>
                 </a>
@@ -66,58 +66,56 @@
                         </li>
                         <li class="nav-item {{ Route::currentRouteName() == 'proveedores.index' ? 'active' : '' }}">
                             <a class="nav-link" href="#">
-                                <span class="sidenav-mini-icon"> RC </span>
-                                <span class="sidenav-normal"> Registro de compra </span>
+                                <span class="sidenav-mini-icon"> E </span>
+                                <span class="sidenav-normal">Registro de Entradas </span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ Route::currentRouteName() == 'proveedores.index' ? 'active' : '' }}">
+                            <a class="nav-link" href="#">
+                                <span class="sidenav-mini-icon"> S </span>
+                                <span class="sidenav-normal">Registro de Salidas </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link active" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                    <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                        <i class="ni ni-world-2 text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Ventas</span>
+                </a>
+                <div class="collapse
+                    {{ (Route::currentRouteName() == 'items.index' || Route::currentRouteName() == 'items.index') ? 'show' : '' }}"
+                    id="dashboardsExamples" style="">
+                    <ul class="nav ms-4">
+                        <li class="nav-item {{ Route::currentRouteName() == 'items.index' ? 'active' : '' }}">
+                            <a class="nav-link {{ Route::currentRouteName() == 'items.index' ? 'active' : '' }}" href="{{ route('items.index') }}">
+                                <span class="sidenav-mini-icon"> C </span>
+                                <span class="sidenav-normal"> Clientes </span>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ Route::currentRouteName() == 'proveedores.index' ? 'active' : '' }}">
+                            <a class="nav-link" href="#">
+                                <span class="sidenav-mini-icon"> RV </span>
+                                <span class="sidenav-normal">Registro de Ventas </span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
 
-            <li class="nav-item mt-3 d-flex align-items-center">
-                <div class="ps-4">
-                    <i class="ni ni-cart" style="color: #f4645f;"></i>
-                </div>
-                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Inventarios </h6>
-            </li>
-            <li class="nav-item mt-3 d-flex align-items-center">
-                <div class="ps-4">
-                    <i class="ni ni-cart" style="color: #f4645f;"></i>
-                </div>
-                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Ventas </h6>
-            </li>
-
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Mi perfil</span>
-                </a>
-            </li>
-
-
-
-            <li class="nav-item">
-                <a class="nav-link {{  str_contains(request()->url(), 'billing') == true ? 'active' : '' }}" href="{{ route('page', ['page' => 'billing']) }}">
+                <a class="nav-link {{ Route::currentRouteName() == 'items.index' ? 'active' : '' }}" href="{{ route('page', ['page' => 'billing']) }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Billing</span>
+                    <span class="nav-link-text ms-1">Registro de Venta</span>
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'rtl' ? 'active' : '' }}" href="{{ route('rtl') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">RTL</span>
-                </a>
-            </li>
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Configuraciones</h6>
             </li>
@@ -130,32 +128,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'profile-static' ? 'active' : '' }}" href="{{ route('profile-static') }}">
+                <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Profile</span>
+                    <span class="nav-link-text ms-1">Mi perfil</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{ route('sign-in-static') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Sign In</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{ route('sign-up-static') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-collection text-info text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Sign Up</span>
-                </a>
-            </li>
+
         </ul>
     </div>
 

@@ -13,7 +13,12 @@ class FacturaReciboController extends Controller
      */
     public function index()
     {
-        //
+        $factura_recibos = FacturaRecibo::all();
+
+        return view("factura_recibo.index")
+            ->with([
+                'factura_recibos' => $factura_recibos
+            ]);
     }
 
     /**
