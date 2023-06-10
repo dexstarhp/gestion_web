@@ -11,7 +11,7 @@ class UpdateItemsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,10 @@ class UpdateItemsRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id_item = $this->route('item.id');
         return [
-            //
+            'nombre' => 'required|unique:items,nombre,'.$id_item.'|min:3',
+            'descripcion' => 'required|min:10',
         ];
     }
 }

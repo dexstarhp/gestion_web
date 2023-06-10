@@ -22,6 +22,8 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\FacturaReciboController;
+use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\ProveedorController;
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
@@ -53,6 +55,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('proveedores/editar/{proveedor}', [ProveedorController::class, 'edit'])->name('proveedores.edit');
     Route::put('proveedores/editar/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
 
+    // Registro de compra
+    Route::get('/compras', [FacturaReciboController::class, 'index'])->name('compra.index');
+    Route::get('compra/crear', [FacturaReciboController::class, 'create'])->name('compra.create');
+    Route::post('compra/crear', [FacturaReciboController::class, 'store'])->name('compra.store');
+    Route::get('compra/editar/{proveedor}', [FacturaReciboController::class, 'edit'])->name('compra.edit');
+    Route::put('compra/editar/{proveedor}', [FacturaReciboController::class, 'update'])->name('compra.update');
+
+
+    // Items
+    Route::get('/items', [ItemsController::class, 'index'])->name('items.index');
+    Route::get('items/crear', [ItemsController::class, 'create'])->name('items.create');
+    Route::post('items/crear', [ItemsController::class, 'store'])->name('items.store');
+    Route::get('items/editar/{item}', [ItemsController::class, 'edit'])->name('items.edit');
+    Route::put('items/editar/{item}', [ItemsController::class, 'update'])->name('items.update');
 
     Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
 

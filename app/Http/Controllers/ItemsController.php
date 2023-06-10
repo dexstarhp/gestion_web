@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Items;
 use App\Http\Requests\StoreItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
+use Illuminate\Support\Facades\DB;
 
 class ItemsController extends Controller
 {
@@ -13,7 +14,12 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        //
+        $items = Items::all();
+
+        return view("items.index")
+            ->with([
+                'items' => $items
+            ]);
     }
 
     /**
@@ -21,7 +27,7 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        //
+        return view('items.crear');
     }
 
     /**
@@ -29,7 +35,20 @@ class ItemsController extends Controller
      */
     public function store(StoreItemsRequest $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $item = new Items($request->all());
+            $item->save();
+            DB::commit();
+            return redirect()
+                ->route('items.index')
+                ->with('succes', 'Item Registrado');
+        } catch(\Exception $ex){
+            DB::rollBack();
+            return redirect()
+                ->route('items.index')
+                ->with('Error', 'Error al registrar '. $ex);
+        }
     }
 
     /**
@@ -43,17 +62,34 @@ class ItemsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Items $items)
+    public function edit(Items $item)
     {
-        //
+        return view('items.editar')
+            ->with([
+                'item' => $item
+            ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateItemsRequest $request, Items $items)
+    public function update(UpdateItemsRequest $request, Items $item)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $item->fill($request->all());
+            $item->update();
+
+            DB::commit();
+            return redirect()
+                ->route('items.index')
+                ->with('succes', 'Item Editado');
+        } catch(\Exception $ex){
+            DB::rollBack();
+            return redirect()
+                ->route('items.index')
+                ->with('Error', 'Error al editar '. $ex);
+        }
     }
 
     /**

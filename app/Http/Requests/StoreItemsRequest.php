@@ -11,7 +11,7 @@ class StoreItemsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreItemsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => 'required|unique:items|min:3',
+            'descripcion' => 'required|min:10',
         ];
     }
 }
