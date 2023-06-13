@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DestinoSeeder extends Seeder
 {
@@ -12,7 +13,7 @@ class DestinoSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('destinos')->insert(
+        DB::table('destinos')->insert([
             [
                 'nombre' => 'Gasto',
                 'descripcion' => 'Gasto',
@@ -21,6 +22,6 @@ class DestinoSeeder extends Seeder
                 'nombre' => 'Inventario',
                 'descripcion' => 'Inventario',
             ]
-        );
+        ]);
     }
 }
