@@ -56,11 +56,23 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('proveedores/editar/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
 
     // Registro de compra
-    Route::get('/compras', [FacturaReciboController::class, 'index'])->name('compra.index');
-    Route::get('compra/crear', [FacturaReciboController::class, 'create'])->name('compra.create');
-    Route::post('compra/crear', [FacturaReciboController::class, 'store'])->name('compra.store');
-    Route::get('compra/editar/{proveedor}', [FacturaReciboController::class, 'edit'])->name('compra.edit');
-    Route::put('compra/editar/{proveedor}', [FacturaReciboController::class, 'update'])->name('compra.update');
+    Route::prefix('compras')->group(function(){
+        Route::get('', [FacturaReciboController::class, 'index'])
+            ->name('compra.index');
+        Route::get('crear', [FacturaReciboController::class, 'create'])
+            ->name('compra.create');
+        Route::post('crear', [FacturaReciboController::class, 'store'])
+            ->name('compra.store');
+        Route::get('editar/{proveedor}', [FacturaReciboController::class, 'edit'])
+            ->name('compra.edit');
+        Route::put('editar/{proveedor}', [FacturaReciboController::class, 'update'])
+            ->name('compra.update');
+        // obtencion de items
+        Route::get('add/item', [FacturaReciboController::class, 'addItem'])
+            ->name('compra.add_item');
+    });
+
+
 
 
     // Items

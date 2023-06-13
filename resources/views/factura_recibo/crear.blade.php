@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="card-body ">
-                        <form role="form" method="POST" action={{ route('compra.store') }}>
+                        <form role="form" id="form_compra" method="POST" action={{ route('compra.store') }}>
                             @include('factura_recibo.partials.form')
                             <button type="submit" class="btn btn-primary btn-sm ms-auto">Registrar</button>
                         </form>

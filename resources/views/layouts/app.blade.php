@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        @routes
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/apple-icon.png') }}">
@@ -44,6 +45,7 @@
         @endauth
 
         <!--   Core JS Files   -->
+        <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
         <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
         <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>

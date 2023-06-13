@@ -11,7 +11,7 @@ class StoreFacturaReciboRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class StoreFacturaReciboRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nro' => 'required|numeric',
+            'fecha' => 'required|date',
+            'total' => 'required|numeric',
+            'proveedor_id'=> 'required|exists:proveedores,id',
+            'item_id.*' => 'required|exists:items,id',
+            'precio_unitario.*' => 'required|numeric',
+            'cantidad.*' => 'required|numeric',
         ];
     }
 }

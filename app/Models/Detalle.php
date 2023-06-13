@@ -9,8 +9,15 @@ class Detalle extends Model
 {
     use HasFactory;
 
-    protected $table = 'detalle';
+    protected $table = 'detalles';
 
 
-    protected $fillable = ['item_id', 'cantidad', 'precio_unitario', 'factura_recibo_id', 'factura_recibos', 'destino', 'user_id'];
+    protected $fillable = [
+        'item_id',
+        'cantidad',
+        'precio_unitario',
+        'factura_recibo_id',
+        'destino',
+        'user_id'
+    ];
 }

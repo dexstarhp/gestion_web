@@ -12,7 +12,13 @@ class FacturaRecibo extends Model
 
     protected $table = 'factura_recibos';
 
-    protected $fillable = ['nro', 'fecha', 'total', 'proveedor_id', 'user_id'];
+    protected $fillable = [
+        'nro',
+        'fecha',
+        'total',
+        'proveedor_id',
+        'user_id'
+    ];
 
 
     public function proveedor(): BelongsTo

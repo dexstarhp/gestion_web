@@ -33,7 +33,7 @@
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Usuario
                                         </th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Opciones
                                         </th>
                                     </tr>
@@ -54,7 +54,7 @@
                                                 <span class="text-secondary text-xs font-weight-bold">{{ $factura_recibo->proveedor->nombre_razon_social }}</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $factura_recibo->proveedor->username }}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $factura_recibo->user->username }}</span>
                                             </td>
                                             <td class="align-middle">
                                                 <a href="{{ route('compra.edit',$factura_recibo) }}" class="text-secondary font-weight-bold text-xs"
