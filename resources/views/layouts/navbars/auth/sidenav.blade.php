@@ -79,6 +79,7 @@
                     </ul>
                 </div>
             </li>
+
             <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link active" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
                     <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
@@ -87,16 +88,16 @@
                     <span class="nav-link-text ms-1">Ventas</span>
                 </a>
                 <div class="collapse
-                    {{ (Route::currentRouteName() == 'items.index' || Route::currentRouteName() == 'items.index') ? 'show' : '' }}"
+                    {{ (Route::currentRouteName() == 'cliente.index' || Route::currentRouteName() == 'cliente.create' || Route::currentRouteName() == 'cliente.edit' || Route::currentRouteName() == 'venta.index' || Route::currentRouteName() == 'venta.create' || Route::currentRouteName() == 'venta.edit') ? 'show' : '' }}"
                     id="dashboardsExamples" style="">
                     <ul class="nav ms-4">
-                        <li class="nav-item {{ Route::currentRouteName() == 'items.index' ? 'active' : '' }}">
-                            <a class="nav-link {{ Route::currentRouteName() == 'items.index' ? 'active' : '' }}" href="{{ route('items.index') }}">
+                        <li class="nav-item {{ (Route::currentRouteName() == 'cliente.index' || Route::currentRouteName() == 'cliente.create' || Route::currentRouteName() == 'cliente.edit' || Route::currentRouteName() == 'venta.index' || Route::currentRouteName() == 'venta.create' || Route::currentRouteName() == 'venta.edit') ? 'active' : '' }}">
+                            <a class="nav-link {{ (Route::currentRouteName() == 'cliente.index' || Route::currentRouteName() == 'cliente.create' || Route::currentRouteName() == 'cliente.edit' || Route::currentRouteName() == 'venta.index' || Route::currentRouteName() == 'venta.create' || Route::currentRouteName() == 'venta.edit') ? 'active' : '' }}" href="{{ route('items.index') }}">
                                 <span class="sidenav-mini-icon"> C </span>
                                 <span class="sidenav-normal"> Clientes </span>
                             </a>
                         </li>
-                        <li class="nav-item {{ Route::currentRouteName() == 'proveedores.index' ? 'active' : '' }}">
+                        <li class="nav-item {{ (Route::currentRouteName() == 'cliente.index' || Route::currentRouteName() == 'cliente.create' || Route::currentRouteName() == 'cliente.edit' || Route::currentRouteName() == 'venta.index' || Route::currentRouteName() == 'venta.create' || Route::currentRouteName() == 'venta.edit') ? 'active' : '' }}">
                             <a class="nav-link" href="#">
                                 <span class="sidenav-mini-icon"> RV </span>
                                 <span class="sidenav-normal">Registro de Ventas </span>
@@ -104,16 +105,6 @@
                         </li>
                     </ul>
                 </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'items.index' ? 'active' : '' }}" href="{{ route('page', ['page' => 'billing']) }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Registro de Venta</span>
-                </a>
             </li>
 
             <li class="nav-item mt-3">

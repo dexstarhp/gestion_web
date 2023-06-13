@@ -27,6 +27,7 @@ use App\Http\Controllers\FacturaReciboController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\SalidaController;
+use App\Http\Controllers\VentasController;
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
@@ -103,16 +104,41 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('', [SalidaController::class, 'index'])
             ->name('salidaindex');
         Route::get('crear', [SalidaController::class, 'create'])
-            ->name('salidacreate');
+            ->name('salida.create');
         Route::post('crear', [SalidaController::class, 'store'])
-            ->name('salidastore');
+            ->name('salida.store');
         Route::get('editar/{item}', [SalidaController::class, 'edit'])
-            ->name('salidaedit');
-        Route::put('editar/{item}', [SalidaController::class, 'update'])->name('salidaupdate');
+            ->name('salida.edit');
+        Route::put('editar/{item}', [SalidaController::class, 'update'])->name('salida.update');
     });
 
+    // Clientes
+    Route::prefix('clientes')->group(function(){
+        Route::get('', [ClientesController::class, 'index'])
+            ->name('cliente.index');
+        Route::get('crear', [ClientesController::class, 'create'])
+            ->name('cliente.create');
+        Route::post('crear', [ClientesController::class, 'store'])
+            ->name('cliente.store');
+        Route::get('editar/{item}', [ClientesController::class, 'edit'])
+            ->name('cliente.edit');
+        Route::put('editar/{item}', [ClientesController::class, 'update'])
+            ->name('cliente.update');
+    });
+    // venta
+    Route::prefix('venta')->group(function(){
+        Route::get('', [VentasController::class, 'index'])
+            ->name('venta.index');
+        Route::get('crear', [VentasController::class, 'create'])
+            ->name('venta.create');
+        Route::post('crear', [VentasController::class, 'store'])
+            ->name('venta.store');
+        Route::get('editar/{item}', [VentasController::class, 'edit'])
+            ->name('venta.edit');
+        Route::put('editar/{item}', [VentasController::class, 'update'])
+            ->name('venta.update');
+    });
 
-    Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
 
     Route::get('/{page}', [PageController::class, 'index'])->name('page');
 });
