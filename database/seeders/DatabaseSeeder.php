@@ -22,16 +22,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('secret')
         ]);
-
-        DB::table('destinos')->insert(
-            [
-                'nombre' => 'Gasto',
-                'descripcion' => 'Gasto',
-            ],
-            [
-                'nombre' => 'Inventario',
-                'descripcion' => 'Inventario',
-            ]
-        );
+        $this->call(DestinoSeeder::class);
     }
 }
