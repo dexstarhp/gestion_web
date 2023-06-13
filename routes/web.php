@@ -22,9 +22,11 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\EntradaSalidaController;
 use App\Http\Controllers\FacturaReciboController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\SalidaController;
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
@@ -72,15 +74,43 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('compra.add_item');
     });
 
-
-
-
     // Items
-    Route::get('/items', [ItemsController::class, 'index'])->name('items.index');
-    Route::get('items/crear', [ItemsController::class, 'create'])->name('items.create');
-    Route::post('items/crear', [ItemsController::class, 'store'])->name('items.store');
-    Route::get('items/editar/{item}', [ItemsController::class, 'edit'])->name('items.edit');
-    Route::put('items/editar/{item}', [ItemsController::class, 'update'])->name('items.update');
+    Route::prefix('items')->group(function (){
+        Route::get('', [ItemsController::class, 'index'])
+            ->name('items.index');
+        Route::get('crear', [ItemsController::class, 'create'])
+            ->name('items.create');
+        Route::post('crear', [ItemsController::class, 'store'])
+            ->name('items.store');
+        Route::get('editar/{item}', [ItemsController::class, 'edit'])
+            ->name('items.edit');
+        Route::put('editar/{item}', [ItemsController::class, 'update'])->name('items.update');
+    });
+    //entradas
+    Route::prefix('entradas')->group(function (){
+        Route::get('', [EntradaSalidaController::class, 'index'])
+            ->name('entrada.index');
+        Route::get('crear', [EntradaSalidaController::class, 'create'])
+            ->name('entrada.create');
+        Route::post('crear', [EntradaSalidaController::class, 'store'])
+            ->name('entrada.store');
+        Route::get('editar/{item}', [EntradaSalidaController::class, 'edit'])
+            ->name('entrada.edit');
+        Route::put('editar/{item}', [EntradaSalidaController::class, 'update'])->name('entrada.update');
+    });
+    //salidas
+    Route::prefix('salidas')->group(function (){
+        Route::get('', [SalidaController::class, 'index'])
+            ->name('salidaindex');
+        Route::get('crear', [SalidaController::class, 'create'])
+            ->name('salidacreate');
+        Route::post('crear', [SalidaController::class, 'store'])
+            ->name('salidastore');
+        Route::get('editar/{item}', [SalidaController::class, 'edit'])
+            ->name('salidaedit');
+        Route::put('editar/{item}', [SalidaController::class, 'update'])->name('salidaupdate');
+    });
+
 
     Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
 

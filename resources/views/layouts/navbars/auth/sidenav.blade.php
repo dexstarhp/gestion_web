@@ -29,16 +29,16 @@
                     </div>
                     <span class="nav-link-text ms-1">Compras</span>
                 </a>
-                <div class="collapse {{ (Route::currentRouteName() == 'proveedores.index' || Route::currentRouteName() == 'proveedores.index') ? 'show' : '' }}" id="dashboardsExamples" style="">
+                <div class="collapse {{ (Route::currentRouteName() == 'proveedores.index' || Route::currentRouteName() == 'proveedores.create' || Route::currentRouteName() == 'proveedores.edit' || Route::currentRouteName() == 'compra.index' || Route::currentRouteName() == 'compra.create' || Route::currentRouteName() == 'compra.edit') ? 'show' : '' }}" id="dashboardsExamples" style="">
                     <ul class="nav ms-4">
-                        <li class="nav-item {{ Route::currentRouteName() == 'proveedores.index' ? 'active' : '' }}">
-                            <a class="nav-link {{ Route::currentRouteName() == 'proveedores.index' ? 'active' : '' }}" href="{{ route('proveedores.index') }}">
+                        <li class="nav-item {{ (Route::currentRouteName() == 'proveedores.index' || Route::currentRouteName() == 'proveedores.create' || Route::currentRouteName() == 'proveedores.edit') ? 'active' : '' }}">
+                            <a class="nav-link {{ (Route::currentRouteName() == 'proveedores.index' || Route::currentRouteName() == 'proveedores.create' || Route::currentRouteName() == 'proveedores.edit') ? 'active' : '' }}" href="{{ route('proveedores.index') }}">
                                 <span class="sidenav-mini-icon"> P </span>
                                 <span class="sidenav-normal"> Proveedores </span>
                             </a>
                         </li>
-                        <li class="nav-item {{ Route::currentRouteName() == 'compra.index' ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('compra.index') }}">
+                        <li class="nav-item {{ (Route::currentRouteName() == 'compra.index' || Route::currentRouteName() == 'compra.create' || Route::currentRouteName() == 'compra.edit') ? 'active' : '' }}">
+                            <a class="nav-link {{ (Route::currentRouteName() == 'compra.index' || Route::currentRouteName() == 'compra.create' || Route::currentRouteName() == 'compra.edit') ? 'active' : ''}}" href="{{ route('compra.index') }}">
                                 <span class="sidenav-mini-icon"> RC </span>
                                 <span class="sidenav-normal"> Registro de compra </span>
                             </a>
@@ -55,22 +55,22 @@
                     <span class="nav-link-text ms-1">Inventarios</span>
                 </a>
                 <div class="collapse
-                    {{ (Route::currentRouteName() == 'items.index' || Route::currentRouteName() == 'items.index') ? 'show' : '' }}"
+                {{ (Route::currentRouteName() == 'items.index' || Route::currentRouteName() == 'items.create' || Route::currentRouteName() == 'items.edit' || Route::currentRouteName() == 'entrada.index' || Route::currentRouteName() == 'entrada.create' || Route::currentRouteName() == 'entrada.edit' || Route::currentRouteName() == 'salida.index' || Route::currentRouteName() == 'salida.create' || Route::currentRouteName() == 'salida.edit') ? 'show' : '' }}"
                     id="dashboardsExamples" style="">
                     <ul class="nav ms-4">
-                        <li class="nav-item {{ Route::currentRouteName() == 'items.index' ? 'active' : '' }}">
-                            <a class="nav-link {{ Route::currentRouteName() == 'items.index' ? 'active' : '' }}" href="{{ route('items.index') }}">
+                        <li class="nav-item {{ (Route::currentRouteName() == 'items.index' || Route::currentRouteName() == 'items.create' || Route::currentRouteName() == 'items.edit' || Route::currentRouteName() == 'entrada.index' || Route::currentRouteName() == 'entrada.create' || Route::currentRouteName() == 'entrada.edit' || Route::currentRouteName() == 'salida.index' || Route::currentRouteName() == 'salida.create' || Route::currentRouteName() == 'salida.edit') ? 'active' : '' }}">
+                            <a class="nav-link {{ (Route::currentRouteName() == 'items.index' || Route::currentRouteName() == 'items.create' || Route::currentRouteName() == 'items.edit' || Route::currentRouteName() == 'entrada.index' || Route::currentRouteName() == 'entrada.create' || Route::currentRouteName() == 'entrada.edit' || Route::currentRouteName() == 'salida.index' || Route::currentRouteName() == 'salida.create' || Route::currentRouteName() == 'salida.edit') ? 'active' : '' }}" href="{{ route('items.index') }}">
                                 <span class="sidenav-mini-icon"> I </span>
                                 <span class="sidenav-normal"> Items </span>
                             </a>
                         </li>
-                        <li class="nav-item {{ Route::currentRouteName() == 'proveedores.index' ? 'active' : '' }}">
+                        <li class="nav-item {{ (Route::currentRouteName() == 'items.index' || Route::currentRouteName() == 'items.create' || Route::currentRouteName() == 'items.edit' || Route::currentRouteName() == 'entrada.index' || Route::currentRouteName() == 'entrada.create' || Route::currentRouteName() == 'entrada.edit' || Route::currentRouteName() == 'salida.index' || Route::currentRouteName() == 'salida.create' || Route::currentRouteName() == 'salida.edit') ? 'active' : '' }}">
                             <a class="nav-link" href="#">
                                 <span class="sidenav-mini-icon"> E </span>
                                 <span class="sidenav-normal">Registro de Entradas </span>
                             </a>
                         </li>
-                        <li class="nav-item {{ Route::currentRouteName() == 'proveedores.index' ? 'active' : '' }}">
+                        <li class="nav-item {{ (Route::currentRouteName() == 'items.index' || Route::currentRouteName() == 'items.create' || Route::currentRouteName() == 'items.edit' || Route::currentRouteName() == 'entrada.index' || Route::currentRouteName() == 'entrada.create' || Route::currentRouteName() == 'entrada.edit' || Route::currentRouteName() == 'salida.index' || Route::currentRouteName() == 'salida.create' || Route::currentRouteName() == 'salida.edit') ? 'active' : '' }}">
                             <a class="nav-link" href="#">
                                 <span class="sidenav-mini-icon"> S </span>
                                 <span class="sidenav-normal">Registro de Salidas </span>
