@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entrada__salida_detalles', function (Blueprint $table) {
+        Schema::create('entrada_salida_detalles', function (Blueprint $table) {
             $table->id();
             $table->string('item_id');
             $table->float('cantidad');
             $table->float('precio_unitario');
-            $table->string('tipo(entrada_salida)');
-            $table->string('entrada_salida_cabecera_id');
+            $table->foreignId('entrada_salida_id')->constrained(
+                table: 'entrada_salidas'
+            );
 
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('entrada__salida_detalles');
+        Schema::dropIfExists('entrada_salida_detalles');
     }
 };

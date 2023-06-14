@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entrada__salidas', function (Blueprint $table) {
+        Schema::create('entrada_salidas', function (Blueprint $table) {
             $table->id();
             $table->date('fecha');
             $table->float('total');
             $table->string('usuarios_id');
-
-            $table->foreignId('entrada__salida_detalles_id')->constrained(
-                table: 'entrada__salida_detalles'
-            );
+            $table->enum('tipo', ['entrada', 'salida']);
 
             $table->foreignId('user_id')->constrained();
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('entrada__salidas');
+        Schema::dropIfExists('entrada_salidas');
     }
 };
