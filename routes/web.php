@@ -98,6 +98,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('editar/{item}', [EntradaSalidaController::class, 'edit'])
             ->name('entrada.edit');
         Route::put('editar/{item}', [EntradaSalidaController::class, 'update'])->name('entrada.update');
+        // obtencion de items
+        Route::get('add/item', [EntradaSalidaController::class, 'addItem'])
+            ->name('entrada.add_item');
     });
     //salidas
     Route::prefix('salidas')->group(function (){

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->bigInteger('nro');
             $table->date('fecha');
             $table->float('total');
-            $table->string('usuarios_id');
             $table->enum('tipo', ['entrada', 'salida']);
 
             $table->foreignId('user_id')->constrained();

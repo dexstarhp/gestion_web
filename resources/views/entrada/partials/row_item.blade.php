@@ -1,4 +1,4 @@
-resources/views/factura_recibo/partials/row_item.blade.php<tr>
+<tr>
     <td>
         <div class="d-flex px-2">
             <select class="form-control" name="item_id[]">

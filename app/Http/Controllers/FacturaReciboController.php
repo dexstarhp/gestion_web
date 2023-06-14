@@ -59,13 +59,12 @@ class FacturaReciboController extends Controller
                 $detalle->user_id = Auth::id();
                 $detalle->save();
             }
-            
+
             DB::commit();
             return redirect()
                 ->route('compra.index')
                 ->with('succes', 'Compra Registrada');
         } catch(\Exception $ex){
-            dd('error', $ex);
             DB::rollBack();
             return redirect()
                 ->route('compra.create')

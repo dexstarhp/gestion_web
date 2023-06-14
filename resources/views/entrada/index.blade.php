@@ -39,23 +39,20 @@
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0">{{ $entrada->nro }}</p>
                                             </td>
-                                            <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $entrada->nro }}</p>
+                                            <td class="align-middle text-sm">
+                                                {{ $entrada->fecha }}</span>
                                             </td>
                                             <td class="align-middle text-sm">
-                                                {{ $item->fecha }}</span>
+                                                {{ $entrada->total }}</span>
                                             </td>
                                             <td class="align-middle text-sm">
-                                                {{ $item->total }}</span>
+                                                {{ $entrada->tipo }}</span>
                                             </td>
                                             <td class="align-middle text-sm">
-                                                {{ $item->tipo }}</span>
-                                            </td>
-                                            <td class="align-middle text-sm">
-                                                {{ $item->user->username }}</span>
+                                                {{ $entrada->user->username }}</span>
                                             </td>
                                             <td class="align-middle">
-                                                <a href="{{ route('entrada.edit',$item) }}" class="text-secondary font-weight-bold text-xs"
+                                                <a href="{{ route('entrada.edit',$entrada) }}" class="text-secondary font-weight-bold text-xs"
                                                     data-toggle="tooltip" data-original-title="Editar Entrada">
                                                     Editar
                                                 </a>

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Entrada_Salida;
 use App\Http\Requests\StoreEntrada_SalidaRequest;
 use App\Http\Requests\UpdateEntrada_SalidaRequest;
+use App\Models\Entrada_Salida_detalles;
+use App\Models\Items;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EntradaSalidaController extends Controller
 {
@@ -26,7 +30,7 @@ class EntradaSalidaController extends Controller
      */
     public function create()
     {
-        //
+        return view('entrada.crear');
     }
 
     /**
@@ -34,7 +38,35 @@ class EntradaSalidaController extends Controller
      */
     public function store(StoreEntrada_SalidaRequest $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $entrada_salida = new Entrada_Salida($request->all());
+            $nro = Entrada_Salida::max('nro');
+            $nro = (is_null($nro) ? 1: ($nro+1));
+            $entrada_salida->nro = $nro;
+            $entrada_salida->user_id = Auth::id();
+            $entrada_salida->tipo = 'entrada';
+            $entrada_salida->save();
+
+            for ($i=0; $i < count($request->precio_unitario) ; $i++) {
+                $detalle = new Entrada_Salida_detalles();
+                $detalle->item_id = $request->item_id[$i];
+                $detalle->cantidad = $request->cantidad[$i];
+                $detalle->precio_unitario = $request->precio_unitario[$i];
+                $detalle->entrada_salida_id = $entrada_salida->id;
+                $detalle->save();
+            }
+
+            DB::commit();
+            return redirect()
+                ->route('entrada.index')
+                ->with('succes', 'Compra Registrada');
+        } catch(\Exception $ex){
+            DB::rollBack();
+            return redirect()
+                ->route('entrada.create')
+                ->with('errors', 'Error al registrar '. $ex);
+        }
     }
 
     /**
@@ -67,5 +99,19 @@ class EntradaSalidaController extends Controller
     public function destroy(Entrada_Salida $entrada_Salida)
     {
         //
+    }
+
+    function addItem() {
+        $items = Items::all();
+
+        $html = view('factura_recibo.partials.row_item')
+                    ->with([
+                        'items' => $items,
+                    ])
+                    ->render();
+
+        return response()->json([
+                'content' => $html,
+            ]);
     }
 }

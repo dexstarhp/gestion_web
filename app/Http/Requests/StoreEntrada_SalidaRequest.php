@@ -11,7 +11,7 @@ class StoreEntrada_SalidaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,13 @@ class StoreEntrada_SalidaRequest extends FormRequest
      */
     public function rules(): array
     {
+        
         return [
-            //
+            'fecha' => 'required|date',
+            'total' => 'required|numeric',
+            'item_id.*' => 'required|exists:items,id',
+            'precio_unitario.*' => 'required|numeric',
+            'cantidad.*' => 'required|numeric',
         ];
     }
 }
