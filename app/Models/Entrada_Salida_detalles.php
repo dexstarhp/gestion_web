@@ -9,8 +9,13 @@ class Entrada_Salida_detalles extends Model
 {
     use HasFactory;
 
-    protected $table = 'clientes';
+    protected $table = 'entrada_salida_detalles';
 
 
-    protected $fillable = ['items_id', 'cantidad', 'precio_unitario', 'tipo(entrada_salida)', 'entrada_salida_cabecera_id'];
+    protected $fillable = [
+        'item_id',
+        'cantidad',
+        'precio_unitario',
+        'entrada_salida_id'
+    ];
 }

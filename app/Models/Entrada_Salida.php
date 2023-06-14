@@ -9,8 +9,19 @@ class Entrada_Salida extends Model
 {
     use HasFactory;
 
-    protected $table = 'clientes';
+    protected $table = 'entrada_salidas';
 
 
-    protected $fillable = ['fecha', 'total', 'usuarios_id'];
+    protected $fillable = [
+        'nro',
+        'fecha',
+        'total',
+        'tipo',
+        'usuarios_id'
+    ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

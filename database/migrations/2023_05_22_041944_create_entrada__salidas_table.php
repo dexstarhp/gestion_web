@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('entrada_salidas', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('nro');
             $table->date('fecha');
             $table->float('total');
             $table->string('usuarios_id');

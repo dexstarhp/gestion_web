@@ -13,7 +13,12 @@ class EntradaSalidaController extends Controller
      */
     public function index()
     {
-        //
+        $entradas = Entrada_Salida::all();
+
+        return view("entrada.index")
+            ->with([
+                'entradas' => $entradas
+            ]);
     }
 
     /**
