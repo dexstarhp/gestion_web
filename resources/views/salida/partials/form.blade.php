@@ -2,15 +2,15 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="fecha">fecha entrada</label>
+            <label for="fecha">fecha salida</label>
             <input
                 class="form-control
                 @error('fecha') is-invalid @enderror"
-                placeholder="Fecha entrada"
+                placeholder="Fecha salida"
                 id="fecha"
                 name="fecha"
                 type="date"
-                value="{{ isset($entrada) ? $entrada->fecha : old('fecha') }}">
+                value="{{ isset($salida) ? $salida->fecha : old('fecha') }}">
             @error('fecha')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -26,7 +26,7 @@
                 id="total"
                 name="total"
                 type="number"
-                value="{{ isset($entrada) ? $entrada->total : old('total') }}"
+                value="{{ isset($salida) ? $salida->total : old('total') }}"
                 readonly=true>
             @error('total')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -48,7 +48,7 @@
         <div class="card">
             <div class="card-header pb-0">
                 <div class="d-flex align-items-center">
-                    <p class="mb-0">Detalle entrada</p>
+                    <p class="mb-0">Detalle salida</p>
                     <button class="btn btn-primary btn-sm ms-auto" id='addItem'>Añadir item</button>
                 </div>
             </div>

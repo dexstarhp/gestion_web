@@ -27,7 +27,7 @@ class SalidaController extends Controller
      */
     public function create()
     {
-        //
+        return view('salida.crear');
     }
 
     /**
