@@ -105,7 +105,7 @@ Route::group(['middleware' => 'auth'], function () {
     //salidas
     Route::prefix('salidas')->group(function (){
         Route::get('', [SalidaController::class, 'index'])
-            ->name('salidaindex');
+            ->name('salida.index');
         Route::get('crear', [SalidaController::class, 'create'])
             ->name('salida.create');
         Route::post('crear', [SalidaController::class, 'store'])

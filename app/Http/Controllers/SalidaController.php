@@ -13,7 +13,13 @@ class SalidaController extends Controller
      */
     public function index()
     {
-        //
+        $salidas = Entrada_Salida::where('tipo', 'salida')
+            ->get();
+
+        return view("salida.index")
+            ->with([
+                'salidas' => $salidas
+            ]);
     }
 
     /**

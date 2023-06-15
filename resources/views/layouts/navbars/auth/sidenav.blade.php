@@ -65,13 +65,13 @@
                             </a>
                         </li>
                         <li class="nav-item {{ (Route::currentRouteName() == 'entrada.index' || Route::currentRouteName() == 'entrada.create' || Route::currentRouteName() == 'entrada.edit') ? 'active' : '' }}">
-                            <a class="nav-link {{ (Route::currentRouteName() == 'entrada.index' || Route::currentRouteName() == 'entrada.create' || Route::currentRouteName() == 'entrada.edit') ? 'active' : '' }}" href="{{ route('entrada.index') }}" >
+                            <a class="nav-link {{ (Route::currentRouteName() == 'entrada.index' || Route::currentRouteName() == 'entrada.create' || Route::currentRouteName() == 'entrada.edit') ? 'active' : '' }}" href="{{ route('entrada.index') }}">
                                 <span class="sidenav-mini-icon"> E </span>
                                 <span class="sidenav-normal">Registro de Entradas </span>
                             </a>
                         </li>
                         <li class="nav-item {{ (Route::currentRouteName() == 'salida.index' || Route::currentRouteName() == 'salida.create' || Route::currentRouteName() == 'salida.edit') ? 'active' : '' }}">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link {{ (Route::currentRouteName() == 'salida.index' || Route::currentRouteName() == 'salida.create' || Route::currentRouteName() == 'salida.edit') ? 'active' : '' }}" href="{{ route('salida.index') }}">
                                 <span class="sidenav-mini-icon"> S </span>
                                 <span class="sidenav-normal">Registro de Salidas </span>
                             </a>

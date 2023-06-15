@@ -17,7 +17,8 @@ class EntradaSalidaController extends Controller
      */
     public function index()
     {
-        $entradas = Entrada_Salida::all();
+        $entradas = Entrada_Salida::where('tipo', 'entrada')
+            ->get();
 
         return view("entrada.index")
             ->with([
