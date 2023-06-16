@@ -85,7 +85,14 @@ class FacturaReciboController extends Controller
      */
     public function edit(FacturaRecibo $facturaRecibo)
     {
-        //
+        $proveedores = Proveedor::all();
+        $items = Items::all();
+        return view('factura_recibo.editar')
+            ->with([
+                'factura_recibo' => $facturaRecibo,
+                'proveedores' => $proveedores,
+                'items' => $items
+            ]);
     }
 
     /**
@@ -93,7 +100,33 @@ class FacturaReciboController extends Controller
      */
     public function update(UpdateFacturaReciboRequest $request, FacturaRecibo $facturaRecibo)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $facturaRecibo->fill($request->all());
+            $facturaRecibo->user_id = Auth::id();
+            $facturaRecibo->update();
+            $facturaRecibo->detalles()->delete();
+            for ($i=0; $i < count($request->precio_unitario) ; $i++) {
+                $detalle = new Detalle();
+                $detalle->item_id = $request->item_id[$i];
+                $detalle->cantidad = $request->cantidad[$i];
+                $detalle->precio_unitario = $request->precio_unitario[$i];
+                $detalle->destino_id = 1;
+                $detalle->factura_recibo_id = $facturaRecibo->id;
+                $detalle->user_id = Auth::id();
+                $detalle->save();
+            }
+
+            DB::commit();
+            return redirect()
+                ->route('compra.index')
+                ->with('primary', 'Compra Registrada');
+        } catch(\Exception $ex){
+            DB::rollBack();
+            return redirect()
+                ->route('compra.edit', $facturaRecibo)
+                ->with('Error', 'Error al registrar '. $ex);
+        }
     }
 
     /**
@@ -114,7 +147,7 @@ class FacturaReciboController extends Controller
                     ->render();
 
         return response()->json([
-                'content' => $html,
+                'content' => $html
             ]);
     }
 }

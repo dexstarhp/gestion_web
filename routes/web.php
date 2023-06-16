@@ -66,9 +66,9 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('compra.create');
         Route::post('crear', [FacturaReciboController::class, 'store'])
             ->name('compra.store');
-        Route::get('editar/{proveedor}', [FacturaReciboController::class, 'edit'])
+        Route::get('editar/{factura_recibo}', [FacturaReciboController::class, 'edit'])
             ->name('compra.edit');
-        Route::put('editar/{proveedor}', [FacturaReciboController::class, 'update'])
+        Route::put('editar/{factura_recibo}', [FacturaReciboController::class, 'update'])
             ->name('compra.update');
         // obtencion de items
         Route::get('add/item', [FacturaReciboController::class, 'addItem'])

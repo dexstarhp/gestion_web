@@ -56,7 +56,9 @@
             <select class="form-control" name="proveedor_id">
                 <option>seleccione una opcion</option>
                 @foreach ($proveedores as $proveedor)
-                    <option value="{{ $proveedor->id }}">{{ $proveedor->nombre_razon_social }}</option>
+                    <option
+                        value="{{ $proveedor->id }}"
+                        {{ isset($factura_recibo) ? (($factura_recibo->proveedor_id == $proveedor->id) ? 'selected':'') : '' }}>{{ $proveedor->nombre_razon_social }}</option>
                 @endforeach
             </select>
         </div>
@@ -102,6 +104,40 @@
                             </tr>
                         </thead>
                         <tbody id="table_item-body">
+                            @isset($factura_recibo)
+                                @foreach ($factura_recibo->detalles as $detalle)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2">
+                                                <select class="form-control" name="item_id[]">
+                                                    <option>seleccione una opcion</option>
+                                                    @foreach ($items as $item)
+                                                        <option value="{{ $item->id }}" {{ ($detalle->item_id = $item->id)? 'selected':'' }}>{{ $item->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="form-control precio_unitario" type="number" name="precio_unitario[]" id="" onkeyup="calcular(this)" value="{{ $detalle->precio_unitario }}">
+                                        </td>
+                                        <td>
+                                            <input class="form-control cantidad" type="number" name="cantidad[]" id="" onkeyup="calcular(this)" value="{{ $detalle->cantidad }}">
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <input class="form-control sub_total" type="number" name="sub_total[]" id=""  readonly=true
+                                                value="{{ ($detalle->precio_unitario * $detalle->cantidad) }}">
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <button class="btn btn-link text-secondary mb-0" onclick="eliminar(this)">
+                                                <i class="far fa-trash-alt me-2"></i>
+                                                eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endisset
                         </tbody>
                     </table>
                 </div>
