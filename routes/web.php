@@ -95,9 +95,10 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('entrada.create');
         Route::post('crear', [EntradaSalidaController::class, 'store'])
             ->name('entrada.store');
-        Route::get('editar/{item}', [EntradaSalidaController::class, 'edit'])
+        Route::get('editar/{entrada_salida}', [EntradaSalidaController::class, 'edit'])
             ->name('entrada.edit');
-        Route::put('editar/{item}', [EntradaSalidaController::class, 'update'])->name('entrada.update');
+        Route::put('editar/{entrada_salida}', [EntradaSalidaController::class, 'update'])
+            ->name('entrada.update');
         // obtencion de items
         Route::get('add/item', [EntradaSalidaController::class, 'addItem'])
             ->name('entrada.add_item');

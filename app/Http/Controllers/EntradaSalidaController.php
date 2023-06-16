@@ -61,7 +61,7 @@ class EntradaSalidaController extends Controller
             DB::commit();
             return redirect()
                 ->route('entrada.index')
-                ->with('succes', 'Compra Registrada');
+                ->with('succes', 'Entrada Registrada');
         } catch(\Exception $ex){
             DB::rollBack();
             return redirect()
@@ -81,17 +81,46 @@ class EntradaSalidaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Entrada_Salida $entrada_Salida)
+    public function edit(Entrada_Salida $entrada_salida)
     {
-        //
+        $items = Items::all();
+        return view('entrada.editar')
+            ->with([
+                'entrada_salida' => $entrada_salida,
+                'items' => $items
+            ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEntrada_SalidaRequest $request, Entrada_Salida $entrada_Salida)
+    public function update(UpdateEntrada_SalidaRequest $request, Entrada_Salida $entrada_salida)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $entrada_salida->fill($request->all());
+            $entrada_salida->user_id = Auth::id();
+            $entrada_salida->update();
+            $entrada_salida->detalles()->delete();
+            for ($i=0; $i < count($request->precio_unitario) ; $i++) {
+                $detalle = new Entrada_Salida_detalles();
+                $detalle->item_id = $request->item_id[$i];
+                $detalle->cantidad = $request->cantidad[$i];
+                $detalle->precio_unitario = $request->precio_unitario[$i];
+                $detalle->entrada_salida_id = $entrada_salida->id;
+                $detalle->save();
+            }
+
+            DB::commit();
+            return redirect()
+                ->route('entrada.index')
+                ->with('succes', 'Entrada Editada');
+        } catch(\Exception $ex){
+            DB::rollBack();
+            return redirect()
+                ->route('entrada.edit')
+                ->with('errors', 'Error al registrar '. $ex);
+        }
     }
 
     /**

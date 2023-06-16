@@ -10,7 +10,7 @@
                 id="fecha"
                 name="fecha"
                 type="date"
-                value="{{ isset($entrada) ? $entrada->fecha : old('fecha') }}">
+                value="{{ isset($entrada_salida) ? $entrada_salida->fecha : old('fecha') }}">
             @error('fecha')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -26,7 +26,7 @@
                 id="total"
                 name="total"
                 type="number"
-                value="{{ isset($entrada) ? $entrada->total : old('total') }}"
+                value="{{ isset($entrada_salida) ? $entrada_salida->total : old('total') }}"
                 readonly=true>
             @error('total')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -73,6 +73,39 @@
                             </tr>
                         </thead>
                         <tbody id="table_item-body">
+                            @isset($entrada_salida)
+                                @foreach ($entrada_salida->detalles as $detalle)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2">
+                                                <select class="form-control" name="item_id[]">
+                                                    <option>seleccione una opcion</option>
+                                                    @foreach ($items as $item)
+                                                        <option value="{{ $item->id }}" {{ ($detalle->item_id = $item->id)? 'selected':'' }}>{{ $item->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="form-control precio_unitario" type="number" name="precio_unitario[]" id="" onkeyup="calcular(this)" value="{{ $detalle->precio_unitario }}">
+                                        </td>
+                                        <td>
+                                            <input class="form-control cantidad" type="number" name="cantidad[]" id="" onkeyup="calcular(this)" value="{{ $detalle->cantidad }}">
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <input class="form-control sub_total" type="number" name="sub_total[]" id=""  readonly=true value="{{ ($detalle->precio_unitario * $detalle->cantidad) }}">
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <button class="btn btn-link text-secondary mb-0" onclick="eliminar(this)">
+                                                <i class="far fa-trash-alt me-2"></i>
+                                                eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endisset
                         </tbody>
                     </table>
                 </div>
