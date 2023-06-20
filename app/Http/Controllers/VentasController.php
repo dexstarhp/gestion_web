@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Ventas;
 use App\Http\Requests\StoreVentasRequest;
 use App\Http\Requests\UpdateVentasRequest;
+use App\Models\Clientes;
+use App\Models\DetalleVenta;
+use App\Models\Items;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class VentasController extends Controller
 {
@@ -26,7 +31,11 @@ class VentasController extends Controller
      */
     public function create()
     {
-        //
+        $clientes = Clientes::all();
+        return view('venta.crear')
+            ->with([
+                'clientes' => $clientes
+            ]);
     }
 
     /**
@@ -34,7 +43,32 @@ class VentasController extends Controller
      */
     public function store(StoreVentasRequest $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $venta = new Ventas($request->all());
+            $venta->user_id = Auth::id();
+            $venta->save();
+            for ($i=0; $i < count($request->precio_unitario) ; $i++) {
+                $detalle = new DetalleVenta();
+                $detalle->item_id = $request->item_id[$i];
+                $detalle->cantidad = $request->cantidad[$i];
+                $detalle->precio_unitario = $request->precio_unitario[$i];
+                $detalle->importe = $request->sub_total[$i];
+                $detalle->tipo = 'producto';
+                $detalle->venta_id = $venta->id;
+                $detalle->user_id = Auth::id();
+                $detalle->save();
+            }
+            DB::commit();
+            return redirect()
+                ->route('venta.index')
+                ->with('succes', 'Venta Registrada');
+        } catch(\Exception $ex){
+            DB::rollBack();
+            return redirect()
+                ->route('venta.create')
+                ->with('Error', 'Error al registrar '. $ex);
+        }
     }
 
     /**
@@ -67,5 +101,19 @@ class VentasController extends Controller
     public function destroy(Ventas $ventas)
     {
         //
+    }
+
+    function addItem() {
+        $items = Items::all();
+
+        $html = view('venta.partials.row_item')
+                    ->with([
+                        'items' => $items,
+                    ])
+                    ->render();
+
+        return response()->json([
+                'content' => $html
+            ]);
     }
 }

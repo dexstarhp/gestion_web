@@ -12,7 +12,7 @@
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
                             <p class="mb-0">Lista de Ventas</p>
-                            <a href="{{ route('compra.create') }}" class="btn btn-primary btn-sm ms-auto" role="button" aria-pressed="true">Nueva venta</a>
+                            <a href="{{ route('venta.create') }}" class="btn btn-primary btn-sm ms-auto" role="button" aria-pressed="true">Nueva venta</a>
                         </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
