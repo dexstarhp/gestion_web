@@ -42,7 +42,9 @@ class EntradaSalidaController extends Controller
         DB::beginTransaction();
         try{
             $entrada_salida = new Entrada_Salida($request->all());
-            $nro = Entrada_Salida::max('nro');
+            $nro = Entrada_Salida::where('tipo', 'salida')
+                ->get()
+                ->max('nro');
             $nro = (is_null($nro) ? 1: ($nro+1));
             $entrada_salida->nro = $nro;
             $entrada_salida->user_id = Auth::id();

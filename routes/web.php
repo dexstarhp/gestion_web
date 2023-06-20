@@ -111,9 +111,9 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('salida.create');
         Route::post('crear', [SalidaController::class, 'store'])
             ->name('salida.store');
-        Route::get('editar/{item}', [SalidaController::class, 'edit'])
+        Route::get('editar/{entrada_salida}', [SalidaController::class, 'edit'])
             ->name('salida.edit');
-        Route::put('editar/{item}', [SalidaController::class, 'update'])->name('salida.update');
+        Route::put('editar/{entrada_salida}', [SalidaController::class, 'update'])->name('salida.update');
     });
 
     // Clientes
