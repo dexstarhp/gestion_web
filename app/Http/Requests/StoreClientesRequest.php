@@ -11,7 +11,7 @@ class StoreClientesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreClientesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => 'required|unique:clientes|min:3',
+            'ci' => 'required|unique:clientes|min_digits:8|numeric',
+            'telefono' => 'required|min_digits:8|numeric',
         ];
     }
 }

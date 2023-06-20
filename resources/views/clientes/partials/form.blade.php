@@ -2,31 +2,31 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="nombre_razon_social">Nombre / Razon social</label>
+            <label for="nombre">Nombre</label>
             <input type="text"
                 class="form-control
-                @error('nombre_razon_social') is-invalid @enderror"
-                id="nombre_razon_social"
-                name="nombre_razon_social"
-                placeholder="Nombre proveedor"
-                value="{{ isset($proveedor) ? $proveedor->nombre_razon_social : old('nombre_razon_social') }}">
-            @error('nombre_razon_social')
+                @error('nombre') is-invalid @enderror"
+                id="nombre"
+                name="nombre"
+                placeholder="Nombre cliente"
+                value="{{ isset($cliente) ? $cliente->nombre : old('nombre') }}">
+            @error('nombre')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="nit_ci">NIT / CI</label>
+            <label for="ci">NIT / CI</label>
             <input
                 class="form-control
-                @error('nit_ci') is-invalid @enderror"
+                @error('ci') is-invalid @enderror"
                 placeholder="nit o ci"
-                id="nit_ci"
-                name="nit_ci"
+                id="ci"
+                name="ci"
                 type="text"
-                value="{{ isset($proveedor) ? $proveedor->nit_ci : old('nit_ci') }}">
-            @error('nit_ci')
+                value="{{ isset($cliente) ? $cliente->ci : old('ci') }}">
+            @error('ci')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
@@ -35,15 +35,15 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="tel_cel">Telefono/cel</label>
+            <label for="telefono">Telefono/cel</label>
             <input class="form-control
-            @error('tel_cel') is-invalid @enderror"
+            @error('telefono') is-invalid @enderror"
             placeholder="telefono"
-            id="tel_cel"
-            name="tel_cel"
+            id="telefono"
+            name="telefono"
             type="text"
-            value="{{ isset($proveedor) ? $proveedor->tel_cel : old('tel_cel') }}">
-            @error('tel_cel')
+            value="{{ isset($cliente) ? $cliente->telefono : old('telefono') }}">
+            @error('telefono')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>

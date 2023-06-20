@@ -10,12 +10,12 @@
                 <div class="card">
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
-                            <p class="mb-0">Nuevo Proveedor</p>
+                            <p class="mb-0">Nuevo cliente</p>
                         </div>
                     </div>
                     <div class="card-body ">
-                        <form role="form" method="POST" action={{ route('proveedores.store') }}>
-                            @include('proveedor.partials.form')
+                        <form role="form" method="POST" action={{ route('cliente.store') }}>
+                            @include('clientes.partials.form')
                             <button type="submit" class="btn btn-primary btn-sm ms-auto">Registrar</button>
                         </form>
                     </div>

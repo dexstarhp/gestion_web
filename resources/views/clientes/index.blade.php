@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Proveedores'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Clientes'])
     <div id="alert">
         @include('components.alert')
     </div>
@@ -11,8 +11,8 @@
                 <div class="card">
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
-                            <p class="mb-0">Lista de proveedores</p>
-                            <a href="{{ route('proveedores.create') }}" class="btn btn-primary btn-sm ms-auto" role="button" aria-pressed="true">Nuevo proveedor</a>
+                            <p class="mb-0">Lista de clientes</p>
+                            <a href="{{ route('cliente.create') }}" class="btn btn-primary btn-sm ms-auto" role="button" aria-pressed="true">Nuevo cliente</a>
                         </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
@@ -30,20 +30,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($clientes as $proveedor)
+                                    @foreach ($clientes as $cliente)
                                         <tr>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $proveedor->nombre }}</p>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $cliente->nombre }}</p>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <span class="badge badge-sm bg-gradient-success">{{ $proveedor->ci }}</span>
+                                                <span class="badge badge-sm bg-gradient-success">{{ $cliente->ci }}</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">{{ $proveedor->tel_cel }}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">{{ $cliente->telefono }}</span>
                                             </td>
                                             <td class="align-middle">
-                                                <a href="{{ route('proveedores.edit',$proveedor) }}" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Editar Proveedor">
+                                                <a href="{{ route('cliente.edit',$cliente) }}" class="text-secondary font-weight-bold text-xs"
+                                                    data-toggle="tooltip" data-original-title="Editar Cliente">
                                                     Editar
                                                 </a>
                                             </td>

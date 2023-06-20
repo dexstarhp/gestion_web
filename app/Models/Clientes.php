@@ -14,7 +14,7 @@ class Clientes extends Model
     protected $table = 'clientes';
 
     // campos de la tabla
-    protected $fillable = ['nombre', 'ci', 'telefono', 'user_id'];
+    protected $fillable = ['nombre', 'ci', 'telefono'];
 
     // relationship
     public function ventas(): HasMany

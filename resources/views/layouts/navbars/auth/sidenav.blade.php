@@ -92,7 +92,7 @@
                     id="ventas" style="">
                     <ul class="nav ms-4">
                         <li class="nav-item {{ (Route::currentRouteName() == 'cliente.index' || Route::currentRouteName() == 'cliente.create' || Route::currentRouteName() == 'cliente.edit' || Route::currentRouteName() == 'venta.index' || Route::currentRouteName() == 'venta.create' || Route::currentRouteName() == 'venta.edit') ? 'active' : '' }}">
-                            <a class="nav-link {{ (Route::currentRouteName() == 'cliente.index' || Route::currentRouteName() == 'cliente.create' || Route::currentRouteName() == 'cliente.edit' || Route::currentRouteName() == 'venta.index' || Route::currentRouteName() == 'venta.create' || Route::currentRouteName() == 'venta.edit') ? 'active' : '' }}" href="{{ route('items.index') }}">
+                            <a class="nav-link {{ (Route::currentRouteName() == 'cliente.index' || Route::currentRouteName() == 'cliente.create' || Route::currentRouteName() == 'cliente.edit' || Route::currentRouteName() == 'venta.index' || Route::currentRouteName() == 'venta.create' || Route::currentRouteName() == 'venta.edit') ? 'active' : '' }}" href="{{ route('cliente.index') }}">
                                 <span class="sidenav-mini-icon"> C </span>
                                 <span class="sidenav-normal"> Clientes </span>
                             </a>

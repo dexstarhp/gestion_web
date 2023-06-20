@@ -11,7 +11,7 @@ class UpdateClientesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,11 @@ class UpdateClientesRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id_cliente = $this->route('cliente.id');
         return [
-            //
+            'nombre' => 'required|unique:clientes,nombre,'.$id_cliente.'|min:3',
+            'ci' => 'required|unique:clientes,ci,'.$id_cliente.'|min_digits:8|numeric',
+
         ];
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-@include('layouts.navbars.auth.topnav', ['title' => 'Editar proveedor'])
+@include('layouts.navbars.auth.topnav', ['title' => 'Editar cliente'])
     <div class="card shadow-lg mx-4 card-profile-bottom">
     </div>
     <div class="container-fluid py-4">
@@ -10,14 +10,13 @@
                 <div class="card">
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
-                            <p class="mb-0">Modificación de Proveedor</p>
+                            <p class="mb-0">Modificación de cliente</p>
                         </div>
                     </div>
                     <div class="card-body ">
-                        <form role="form" method="POST" action={{ route('proveedores.update',$proveedor) }}>
-                            @csrf
+                        <form role="form" method="POST" action={{ route('cliente.update',$cliente) }}>
                             @method('PUT')
-                            @include('proveedor.partials.form')
+                            @include('clientes.partials.form')
                             <button type="submit" class="btn btn-primary btn-sm ms-auto">Editar</button>
                         </form>
                     </div>

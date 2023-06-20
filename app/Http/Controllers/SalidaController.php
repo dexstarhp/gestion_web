@@ -120,7 +120,7 @@ class SalidaController extends Controller
         } catch(\Exception $ex){
             DB::rollBack();
             return redirect()
-                ->route('salida.edit')
+                ->route('salidaentrada.edit')
                 ->with('errors', 'Error al registrar '. $ex);
         }
     }
