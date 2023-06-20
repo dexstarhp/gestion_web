@@ -98,7 +98,7 @@
                             </a>
                         </li>
                         <li class="nav-item {{ (Route::currentRouteName() == 'cliente.index' || Route::currentRouteName() == 'cliente.create' || Route::currentRouteName() == 'cliente.edit' || Route::currentRouteName() == 'venta.index' || Route::currentRouteName() == 'venta.create' || Route::currentRouteName() == 'venta.edit') ? 'active' : '' }}">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('venta.index') }}">
                                 <span class="sidenav-mini-icon"> RV </span>
                                 <span class="sidenav-normal">Registro de Ventas </span>
                             </a>

@@ -13,7 +13,12 @@ class VentasController extends Controller
      */
     public function index()
     {
-        //
+        $ventas = Ventas::all();
+
+        return view("venta.index")
+            ->with([
+                'ventas' => $ventas
+            ]);
     }
 
     /**
