@@ -137,9 +137,9 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('venta.create');
         Route::post('crear', [VentasController::class, 'store'])
             ->name('venta.store');
-        Route::get('editar/{item}', [VentasController::class, 'edit'])
+        Route::get('editar/{venta}', [VentasController::class, 'edit'])
             ->name('venta.edit');
-        Route::put('editar/{item}', [VentasController::class, 'update'])
+        Route::put('editar/{venta}', [VentasController::class, 'update'])
             ->name('venta.update');
         // obtencion de items
         Route::get('add/item', [VentasController::class, 'addItem'])

@@ -82,17 +82,50 @@ class VentasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ventas $ventas)
+    public function edit(Ventas $venta)
     {
-        //
+        $clientes = Clientes::all();
+        $items = Items::all();
+        return view('venta.editar')
+            ->with([
+                'venta' => $venta,
+                'clientes' => $clientes,
+                'items' => $items
+            ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVentasRequest $request, Ventas $ventas)
+    public function update(UpdateVentasRequest $request, Ventas $venta)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $venta->fill($request->all());
+            $venta->user_id = Auth::id();
+            $venta->update();
+            $venta->detalles()->delete();
+            for ($i=0; $i < count($request->precio_unitario) ; $i++) {
+                $detalle = new DetalleVenta();
+                $detalle->item_id = $request->item_id[$i];
+                $detalle->cantidad = $request->cantidad[$i];
+                $detalle->precio_unitario = $request->precio_unitario[$i];
+                $detalle->importe = $request->sub_total[$i];
+                $detalle->tipo = 'producto';
+                $detalle->venta_id = $venta->id;
+                $detalle->user_id = Auth::id();
+                $detalle->save();
+            }
+            DB::commit();
+            return redirect()
+                ->route('venta.index')
+                ->with('succes', 'Venta editada');
+        } catch(\Exception $ex){
+            DB::rollBack();
+            return redirect()
+                ->route('venta.edit', $venta)
+                ->with('Error', 'Error al registrar '. $ex);
+        }
     }
 
     /**
