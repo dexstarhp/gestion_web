@@ -99,4 +99,18 @@ class ItemsController extends Controller
     {
         //
     }
+
+    /**
+     * Listado de kardex items
+     *
+     * @return void
+     */
+    public function kardex() {
+        $items = Items::all();
+
+        return view("items.index")
+            ->with([
+                'items' => $items
+            ]);
+    }
 }

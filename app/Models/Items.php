@@ -13,4 +13,6 @@ class Items extends Model
 
 
     protected $fillable = ['nombre', 'fecha_de_expiracion', 'descripcion', 'fecha_de_elaboracion'];
+
+    // mutators
 }
