@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'User Management'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Gestión de usuarios'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="alert alert-light" role="alert">
-                This feature is available in <strong>Argon Dashboard 2 Pro Laravel</strong>. Check it
+                <strong></strong>
                 <strong>
                     <a href="https://www.creative-tim.com/product/argon-dashboard-pro-laravel" target="_blank">
-                        here
+                        usuario
                     </a>
                 </strong>
             </div>
@@ -21,8 +21,8 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Rol
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
