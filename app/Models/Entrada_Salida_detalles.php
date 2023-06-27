@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Entrada_Salida_detalles extends Model
 {
@@ -18,4 +19,9 @@ class Entrada_Salida_detalles extends Model
         'precio_unitario',
         'entrada_salida_id'
     ];
+
+    public function item(): BelongsTo
+    {
+        return $this->belongsTo(Items::class, 'item_id');
+    }
 }

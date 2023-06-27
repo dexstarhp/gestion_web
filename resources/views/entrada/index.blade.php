@@ -54,8 +54,11 @@
                                             <td class="align-middle">
                                                 <a href="{{ route('entrada.edit',$entrada) }}" class="text-secondary font-weight-bold text-xs"
                                                     data-toggle="tooltip" data-original-title="Editar Entrada">
-                                                    Editar
+                                                    <i class="fas fa-user-edit text-secondary"></i>
                                                 </a>
+                                                <button class="btn btn-link text-secondary mb-0" onclick="ver({{ $entrada->id }})">
+                                                    <i class="fas fa-solid fa-eye text-secondary"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -66,6 +69,49 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="detalle" tabindex="-1" aria-labelledby="detalleLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="detalleLabel">Detalle entrada</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="content">
+                </div>
+                <div class="modal-footer">
+                </div>
+              </div>
+            </div>
+        </div>
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
+@section('script')
+@parent
+    <script>
+        function ver(id){
+
+            $.ajax({
+                url: route('entrada.show',id),
+                method: 'get',
+                beforeSend: function (e) {
+                    console.log('carga');
+                }
+            }).done(function (response) {
+                $('#content').html('');
+                $('#content').append(response.content);
+                var myModal = new bootstrap.Modal(document.getElementById('detalle'), {
+                    keyboard: false
+                    });
+                myModal.show()
+
+            }).fail(function (response) {
+                console.log('error');
+            });
+
+        }
+    </script>
+@endsection
+
+
+

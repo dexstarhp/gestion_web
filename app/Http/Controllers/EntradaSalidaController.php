@@ -78,9 +78,19 @@ class EntradaSalidaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Entrada_Salida $entrada_Salida)
+    public function show($id)
     {
-        //
+        $entrada_salida = Entrada_Salida::find($id);
+
+        $html = view('entrada.partials.entrada_ver')
+            ->with([
+                'entrada_salida' => $entrada_salida,
+            ])
+            ->render();
+
+        return response()->json([
+                'content' => $html,
+            ]);
     }
 
     /**

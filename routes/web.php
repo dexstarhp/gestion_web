@@ -97,6 +97,8 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('entrada.store');
         Route::get('editar/{entrada_salida}', [EntradaSalidaController::class, 'edit'])
             ->name('entrada.edit');
+        Route::get('mostrar/{entrada_salida}', [EntradaSalidaController::class, 'show'])
+            ->name('entrada.show');
         Route::put('editar/{entrada_salida}', [EntradaSalidaController::class, 'update'])
             ->name('entrada.update');
         // obtencion de items
