@@ -24,7 +24,7 @@ class UpdateProveedorRequest extends FormRequest
         $id_proveedor = $this->route('proveedor.id');
         return [
             'nombre_razon_social' => 'required|unique:proveedores,nombre_razon_social,'.$id_proveedor.'|min:3',
-            'nit_ci' => 'required|min_digits:8|numeric',
+            'nit_ci' => 'required|min_digits:6|numeric',
             'tel_cel' => 'required|min_digits:8|numeric',
         ];
     }

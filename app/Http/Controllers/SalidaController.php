@@ -45,7 +45,7 @@ class SalidaController extends Controller
             $nro = Entrada_Salida::where('tipo', 'salida')
                 ->get()
                 ->max('nro');
-            $nro = (is_null($nro) ? 1: ($nro+1));
+            $nro = is_null($nro) ? 1 : ($nro+1);
             $entrada_salida->nro = $nro;
             $entrada_salida->user_id = Auth::id();
             $entrada_salida->tipo = 'salida';

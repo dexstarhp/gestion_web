@@ -108,7 +108,7 @@ class ItemsController extends Controller
     public function kardex() {
         $items = Items::all();
 
-        return view("items.index")
+        return view("reporte.kardex.index")
             ->with([
                 'items' => $items
             ]);

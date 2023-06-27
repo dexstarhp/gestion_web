@@ -10,6 +10,8 @@ use App\Models\Items;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use function PHPUnit\Framework\isNull;
+
 class EntradaSalidaController extends Controller
 {
     /**
@@ -42,10 +44,11 @@ class EntradaSalidaController extends Controller
         DB::beginTransaction();
         try{
             $entrada_salida = new Entrada_Salida($request->all());
-            $nro = Entrada_Salida::where('tipo', 'salida')
+            $nro = Entrada_Salida::where('tipo', 'entrada')
                 ->get()
                 ->max('nro');
-            $nro = (is_null($nro) ? 1: ($nro+1));
+            $nro = is_null($nro) ? 1 : ($nro+1);
+
             $entrada_salida->nro = $nro;
             $entrada_salida->user_id = Auth::id();
             $entrada_salida->tipo = 'entrada';

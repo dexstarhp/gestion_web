@@ -23,7 +23,7 @@ class StoreProveedorRequest extends FormRequest
     {
         return [
             'nombre_razon_social' => 'required|unique:proveedores|min:3',
-            'nit_ci' => 'required|min_digits:8|numeric',
+            'nit_ci' => 'required|min_digits:6|numeric',
             'tel_cel' => 'required|min_digits:8|numeric',
         ];
     }
