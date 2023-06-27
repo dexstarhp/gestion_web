@@ -107,6 +107,27 @@
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#reporte" class="nav-link active" aria-controls="reporte" role="button" aria-expanded="false">
+                    <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                        <i class="ni ni-world-2 text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Reportes</span>
+                </a>
+                <div class="collapse
+                    {{ (Route::currentRouteName() == 'kardex.index') ? 'show' : '' }}"
+                    id="reporte" style="">
+                    <ul class="nav ms-4">
+                        <li class="nav-item {{ (Route::currentRouteName() == 'kardex.index') ? 'active' : '' }}">
+                            <a class="nav-link {{ (Route::currentRouteName() == 'kardex.index') ? 'active' : '' }}" href="{{ route('kardex.index') }}">
+                                <span class="sidenav-mini-icon"> K </span>
+                                <span class="sidenav-normal"> Kardex </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Configuraciones</h6>
             </li>

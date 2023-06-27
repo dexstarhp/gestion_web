@@ -146,6 +146,12 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('venta.add_item');
     });
 
+    //reportes
+    Route::prefix('reportes')->group(function(){
+        Route::get('kardex', [ItemsController::class, 'kardex'])
+            ->name('kardex.index');
+    });
+
 
     Route::get('/{page}', [PageController::class, 'index'])->name('page');
 });

@@ -1,20 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Gestión de usuarios'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Gestion de usuarios'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
-            <div class="alert alert-light" role="alert">
-                <strong></strong>
-                <strong>
-                    <a href="https://www.creative-tim.com/product/argon-dashboard-pro-laravel" target="_blank">
-                        usuario
-                    </a>
-                </strong>
-            </div>
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Users</h6>
+                    <h6>Usuarios</h6>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
@@ -22,17 +14,18 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Rol
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Create Date</th>
+                                        Fecha de creacion</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Action</th>
+                                        Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
+
                                 <tr>
                                     <td>
                                         <div class="d-flex px-3 py-1">
