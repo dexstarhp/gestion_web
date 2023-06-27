@@ -56,7 +56,11 @@ class Items extends Model
 
     public function getCppAttribute()
     {
-        $cpp = $this->importe_total /$this->cantidad_total;
+        if($this->cantidad_total == 0){
+            return 0;
+        } else {
+            $cpp = $this->importe_total / $this->cantidad_total;
+        }
         return $cpp;
     }
 }
