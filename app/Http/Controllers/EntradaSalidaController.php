@@ -149,7 +149,7 @@ class EntradaSalidaController extends Controller
     function addItem() {
         $items = Items::all();
 
-        $html = view('factura_recibo.partials.row_item')
+        $html = view('entrada.partials.row_item')
                     ->with([
                         'items' => $items,
                     ])

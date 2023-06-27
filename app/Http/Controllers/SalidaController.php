@@ -132,4 +132,18 @@ class SalidaController extends Controller
     {
         //
     }
+
+    function addItem() {
+        $items = Items::all();
+
+        $html = view('salida.partials.row_item')
+                    ->with([
+                        'items' => $items,
+                    ])
+                    ->render();
+
+        return response()->json([
+                'content' => $html,
+            ]);
+    }
 }

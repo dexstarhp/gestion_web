@@ -29,5 +29,5 @@
 @endsection
 @section('script')
 @parent
-    <script src="{{ asset('assets/js/entrada/entrada.js') }}"></script>
+    <script src="{{ asset('assets/js/salida/salida.js') }}"></script>
 @endsection

@@ -2,7 +2,7 @@ let buttonAddItem = document.getElementById('addItem');
 buttonAddItem.addEventListener('click', function (event) {
     event.preventDefault();
     $.ajax({
-        url: route('entrada.add_item'),
+        url: route('salida.add_item'),
         method: 'get',
         beforeSend: function (e) {
             console.log('carga');
