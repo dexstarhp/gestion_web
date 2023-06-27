@@ -12,7 +12,7 @@
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
                             <p class="mb-0">Kardex</p>
-                            <a href="{{ route('items.create') }}" class="btn btn-primary btn-sm ms-auto" role="button" aria-pressed="true">Imprimir</a>
+                            <a href="{{ route('kardex.pdf') }}" target="_blank" class="btn btn-primary btn-sm ms-auto" role="button" aria-pressed="true">Imprimir</a>
                         </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">

@@ -7,6 +7,8 @@ use App\Http\Requests\StoreItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
 use Illuminate\Support\Facades\DB;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class ItemsController extends Controller
 {
     /**
@@ -112,5 +114,14 @@ class ItemsController extends Controller
             ->with([
                 'items' => $items
             ]);
+    }
+
+    public function kardexPdf(){
+        $items = Items::all();
+        $pdf = Pdf::loadView(
+            'reporte.kardex.pdf',
+            compact('items')
+        );
+        return $pdf->stream('kardex.pdf');
     }
 }

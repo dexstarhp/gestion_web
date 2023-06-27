@@ -150,6 +150,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('reportes')->group(function(){
         Route::get('kardex', [ItemsController::class, 'kardex'])
             ->name('kardex.index');
+        Route::get('kardex/pdf', [ItemsController::class, 'kardexPdf'])
+            ->name('kardex.pdf');
     });
 
 
