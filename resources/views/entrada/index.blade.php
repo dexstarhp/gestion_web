@@ -90,7 +90,6 @@
 @parent
     <script>
         function ver(id){
-
             $.ajax({
                 url: route('entrada.show',id),
                 method: 'get',
