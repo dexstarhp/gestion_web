@@ -10,9 +10,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Money</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Ingresos de Hoy</p>
                                     <h5 class="font-weight-bolder">
-                                        $53,000
+                                        Bs{{ $totalIngresos }}
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder">+55%</span>
@@ -35,9 +35,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Usuarios</p>
                                     <h5 class="font-weight-bolder">
-                                        2,300
+                                        {{ $totalUsuarios }}
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder">+3%</span>
@@ -60,9 +60,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">New Clients</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Clientes</p>
                                     <h5 class="font-weight-bolder">
-                                        +3,462
+                                        {{ $totalClientes }}
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-danger text-sm font-weight-bolder">-2%</span>
@@ -85,9 +85,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Ventas</p>
                                     <h5 class="font-weight-bolder">
-                                        $103,430
+                                        Bs{{ $totalVentas }}
                                     </h5>
                                     <p class="mb-0">
                                         <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
@@ -108,10 +108,10 @@
             <div class="col-lg-7 mb-lg-0 mb-4">
                 <div class="card z-index-2 h-100">
                     <div class="card-header pb-0 pt-3 bg-transparent">
-                        <h6 class="text-capitalize">Sales overview</h6>
+                        <h6 class="text-capitalize">Resumen de ventas</h6>
                         <p class="text-sm mb-0">
                             <i class="fa fa-arrow-up text-success"></i>
-                            <span class="font-weight-bold">4% more</span> in 2021
+                            <span class="font-weight-bold">4% more</span> en {{ $gestionActual }}
                         </p>
                     </div>
                     <div class="card-body p-3">
@@ -171,7 +171,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
+        {{-- <div class="row mt-4">
             <div class="col-lg-7 mb-lg-0 mb-4">
                 <div class="card ">
                     <div class="card-header pb-0 p-3">
@@ -389,7 +389,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
@@ -407,9 +407,9 @@
         new Chart(ctx1, {
             type: "line",
             data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: ["Ene", "feb", "Mar","Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
                 datasets: [{
-                    label: "Mobile apps",
+                    label: "Ventas",
                     tension: 0.4,
                     borderWidth: 0,
                     pointRadius: 0,
@@ -417,7 +417,19 @@
                     backgroundColor: gradientStroke1,
                     borderWidth: 3,
                     fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                    data: [{{ $ventasEnero }},
+                        {{ $ventasFebrero }},
+                        {{ $ventasMarzo  }},
+                        {{ $ventasAbril }},
+                        {{ $ventasMayo }},
+                        {{ $ventasJunio }},
+                        {{ $ventasJulio }},
+                        {{ $ventasAgosto }},
+                        {{ $ventasSeptiembre }},
+                        {{ $ventasOctubre }},
+                        {{ $ventasNoviembre }},
+                        {{ $ventasDiciembre }}
+                    ],
                     maxBarThickness: 6
 
                 }],
