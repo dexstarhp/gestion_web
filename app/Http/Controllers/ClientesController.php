@@ -46,7 +46,6 @@ class ClientesController extends Controller
                 ->with('succes', 'Cliente Registrado');
         } catch(\Exception $ex){
             DB::rollBack();
-            dd('e', $ex);
             return redirect()
                 ->route('cliente.create')
                 ->with('Error', 'Error al registrar '. $ex);

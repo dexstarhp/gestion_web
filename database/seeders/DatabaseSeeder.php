@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Seed the application's database.register
      *
      * @return void
      */

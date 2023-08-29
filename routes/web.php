@@ -28,10 +28,10 @@ use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\SalidaController;
 use App\Http\Controllers\VentasController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
-Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
-Route::post('/register', [RegisterController::class, 'store'])->middleware('guest')->name('register.perform');
+
 Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
 Route::get('/reset-password', [ResetPassword::class, 'show'])->middleware('guest')->name('reset-password');
@@ -159,6 +159,15 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('kardex.pdf');
     });
 
+    // Usuarios
+    Route::prefix('users')->group(function (){
+        Route::get('', [UserController::class, 'index'])
+            ->name('user-management');
+        Route::get('/register', [RegisterController::class, 'create'])
+            ->name('register');
+        Route::post('/register', [RegisterController::class, 'store'])
+            ->name('register.perform');
+    });
 
     Route::get('/{page}', [PageController::class, 'index'])->name('page');
 });
