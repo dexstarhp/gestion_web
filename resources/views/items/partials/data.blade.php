@@ -12,13 +12,6 @@
             <label for="nombre">{{ $item->descripcion }}</label>
         </div>
     </div>
-
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="nombre">Costo promnedio ponderado (CPP)</label>
-            <label for="nombre">{{ number_format($item->cpp, 2) }}</label>
-        </div>
-    </div>
     <div class="col-md-6">
         <div class="form-group">
             <label for="nombre">Costo promedio ponderado (CPP)</label>
