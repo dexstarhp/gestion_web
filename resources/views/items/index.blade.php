@@ -43,7 +43,7 @@
                                                 {{ $item->descripcion }}</span>
                                             </td>
                                             <td class="align-middle">
-                                                {{ QrCode::size(100)->generate(
+                                                {{-- {{ QrCode::size(100)->generate(
                                                     json_encode(
                                                         [
                                                             'nombre' => $item->nombre,
@@ -53,7 +53,8 @@
                                                             'costo_total' => $item->importe_total
                                                         ]
                                                     )
-                                                ) }}
+                                                ) }} --}}
+                                                {{ QrCode::size(100)->generate(route('items.show', $item)) }}
                                             </td>
                                             <td class="align-middle">
                                                 <a href="{{ route('items.edit',$item) }}" class="text-secondary font-weight-bold text-xs"

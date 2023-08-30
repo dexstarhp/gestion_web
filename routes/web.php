@@ -85,6 +85,8 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('items.store');
         Route::get('editar/{item}', [ItemsController::class, 'edit'])
             ->name('items.edit');
+        Route::get('show/detalle/{item}', [ItemsController::class, 'show'])
+            ->name('items.show');
         Route::put('editar/{item}', [ItemsController::class, 'update'])->name('items.update');
     });
     //entradas
