@@ -45,7 +45,13 @@
                                             <td class="align-middle">
                                                 {{ QrCode::size(100)->generate(
                                                     json_encode(
-                                                        ['nombre' => $item->nombre, 'descripcion' => $item->descripcion]
+                                                        [
+                                                            'nombre' => $item->nombre,
+                                                            'descripcion' => $item->descripcion,
+                                                            'cpp' => number_format($item->cpp, 2),
+                                                            'cantidad_total' => $item->cantidad_total,
+                                                            'costo_total' => $item->importe_total
+                                                        ]
                                                     )
                                                 ) }}
                                             </td>
