@@ -23,7 +23,14 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Nombre</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Descripción</th>
+                                            Descripción
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            QR
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Descripción
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,9 +43,16 @@
                                                 {{ $item->descripcion }}</span>
                                             </td>
                                             <td class="align-middle">
+                                                {{ QrCode::size(100)->generate(
+                                                    json_encode(
+                                                        ['nombre' => $item->nombre, 'descripcion' => $item->descripcion]
+                                                    )
+                                                ) }}
+                                            </td>
+                                            <td class="align-middle">
                                                 <a href="{{ route('items.edit',$item) }}" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Editar Proveedor">
-                                                    Editar
+                                                data-toggle="tooltip" data-original-title="Editar Proveedor">
+                                                Editar
                                                 </a>
                                             </td>
                                         </tr>
