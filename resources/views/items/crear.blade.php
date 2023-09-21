@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="card-body ">
-                        <form role="form" method="POST" action={{ route('items.store') }}>
+                        <form role="form" method="POST" action={{ route('items.store') }} enctype="multipart/form-data">
                             @include('items.partials.form')
                             <button type="submit" class="btn btn-primary btn-sm ms-auto">Registrar</button>
                         </form>
