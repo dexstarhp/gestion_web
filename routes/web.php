@@ -88,6 +88,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('show/detalle/{item}', [ItemsController::class, 'show'])
             ->name('items.show');
         Route::put('editar/{item}', [ItemsController::class, 'update'])->name('items.update');
+
+        Route::get('/{item}/qr', [ItemsController::class, 'getQr'])->name('items.getQr');
     });
     //entradas
     Route::prefix('entradas')->group(function (){

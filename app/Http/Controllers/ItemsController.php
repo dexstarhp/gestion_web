@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Items;
 use App\Http\Requests\StoreItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
+use BaconQrCode\Encoder\QrCode;
 use Illuminate\Support\Facades\DB;
 
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -166,5 +167,16 @@ class ItemsController extends Controller
             compact('items')
         );
         return $pdf->stream('kardex.pdf');
+    }
+
+
+    public function getQr(Items $item){
+        $item_ = Items::find($item->id);
+        $pdf = Pdf::loadView(
+            'reporte.item.qr',
+            compact('item_')
+        );
+
+        return $pdf->stream('qr.pdf');
     }
 }

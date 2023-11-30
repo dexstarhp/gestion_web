@@ -69,6 +69,7 @@
                                                 data-toggle="tooltip" data-original-title="Editar Proveedor">
                                                 Editar
                                                 </a>
+                                                <a href="{{ route('items.getQr', $item) }}" target="_blank" class="btn btn-primary btn-sm ms-auto" role="button" aria-pressed="true">Generar QR</a>
                                             </td>
                                         </tr>
                                     @endforeach

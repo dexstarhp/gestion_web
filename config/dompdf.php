@@ -278,6 +278,14 @@ return array(
          * @var bool
          */
         "enable_html5_parser" => true,
+        'isHtml5ParserEnabled' => true,
+        'isPhpEnabled' => true,
+        'isPhpDebug' => true,
+        'isHtml5Php' => true,
+        'isPhpIncludeEnabled' => true,
+        'isHtml5Lib' => true,
+        'isPhpMbstringEnabled' => true,
+        'isPhpDomEnabled' => true,
     ),
 
 
