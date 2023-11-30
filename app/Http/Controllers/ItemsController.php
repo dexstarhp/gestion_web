@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateItemsRequest;
 use Illuminate\Support\Facades\DB;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ItemsController extends Controller
 {
@@ -39,7 +41,25 @@ class ItemsController extends Controller
     {
         DB::beginTransaction();
         try{
-            $item = new Items($request->all());
+            // Crear la carpeta si no existe
+            $uploadFolder = 'uploads';
+            $folderPath = public_path($uploadFolder);
+
+            if (!File::exists($folderPath)) {
+                File::makeDirectory($folderPath, 0755, true);
+            }
+            // Si hay una imagen cargada, guarda la imagen en el sistema de archivos
+            if ($request->hasFile('imagen_url')) {
+                $path = $request->file('imagen_url')->store('uploads', 'public');
+            } else {
+                $path = null;
+            }
+
+            $item = new Items([
+                'nombre' => $request->input('nombre'),
+                'descripcion' => $request->input('descripcion'),
+                'imagen_url' => $path
+            ]);
             $item->save();
             DB::commit();
             return redirect()
@@ -82,8 +102,28 @@ class ItemsController extends Controller
     {
         DB::beginTransaction();
         try{
+            if ($request->hasFile('imagen_url')) {
+                // Elimina la imagen anterior si existe
+                if ($item->imagen_url) {
+                    File::delete(public_path($item->imagen_url));
+                }
+
+                // Guarda la nueva imagen
+                $path = $request->file('imagen_url')->store('uploads', 'public');
+                $data = [
+                    'nombre' => $request->input('nombre'),
+                    'descripcion' => $request->input('descripcion'),
+                    'imagen_url' => $path
+                ];
+            } else {
+                $data = [
+                    'nombre' => $request->input('nombre'),
+                    'descripcion' => $request->input('descripcion')
+                ];
+            }
+
             $item->fill($request->all());
-            $item->update();
+            $item->update($data);
 
             DB::commit();
             return redirect()

@@ -32,3 +32,18 @@
         </div>
     </div>
 </div>
+<div class="form-group">
+    <label for="imagen_url">Imagen</label>
+    <input type="file"
+           class="form-control-file @error('imagen_url') is-invalid @enderror"
+           id="imagen_url"
+           name="imagen_url">
+    @error('imagen_url')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+    @if(isset($item) && $item->imagen_url)
+        <div class="mt-2">
+            <img src="{{ asset($item->url_path) }}" alt="Imagen actual" style="max-width: 200px">
+        </div>
+    @endif
+</div>

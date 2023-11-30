@@ -25,6 +25,7 @@ class UpdateItemsRequest extends FormRequest
         return [
             'nombre' => 'required|unique:items,nombre,'.$id_item.'|min:3',
             'descripcion' => 'required|min:10',
+            'imagen_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }

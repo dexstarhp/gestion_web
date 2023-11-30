@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Items extends Model
 {
@@ -14,7 +15,13 @@ class Items extends Model
     protected $table = 'items';
 
 
-    protected $fillable = ['nombre', 'fecha_de_expiracion', 'descripcion', 'fecha_de_elaboracion'];
+    protected $fillable = [
+        'nombre',
+        'fecha_de_expiracion',
+        'descripcion',
+        'fecha_de_elaboracion',
+        'imagen_url'
+    ];
 
     // mutators
 
@@ -62,5 +69,9 @@ class Items extends Model
             $cpp = $this->importe_total / $this->cantidad_total;
         }
         return $cpp;
+    }
+
+    public function getUrlPathAttribute(){
+        return Storage::url($this->imagen_url);
     }
 }
