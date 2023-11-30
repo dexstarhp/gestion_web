@@ -26,6 +26,9 @@
                                             Descripción
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Imagen
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             QR
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -41,6 +44,11 @@
                                             </td>
                                             <td class="align-middle text-sm">
                                                 {{ $item->descripcion }}</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                @if(isset($item) && $item->imagen_url)
+                                                    <img src="{{ asset($item->url_path) }}" alt="Imagen del Item" style="max-width: 100px">
+                                                @endif
                                             </td>
                                             <td class="align-middle">
                                                 {{-- {{ QrCode::size(100)->generate(
