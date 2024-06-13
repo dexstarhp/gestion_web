@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Entrada_Salida_detalles;
 use App\Models\Items;
 use App\Http\Requests\StoreItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
@@ -149,7 +150,7 @@ class ItemsController extends Controller
     /**
      * Listado de kardex items
      *
-     * @return void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
     public function kardex() {
         $items = Items::all();
@@ -162,13 +163,10 @@ class ItemsController extends Controller
 
     public function kardexPdf(){
         $items = Items::all();
-        $pdf = Pdf::loadView(
-            'reporte.kardex.pdf',
-            compact('items')
-        );
+        $pdf = Pdf::loadView('reporte.kardex.pdf', compact('items'))
+            ->setPaper('letter','landscape');
         return $pdf->stream('kardex.pdf');
     }
-
 
     public function getQr(Items $item){
         $item_ = Items::find($item->id);
@@ -178,5 +176,15 @@ class ItemsController extends Controller
         );
 
         return $pdf->stream('qr.pdf');
+    }
+
+    public function kardexDetalle($itemId) {
+        $entradaSalidaList = Entrada_Salida_detalles::where('item_id', $itemId)
+                ->get();
+
+        return view("reporte.kardex.detalleItem")
+            ->with([
+                'entradaSalidaList' => $entradaSalidaList
+            ]);
     }
 }

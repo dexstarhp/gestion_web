@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Kardex'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Kardex Detalle de item'])
     <div id="alert">
         @include('components.alert')
     </div>
@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header pb-0">
                         <div class="d-flex align-items-center">
-                            <p class="mb-0">Kardex</p>
+                            <p class="mb-0">Kardex detalle de item</p>
                             <a href="{{ route('kardex.pdf') }}" target="_blank" class="btn btn-primary btn-sm ms-auto" role="button" aria-pressed="true">Imprimir</a>
                         </div>
                     </div>
@@ -20,8 +20,6 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Nombre</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -33,24 +31,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($items as $item)
+                                    @foreach ($entradaSalidaList as $entradaSalida)
                                         <tr>
-                                            <td class="text-center">
-                                                <a href="{{ route('item.getDetalle', $item->id) }}" target="_blank" data-toggle="tooltip" title="Ver detalle">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $item->nombre }}</p>
                                             </td>
                                             <td class="align-middle text-sm">
-                                                {{ number_format($item->cpp, 2) }}</span>
                                             </td>
                                             <td class="align-middle">
-                                                {{ $item->cantidad_total }}
                                             </td>
                                             <td class="align-middle">
-                                                {{ $item->importe_total }}
                                             </td>
                                         </tr>
                                     @endforeach

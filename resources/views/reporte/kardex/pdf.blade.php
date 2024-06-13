@@ -11,7 +11,11 @@
     <title>Kardex</title>
   </head>
   <body>
-    <h1>KARDEX DE LOS ITEMS</h1>
+  <div class="row">
+      <div class="col-12 text-center">
+          <h1>KARDEX DE LOS ITEMS</h1>
+      </div>
+  </div>
     <table class="table align-items-center mb-0">
         <thead>
             <tr>
