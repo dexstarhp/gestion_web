@@ -163,6 +163,8 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('kardex.index');
         Route::get('kardex/pdf', [ItemsController::class, 'kardexPdf'])
             ->name('kardex.pdf');
+        Route::get('kardex/detalle/pdf/{itemId}', [ItemsController::class, 'kardexDetallePdf'])
+            ->name('kardex.detalle.pdf');
     });
 
     // Usuarios

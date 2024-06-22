@@ -13,13 +13,16 @@ class Entrada_Salida extends Model
 
     protected $table = 'entrada_salidas';
 
-
     protected $fillable = [
         'nro',
         'fecha',
         'total',
         'tipo',
         'usuarios_id'
+    ];
+
+    protected $casts = [
+        'fecha' => 'datetime', // This casts 'fecha' to Carbon instances
     ];
 
     public function user(): BelongsTo

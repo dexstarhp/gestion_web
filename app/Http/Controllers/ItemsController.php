@@ -180,11 +180,27 @@ class ItemsController extends Controller
 
     public function kardexDetalle($itemId) {
         $entradaSalidaList = Entrada_Salida_detalles::where('item_id', $itemId)
-                ->get();
+            ->orderBy('id')
+            ->get();
+        $item = Items::find($itemId);
 
         return view("reporte.kardex.detalleItem")
             ->with([
-                'entradaSalidaList' => $entradaSalidaList
+                'entradaSalidaList' => $entradaSalidaList,
+                'item' => $item,
             ]);
+    }
+
+    public function kardexDetallePdf($itemId){
+        $entradaSalidaList = Entrada_Salida_detalles::where('item_id', $itemId)
+            ->orderBy('id')
+            ->get();
+        $item = Items::find($itemId);
+
+        $pdf = Pdf::loadView(
+            'reporte.kardex.detallePdf',
+            compact('item', 'entradaSalidaList')
+        )->setPaper('letter','landscape');
+        return $pdf->stream('kardex_detalle.pdf');
     }
 }
