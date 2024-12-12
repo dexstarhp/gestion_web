@@ -47,7 +47,7 @@
                                             </td>
                                             <td class="align-middle">
                                                 @if(isset($item) && $item->imagen_url)
-                                                    <img src="{{ asset('storage/' . $item->imagen_url) }}" alt="Imagen del Item" style="max-width: 100px">
+                                                    <img src="{{ asset($item->imagen_url) }}" alt="Imagen del Item" style="max-width: 100px">
                                                 @else
                                                     <span>No hay imagen</span>
                                                 @endif

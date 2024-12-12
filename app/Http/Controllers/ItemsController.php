@@ -42,38 +42,49 @@ class ItemsController extends Controller
     public function store(StoreItemsRequest $request)
     {
         DB::beginTransaction();
-        try{
-            // Crear la carpeta si no existe
+        try {
+            // Definir la carpeta de subida
             $uploadFolder = 'uploads';
             $folderPath = public_path($uploadFolder);
 
+            // Crear la carpeta si no existe
             if (!File::exists($folderPath)) {
                 File::makeDirectory($folderPath, 0755, true);
             }
-            // Si hay una imagen cargada, guarda la imagen en el sistema de archivos
+
+            // Si hay una imagen cargada, guardar en 'public/uploads'
             if ($request->hasFile('imagen_url')) {
-                $path = $request->file('imagen_url')->store('uploads', 'public');
+                $file = $request->file('imagen_url');
+                // Generar un nombre único para el archivo
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                // Mover el archivo al directorio 'public/uploads'
+                $file->move($folderPath, $fileName);
+                // Guardar la ruta relativa en la base de datos
+                $path = $uploadFolder . '/' . $fileName;
             } else {
                 $path = null;
             }
 
+            // Crear el item
             $item = new Items([
                 'nombre' => $request->input('nombre'),
                 'descripcion' => $request->input('descripcion'),
-                'imagen_url' => $path
+                'imagen_url' => $path, // Guardar la ruta relativa
             ]);
             $item->save();
+
             DB::commit();
             return redirect()
                 ->route('items.index')
-                ->with('succes', 'Item Registrado');
-        } catch(\Exception $ex){
+                ->with('success', 'Item Registrado');
+        } catch (\Exception $ex) {
             DB::rollBack();
             return redirect()
                 ->route('items.index')
-                ->with('Error', 'Error al registrar '. $ex);
+                ->with('error', 'Error al registrar: ' . $ex->getMessage());
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -103,41 +114,53 @@ class ItemsController extends Controller
     public function update(UpdateItemsRequest $request, Items $item)
     {
         DB::beginTransaction();
-        try{
+        try {
+            // Datos a actualizar
+            $data = [
+                'nombre' => $request->input('nombre'),
+                'descripcion' => $request->input('descripcion'),
+            ];
+
+            // Manejar la imagen, si se sube una nueva
             if ($request->hasFile('imagen_url')) {
                 // Elimina la imagen anterior si existe
-                if ($item->imagen_url) {
+                if ($item->imagen_url && File::exists(public_path($item->imagen_url))) {
                     File::delete(public_path($item->imagen_url));
                 }
 
+                // Define el directorio de subida
+                $uploadFolder = 'uploads';
+                $folderPath = public_path($uploadFolder);
+
+                // Crea el directorio si no existe
+                if (!File::exists($folderPath)) {
+                    File::makeDirectory($folderPath, 0755, true);
+                }
+
                 // Guarda la nueva imagen
-                $path = $request->file('imagen_url')->store('uploads', 'public');
-                $data = [
-                    'nombre' => $request->input('nombre'),
-                    'descripcion' => $request->input('descripcion'),
-                    'imagen_url' => $path
-                ];
-            } else {
-                $data = [
-                    'nombre' => $request->input('nombre'),
-                    'descripcion' => $request->input('descripcion')
-                ];
+                $file = $request->file('imagen_url');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $file->move($folderPath, $fileName);
+
+                // Agregar la nueva ruta al array de datos
+                $data['imagen_url'] = $uploadFolder . '/' . $fileName;
             }
 
-            $item->fill($request->all());
+            // Actualizar los datos del item
             $item->update($data);
 
             DB::commit();
             return redirect()
                 ->route('items.index')
-                ->with('succes', 'Item Editado');
-        } catch(\Exception $ex){
+                ->with('success', 'Item Editado');
+        } catch (\Exception $ex) {
             DB::rollBack();
             return redirect()
                 ->route('items.index')
-                ->with('Error', 'Error al editar '. $ex);
+                ->with('error', 'Error al editar: ' . $ex->getMessage());
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
