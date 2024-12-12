@@ -37,14 +37,14 @@
                                         <tr>
                                             <td class="text-center">
                                                 <a href="{{ route('item.getDetalle', $item->id) }}" target="_blank" data-toggle="tooltip" title="Ver detalle">
-                                                    <i class="fas fa-eye"></i>
+                                                    <i class="fas fa-eye">ver detalle</i>
                                                 </a>
                                             </td>
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0">{{ $item->nombre }}</p>
                                             </td>
                                             <td class="align-middle text-sm">
-                                                {{ number_format($item->cpp, 2) }}</span>
+                                                <span>{{ number_format($item->cpp, 2) }}</span>
                                             </td>
                                             <td class="align-middle">
                                                 {{ $item->cantidad_total }}
