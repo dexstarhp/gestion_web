@@ -43,25 +43,16 @@
                                                 <p class="text-xs font-weight-bold mb-0">{{ $item->nombre }}</p>
                                             </td>
                                             <td class="align-middle text-sm">
-                                                {{ $item->descripcion }}</span>
+                                                <span>{{ $item->descripcion }}</span>
                                             </td>
                                             <td class="align-middle">
                                                 @if(isset($item) && $item->imagen_url)
-                                                    <img src="{{ asset($item->url_path) }}" alt="Imagen del Item" style="max-width: 100px">
+                                                    <img src="{{ asset('storage/' . $item->imagen_url) }}" alt="Imagen del Item" style="max-width: 100px">
+                                                @else
+                                                    <span>No hay imagen</span>
                                                 @endif
                                             </td>
                                             <td class="align-middle">
-                                                {{-- {{ QrCode::size(100)->generate(
-                                                    json_encode(
-                                                        [
-                                                            'nombre' => $item->nombre,
-                                                            'descripcion' => $item->descripcion,
-                                                            'cpp' => number_format($item->cpp, 2),
-                                                            'cantidad_total' => $item->cantidad_total,
-                                                            'costo_total' => $item->importe_total
-                                                        ]
-                                                    )
-                                                ) }} --}}
                                                 {{ QrCode::size(100)->generate(route('items.show', $item)) }}
                                             </td>
                                             <td class="align-middle">
