@@ -2,15 +2,26 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        return true; // O una lógica más específica según roles/permisos
+    }
+
+    public function getFilamentName(): string
+    {
+        return trim("{$this->firstname} {$this->lastname}") ?: ($this->username ?? 'Usuario sin nombre');
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -19,13 +30,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
-        'firstname',
-        'lastname',
         'email',
         'password',
-        'address',
-        'city',
-        'country',
         'postal',
         'about'
     ];

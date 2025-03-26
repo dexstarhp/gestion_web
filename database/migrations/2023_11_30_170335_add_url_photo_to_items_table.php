@@ -23,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('items', function (Blueprint $table) {
-            //
+            $table->dropColumn('imagen_url'); // Elimina la columna imagen_url
+            $table->string('photo')->nullable(); // Vuelve a agregar la columna photo
         });
     }
 };
