@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
@@ -28,7 +27,6 @@ use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\SalidaController;
 use App\Http\Controllers\VentasController;
-use App\Http\Controllers\UserController;
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 
@@ -165,16 +163,6 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('kardex.pdf');
         Route::get('kardex/detalle/pdf/{itemId}', [ItemsController::class, 'kardexDetallePdf'])
             ->name('kardex.detalle.pdf');
-    });
-
-    // Usuarios
-    Route::prefix('users')->group(function (){
-        Route::get('', [UserController::class, 'index'])
-            ->name('user-management');
-        Route::get('/register', [RegisterController::class, 'create'])
-            ->name('register');
-        Route::post('/register', [RegisterController::class, 'store'])
-            ->name('register.perform');
     });
 
     Route::get('/{page}', [PageController::class, 'index'])->name('page');

@@ -18,11 +18,6 @@ class User extends Authenticatable implements FilamentUser
         return true; // O una lógica más específica según roles/permisos
     }
 
-    public function getFilamentName(): string
-    {
-        return trim("{$this->firstname} {$this->lastname}") ?: ($this->username ?? 'Usuario sin nombre');
-    }
-
     /**
      * The attributes that are mass assignable.
      *

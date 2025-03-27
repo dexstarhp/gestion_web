@@ -9,7 +9,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-use Filament\Actions\Action;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class BackupResource extends Resource
@@ -67,26 +67,37 @@ class BackupResource extends Resource
     }
 
     public static function createBackup(string $type) {
-        $options = $type === 'database' ? '--only-db --disable-notifications' : '--disable-notifications';
+        DB::beginTransaction(); // Iniciar transacción
 
-        //\Artisan::call("backup:run {$options}");
-        \Log::info('Intentando ejecutar backup...');
-        \Artisan::call('backup:run --only-db --disable-notifications');
-        \Log::info('Backup ejecutado, salida: ' . \Artisan::output());
+        try {
+            $options = $type === 'database' ? '--only-db --disable-notifications' : '--disable-notifications';
 
-        // Obtener el nombre de la aplicación desde la configuración
-        $appName = config('backup.backup.name', 'laravel-backup');
+            // Ejecutar comando de backup
+            \Illuminate\Support\Facades\Artisan::call("backup:run {$options}");
 
-        // Obtener la ruta del backup más reciente
-        $backupDisk = config('backup.backup.destination.disks')[0];
-        $backupFiles = Storage::disk($backupDisk)->files($appName); // Usa el nombre de la app en la ruta
-        $latestBackup = last($backupFiles);
+            // Obtener el nombre de la aplicación desde la configuración
+            $appName = config('backup.backup.name', 'laravel-backup');
 
-        if ($latestBackup) {
+            // Obtener la ruta del backup más reciente
+            $backupDisk = config('backup.backup.destination.disks')[0];
+            $backupFiles = Storage::disk($backupDisk)->files($appName);
+
+            $latestBackup = last($backupFiles);
+
+            if (!$latestBackup) {
+                throw new \Exception('No se encontró un archivo de respaldo.');
+            }
+
+            // Guardar en la base de datos
             Backup::create([
                 'backup_file_path' => $latestBackup,
                 'size' => Storage::disk($backupDisk)->size($latestBackup) . ' bytes',
             ]);
+
+            DB::commit(); // Confirmar la transacción si todo salió bien
+        } catch (\Exception $e) {
+            DB::rollback(); // Revertir cambios en caso de error
+            throw $e; // Lanzar la excepción para que el controlador la maneje
         }
     }
 
