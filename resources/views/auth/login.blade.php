@@ -34,25 +34,12 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                                    <p class="mb-1 text-sm mx-auto">
-                                        ¿Olvidó su contraseña? Restablecer la contraseña
-                                        <a href="{{ route('reset-password') }}" class="text-primary text-gradient font-weight-bold">Aqui</a>
-                                    </p>
-                                </div>
-                                <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                                    <p class="mb-4 text-sm mx-auto">
-                                        ¿No tienes una cuenta?
-                                        <a href="{{ route('register') }}" class="text-primary text-gradient font-weight-bold">Inicia sesión</a>
-                                    </p>
-                                </div>
                             </div>
                         </div>
                         <div
                             class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
                             <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                                style="background-image: url('{{ asset('img/paloma.png') }}');
-              background-size: cover;">
+                                style="background-image: url('{{ asset('img/paloma.png') }}'); background-size: cover;">
                                 <span class="mask "></span>
                                 <h4 class="mt-5 text-white font-weight-bolder position-relative">"Bienvenidos"</h4>
                                 <p class="text-white position-relative">Funeraria la Redencion.</p>
