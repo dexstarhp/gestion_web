@@ -29,7 +29,7 @@ class User extends Authenticatable implements FilamentUser
      * @var array<int, string>
      */
     protected $fillable = [
-        'username',
+        'name',
         'email',
         'password',
         'postal',

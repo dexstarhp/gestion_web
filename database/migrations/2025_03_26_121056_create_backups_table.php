@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('backups', function (Blueprint $table) {
             $table->id();
-            $table->string('backup_file_path');  // Aquí almacenarás la ruta del archivo de backup
+            $table->string('backup_file_path');
+            $table->string('size')->nullable();
             $table->timestamps();
         });
     }
