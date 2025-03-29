@@ -50,8 +50,6 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-            ])->plugins([
-                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,
