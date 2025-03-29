@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('secret')
         ]);
         $this->call(DestinoSeeder::class);
+        $this->call(AssignRolesSeeder::class);
     }
 }
