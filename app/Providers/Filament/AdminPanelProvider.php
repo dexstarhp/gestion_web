@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
@@ -24,12 +25,6 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->navigationItems([
-                NavigationItem::make('Volver al sistema')
-                    ->url(url('/dashboard'))
-                    ->icon('heroicon-o-arrow-left')
-                    ->sort(1), // Ajusta el orden en el menú
-            ])
             ->default()
             ->id('admin')
             ->path('admin')
@@ -60,6 +55,13 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->navigationItems([
+                NavigationItem::make('Volver al sistema')
+                    ->url(url('/dashboard'))
+                    ->icon('heroicon-o-arrow-left')
+                    ->sort(100), // Ajusta el orden en el menú
             ]);
+
     }
 }
