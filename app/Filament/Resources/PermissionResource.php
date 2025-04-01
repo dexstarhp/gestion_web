@@ -17,6 +17,8 @@ class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
 
+    protected static ?string $modelLabel = 'Permiso';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -77,4 +79,5 @@ class PermissionResource extends Resource
             'edit' => Pages\EditPermission::route('/{record}/edit'),
         ];
     }
+
 }
