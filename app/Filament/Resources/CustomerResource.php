@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\DocumentType;
-use App\Filament\Resources\SupplierResource\Pages;
-use App\Models\Supplier;
+use App\Filament\Resources\CustomerResource\Pages;
+
+use App\Models\Customer;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
@@ -15,13 +15,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 
-
-class SupplierResource extends Resource
+class CustomerResource extends Resource
 {
-    protected static ?string $model = Supplier::class;
+    protected static ?string $model = Customer::class;
+    protected static ?string $modelLabel = 'Cliente';
+    protected static ?string $pluralModelLabel = 'Clientes';
     protected static ?string $navigationIcon = 'heroicon-o-identification';
-    protected static ?string $modelLabel = 'Proveedor';
-    protected static ?string $pluralModelLabel = 'Proveedores';
 
     public static function form(Form $form): Form
     {
@@ -30,23 +29,11 @@ class SupplierResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label('Nombre')
                     ->required()
-                    ->maxLength(70),
-                Forms\Components\Select::make('document_type')
-                    ->label('Tipo de Documento')
-                    ->options(
-                        collect(DocumentType::cases())
-                            ->mapWithKeys(
-                                fn ($documentType) => [$documentType->value => $documentType->label()]
-                            )->toArray(),
-                    )
-                    ->required(),
+                    ->maxLength(50),
                 Forms\Components\TextInput::make('document_number')
-                    ->label('Número de documento')
-                    ->maxLength(30),
-                Forms\Components\TextInput::make('phone')
-                    ->label('Telefono')
-                    ->tel()
-                    ->maxLength(8),
+                    ->label('Número Documento')
+                    ->required()
+                    ->maxLength(10),
                 Hidden::make('user_id')
                     ->default(Auth::id()),
             ]);
@@ -60,11 +47,7 @@ class SupplierResource extends Resource
                     ->label('Nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('document_number')
-                    ->label('Tipo documento')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('document_type')
-                    ->label('Tipo de Documento'),
-                Tables\Columns\TextColumn::make('phone')
+                    ->label('Número Documento')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Creado por')
@@ -108,9 +91,9 @@ class SupplierResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSuppliers::route('/'),
-            'create' => Pages\CreateSupplier::route('/create'),
-            'edit' => Pages\EditSupplier::route('/{record}/edit'),
+            'index' => Pages\ListCustomers::route('/'),
+            'create' => Pages\CreateCustomer::route('/create'),
+            'edit' => Pages\EditCustomer::route('/{record}/edit'),
         ];
     }
 
