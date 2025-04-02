@@ -3,9 +3,9 @@ namespace App\Enums;
 
 enum DocumentType: string
 {
-    case CI = 'ci';
-    case NIT = 'nit';
-    case OTHER = 'Otro';
+    case CI = 'CI';
+    case NIT = 'NIT';
+    case OTHER = 'OTHER';
 
     public function label(): string
     {

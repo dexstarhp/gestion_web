@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('document_type',['CI','NIT','OTHER']);
             $table->string('phone',20)->nullable();
             $table->softDeletes('deleted_at', precision: 0);
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

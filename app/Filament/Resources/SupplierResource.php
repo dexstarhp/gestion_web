@@ -4,15 +4,17 @@ namespace App\Filament\Resources;
 
 use App\Enums\DocumentType;
 use App\Filament\Resources\SupplierResource\Pages;
-use App\Filament\Resources\SupplierResource\RelationManagers;
 use App\Models\Supplier;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
+
 
 class SupplierResource extends Resource
 {
@@ -26,12 +28,11 @@ class SupplierResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(70),
-                Forms\Components\TextInput::make('document_number')
-                    ->maxLength(30)
-                    ->required(),
                 Forms\Components\Select::make('document_type')
+                    ->label('Tipo de Documento')
                     ->options(
                         collect(DocumentType::cases())
                             ->mapWithKeys(
@@ -39,9 +40,15 @@ class SupplierResource extends Resource
                             )->toArray(),
                     )
                     ->required(),
+                Forms\Components\TextInput::make('document_number')
+                    ->label('Número de documento')
+                    ->maxLength(30),
                 Forms\Components\TextInput::make('phone')
+                    ->label('Telefono')
                     ->tel()
-                    ->maxLength(20),
+                    ->maxLength(8),
+                Hidden::make('user_id')
+                    ->default(Auth::id()),
             ]);
     }
 
@@ -56,15 +63,19 @@ class SupplierResource extends Resource
                 Tables\Columns\TextColumn::make('document_type'),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Creado por')
+                    ->numeric()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Modificado')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

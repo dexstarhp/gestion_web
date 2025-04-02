@@ -19,9 +19,15 @@ class Supplier extends Model
         'document_number',
         'document_type',
         'phone',
+        'user_id'
     ];
 
     protected $casts = [
         'document_type' => DocumentType::class,
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
