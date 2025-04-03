@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50)->unique();
             $table->string('description', 255)->nullable();
-            $table->string('image_url', 500)->nullable();
             $table->boolean('is_service')->default(false);
+            $table->string('image_url', 500)->nullable();
+            $table->integer('min_stock')->default(0);
+            $table->decimal('current_sale_price', 10, 2)->nullable();
+            $table->boolean('is_sellable')->default(false);
             $table->foreignId('user_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
