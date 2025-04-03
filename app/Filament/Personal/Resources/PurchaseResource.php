@@ -6,11 +6,11 @@ use App\Enums\DocumentType;
 use App\Filament\Personal\Resources\PurchaseResource\Pages;
 use App\Models\Product;
 use App\Models\Purchase;
-use Filament\Actions\EditAction;
+use Awcodes\TableRepeater\Components\TableRepeater;
+use Awcodes\TableRepeater\Header;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -18,6 +18,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
@@ -37,11 +38,9 @@ class PurchaseResource extends Resource
                     DatePicker::make('date')
                         ->label('Fecha de compra')
                         ->default(now())
-                        ->columns(2)
                         ->required(),
                     Select::make('supplier_id')
                         ->label('Proveedor')
-                        ->columns(2)
                         ->relationship('supplier', 'name')
                         ->searchable()
                         ->createOptionForm([
@@ -74,7 +73,6 @@ class PurchaseResource extends Resource
                         ->required()
                         ->numeric()
                         ->readOnly()
-                        ->columns(2)
                         ->default(0.00),
                 ]),
                 Grid::make(1)->schema([
@@ -83,7 +81,7 @@ class PurchaseResource extends Resource
                         ->required()
                         ->columnSpanFull(),
                 ]),
-                Repeater::make('purchaseDetails')
+                /*Repeater::make('purchaseDetails')
                     ->label('Productos')
                     ->columnSpanFull()
                     ->relationship('purchaseDetails')
@@ -110,6 +108,46 @@ class PurchaseResource extends Resource
                     ])
                     ->afterStateUpdated(fn($state, callable $set) => $set('total',
                         collect($state)->sum(fn($detail) => $detail['unit_price'] * $detail['quantity']))
+                    ),*/
+                TableRepeater::make('purchaseDetails')
+                    ->columnSpanFull()
+                    ->headers([
+                        Header::make('Producto')->width('150px'),
+                        Header::make('Precio Unitario')->width('150px'),
+                        Header::make('Cantidad')->width('150px'),
+                        Header::make('Subtotal')->width('150px'),
+                    ])
+                    ->label('Detalles de compra')
+                    ->relationship('purchaseDetails') // Asegúrate de tener la relación configurada en el modelo
+                    ->schema([
+                        Select::make('product_id')
+                            ->label('Producto')
+                            ->options(Product::all()->pluck('name', 'id'))
+                            ->required(),
+
+                        TextInput::make('unit_price')
+                            ->label('Precio unitario')
+                            ->numeric()
+                            ->required(),
+
+                        TextInput::make('quantity')
+                            ->numeric()
+                            ->label('Cantidad')
+                            ->required()
+                            ->live()
+                            ->afterStateUpdated(fn($state, callable $set, callable $get) => $set('subtotal',
+                                number_format($get('unit_price') * $state, 2))
+                            ),
+
+                        TextInput::make('subtotal')
+                            ->label('Subtotal')
+                            ->numeric()
+                            ->readOnly(),
+                    ])
+                    ->addActionLabel('Agregar Producto') // Personaliza el botón de agregar fila
+                    ->afterStateUpdated(fn($state, callable $set) => $set('total',
+                        collect($state ?? [])->sum(fn($detail
+                        ) => ($detail['unit_price'] ?? 0) * ($detail['quantity'] ?? 0)))
                     ),
                 Hidden::make('user_id')
                     ->default(Auth::id()),
