@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
+
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -27,14 +27,19 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(50),
                 Forms\Components\TextInput::make('description')
+                    ->label('Descripción')
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image_url')
-                    ->directory('uploads')
-                    ->image(),
+                    ->label('Imagen')
+                    ->directory('public/images/products')
+                    ->image()
+                    ->imageEditor(),
                 Forms\Components\Toggle::make('is_service')
+                    ->label('Es un servicio')
                     ->required(),
                 Forms\Components\Hidden::make('user_id')
                     ->default(Auth::id()),
@@ -46,26 +51,34 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
+                    ->label('Descripcion')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image_url')
-                    ->url(fn ($record) => asset('storage/'.$record->imagen))
-                    ->size(50),
+                    ->label('Imagen')
+                    ->visibility('private')
+                    ->checkFileExistence(false),
                 Tables\Columns\IconColumn::make('is_service')
+                    ->label('Es un servicio')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('user.name')
+                    ->label('Registrado por')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('deleted_at')
+                    ->label('Eliminado')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Modificado')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
