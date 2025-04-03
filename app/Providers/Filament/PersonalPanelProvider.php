@@ -10,7 +10,6 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -23,34 +22,33 @@ class PersonalPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->id('personal')
-            ->path('personal')
-            ->colors([
-                'primary' => Color::Amber,
-            ])
-            ->discoverResources(in: app_path('Filament/Personal/Resources'), for: 'App\\Filament\\Personal\\Resources')
-            ->discoverPages(in: app_path('Filament/Personal/Pages'), for: 'App\\Filament\\Personal\\Pages')
-            ->pages([
-                Pages\Dashboard::class,
-            ])
-            ->discoverWidgets(in: app_path('Filament/Personal/Widgets'), for: 'App\\Filament\\Personal\\Widgets')
-            ->widgets([
-                /*Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,*/
-            ])
-            ->middleware([
-                EncryptCookies::class,
-                AddQueuedCookiesToResponse::class,
-                StartSession::class,
-                AuthenticateSession::class,
-                ShareErrorsFromSession::class,
-                VerifyCsrfToken::class,
-                SubstituteBindings::class,
-                DisableBladeIconComponents::class,
-                DispatchServingFilamentEvent::class,
-            ])
-            ->authMiddleware([
-                Authenticate::class,
-            ]);
+                ->id('personal')
+                ->path('personal')
+                ->colors([
+                        'primary' => Color::Amber,
+                ])
+                ->discoverResources(in: app_path('Filament/Personal/Resources'),
+                        for: 'App\\Filament\\Personal\\Resources')
+                ->discoverPages(in: app_path('Filament/Personal/Pages'), for: 'App\\Filament\\Personal\\Pages')
+                ->pages([
+                        Pages\Dashboard::class,
+                ])
+                ->discoverWidgets(in: app_path('Filament/Personal/Widgets'), for: 'App\\Filament\\Personal\\Widgets')
+                ->widgets([
+                ])
+                ->middleware([
+                        EncryptCookies::class,
+                        AddQueuedCookiesToResponse::class,
+                        StartSession::class,
+                        AuthenticateSession::class,
+                        ShareErrorsFromSession::class,
+                        VerifyCsrfToken::class,
+                        SubstituteBindings::class,
+                        DisableBladeIconComponents::class,
+                        DispatchServingFilamentEvent::class,
+                ])
+                ->authMiddleware([
+                        Authenticate::class,
+                ]);
     }
 }
