@@ -16,6 +16,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\Alignment;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
@@ -68,11 +69,14 @@ class PurchaseResource extends Resource
                                 ->default(Auth::id()),
 
                         ])
+                        ->preload()
                         ->required(),
                     TextInput::make('total')
                         ->required()
                         ->numeric()
                         ->readOnly()
+                        ->prefix('Bs.') // Agregar prefijo de moneda (opcional)
+                        ->extraInputAttributes(['style' => 'text-align: right']) // Alinear a la derecha
                         ->default(0.00),
                 ]),
                 Grid::make(1)->schema([
@@ -81,46 +85,29 @@ class PurchaseResource extends Resource
                         ->required()
                         ->columnSpanFull(),
                 ]),
-                /*Repeater::make('purchaseDetails')
-                    ->label('Productos')
-                    ->columnSpanFull()
-                    ->relationship('purchaseDetails')
-                    ->schema([
-                        Grid::make(4)->schema([
-                            Select::make('product_id')
-                                ->label('Producto')
-                                ->options(Product::all()->pluck('name', 'id'))
-                                ->required()
-                                ->columnSpan(2),
-
-                            TextInput::make('unit_price')
-                                ->label('Precio unitario')
-                                ->numeric()
-                                ->required()
-                                ->columnSpan(1),
-
-                            TextInput::make('quantity')
-                                ->numeric()
-                                ->label('Cantidad')
-                                ->required()
-                                ->columnSpan(1),
-                        ])
-                    ])
-                    ->afterStateUpdated(fn($state, callable $set) => $set('total',
-                        collect($state)->sum(fn($detail) => $detail['unit_price'] * $detail['quantity']))
-                    ),*/
                 TableRepeater::make('purchaseDetails')
+                    ->relationship('purchaseDetails') // Asegúrate de tener la relación configurada en el modelo
                     ->columnSpanFull()
+                    ->streamlined()
                     ->headers([
-                        Header::make('Producto')->width('150px'),
-                        Header::make('Precio Unitario')->width('150px'),
-                        Header::make('Cantidad')->width('150px'),
-                        Header::make('Subtotal')->width('150px'),
+                        Header::make('Producto')
+                            ->markAsRequired()
+                            ->width('40%'),
+                        Header::make('Precio Unitario')
+                            ->align(Alignment::Right)
+                            ->markAsRequired(),
+                        Header::make('Cantidad')
+                            ->align(Alignment::Right)
+                            ->markAsRequired(),
+                        Header::make('Subtotal')
+                            ->align(Alignment::Right)
+                            ->markAsRequired(),
                     ])
                     ->label('Detalles de compra')
-                    ->relationship('purchaseDetails') // Asegúrate de tener la relación configurada en el modelo
                     ->schema([
                         Select::make('product_id')
+                            ->searchable()
+                            ->selectablePlaceholder(false)
                             ->label('Producto')
                             ->options(Product::all()->pluck('name', 'id'))
                             ->required(),
@@ -128,26 +115,42 @@ class PurchaseResource extends Resource
                         TextInput::make('unit_price')
                             ->label('Precio unitario')
                             ->numeric()
-                            ->required(),
+                            ->inputMode('decimal')
+                            ->live(debounce: 500) // Agrega un retraso para evitar errores al escribir
+                            ->required()
+                            ->default(0)
+                            ->prefix('Bs.') // Agregar prefijo de moneda (opcional)
+                            ->extraInputAttributes(['style' => 'text-align: right']) // Alinear a la derecha
+                            ->afterStateUpdated(fn($state, callable $set, callable $get) => $set('subtotal',
+                                is_numeric($state) && is_numeric($get('quantity'))
+                                    ? number_format((float)$get('quantity') * (float)$state, 2, '.', '')
+                                    : 0)
+                            ),
 
                         TextInput::make('quantity')
                             ->numeric()
                             ->label('Cantidad')
                             ->required()
-                            ->live()
+                            ->default(0)
+                            ->live(debounce: 500) // Agrega un retraso para evitar errores al escribir
+                            ->extraInputAttributes(['style' => 'text-align: right']) // Alinear a la derecha
                             ->afterStateUpdated(fn($state, callable $set, callable $get) => $set('subtotal',
-                                number_format($get('unit_price') * $state, 2))
+                                is_numeric($state) && is_numeric($get('unit_price'))
+                                    ? number_format((float)$get('unit_price') * (float)$state, 2, '.', '')
+                                    : 0)
                             ),
-
                         TextInput::make('subtotal')
                             ->label('Subtotal')
                             ->numeric()
+                            ->inputMode('decimal')
+                            ->extraInputAttributes(['style' => 'text-align: right']) // Alinear a la derecha
                             ->readOnly(),
                     ])
                     ->addActionLabel('Agregar Producto') // Personaliza el botón de agregar fila
-                    ->afterStateUpdated(fn($state, callable $set) => $set('total',
+                    ->afterStateUpdated(fn($state, callable $set) => $set('total', round(
                         collect($state ?? [])->sum(fn($detail
-                        ) => ($detail['unit_price'] ?? 0) * ($detail['quantity'] ?? 0)))
+                        ) => ($detail['unit_price'] ?? 0) * ($detail['quantity'] ?? 0)
+                        ), 2))
                     ),
                 Hidden::make('user_id')
                     ->default(Auth::id()),

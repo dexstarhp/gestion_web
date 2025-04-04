@@ -13,11 +13,11 @@ class Product extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-            'name',
-            'description',
-            'is_service',
-            'image_url',
-            'user_id'
+        'name',
+        'description',
+        'is_service',
+        'image_url',
+        'user_id'
     ];
 
     public function user(): BelongsTo
@@ -52,6 +52,11 @@ class Product extends Model
      */
     public function getCurrentStockAttribute(): mixed
     {
-        return $this->stockMovements()->sum('quantity');
+        // Aquí filtramos los movimientos para calcular solo las compras y ajustes
+        return $this->stockMovements()
+                ->whereIn('movement_type', ['purchase', 'adjustment']) // Solo compras y ajustes
+                ->sum('quantity') - $this->stockMovements()
+                ->where('movement_type', 'sale') // Restar las ventas
+                ->sum('quantity');
     }
 }
