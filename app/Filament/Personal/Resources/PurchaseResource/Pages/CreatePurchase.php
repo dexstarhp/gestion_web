@@ -32,9 +32,6 @@ class CreatePurchase extends CreateRecord
                 'date' => now(),
                 'note' => "Purchase ID: {$purchase->id}, Supplier: {$purchase->supplier->name}"
             ]);
-
-            // Actualizar el stock del producto en la tabla 'products'
-            $product->update(['stock' => $newStock]);
         }
     }
 }

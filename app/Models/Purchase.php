@@ -34,10 +34,4 @@ class Purchase extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function toArray(): array
-    {
-        $array = parent::toArray();
-        $array['purchaseDetails'] = $this->purchaseDetails->toArray() ?? []; // Asegura que no sea null
-        return $array;
-    }
 }

@@ -17,6 +17,9 @@ class Product extends Model
         'description',
         'is_service',
         'image_url',
+        'min_stock',
+        'current_sale_price',
+        'is_sellable',
         'user_id'
     ];
 
