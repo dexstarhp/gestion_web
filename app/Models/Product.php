@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\MovementType;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -55,11 +57,34 @@ class Product extends Model
      */
     public function getCurrentStockAttribute(): mixed
     {
-        // Aquí filtramos los movimientos para calcular solo las compras y ajustes
-        return $this->stockMovements()
-                ->whereIn('movement_type', ['purchase', 'adjustment']) // Solo compras y ajustes
-                ->sum('quantity') - $this->stockMovements()
-                ->where('movement_type', 'sale') // Restar las ventas
-                ->sum('quantity');
+        $inputs = $this->stockMovements()
+            ->whereIn('movement_type', ['purchase', 'adjustment'])
+            ->sum('quantity');
+
+        $outputs = $this->stockMovements()
+            ->where('movement_type', 'sale')
+            ->sum('quantity');
+
+        return $inputs - $outputs;
+    }
+
+    public function getAverageCostAttribute(): float
+    {
+        $cpp = $this->stockMovements()
+            ->where('movement_type', MovementType::PURCHASE)
+            ->selectRaw('SUM(quantity * unit_cost) as total_cost, SUM(quantity) as total_qty')
+            ->first();
+
+        if (!$cpp || $cpp->total_qty == 0) {
+            return 0; // o lanzar excepción dependiendo del uso
+        }
+
+        return round($cpp->total_cost / $cpp->total_qty, 2);
+    }
+
+    // en Product.php
+    public function scopeOnlyPhysical(Builder $query): Builder
+    {
+        return $query->where('is_service', false);
     }
 }
