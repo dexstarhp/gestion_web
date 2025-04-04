@@ -15,6 +15,7 @@ class StockMovement extends Model
         'movement_type',
         'quantity',
         'new_stock',
+        'unit_cost',
         'note',
         'date'
     ];

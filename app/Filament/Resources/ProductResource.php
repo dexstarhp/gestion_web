@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -35,7 +34,7 @@ class ProductResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image_url')
                     ->label('Imagen')
-                    ->directory('public/images/products')
+                    ->directory('images/products')
                     ->image()
                     ->imageEditor(),
                 Forms\Components\Toggle::make('is_service')
@@ -58,8 +57,10 @@ class ProductResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label('Imagen')
-                    ->visibility('private')
-                    ->checkFileExistence(false),
+                    ->checkFileExistence(false)
+                    ->default(function ($record) {
+                        return $record->image_url ? null : 'https://via.placeholder.com/100x100?text=Sin+Imagen';
+                    }),
                 Tables\Columns\IconColumn::make('is_service')
                     ->label('Es un servicio')
                     ->boolean(),

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Personal\Resources\PurchaseResource\Pages;
 
+use App\Enums\MovementType;
 use App\Filament\Personal\Resources\PurchaseResource;
 use App\Models\StockMovement;
 use Filament\Resources\Pages\CreateRecord;
@@ -16,22 +17,20 @@ class CreatePurchase extends CreateRecord
 
         foreach ($purchase->purchaseDetails as $detail) {
             $product = $detail->product;
+            if (!$product->isService) {
+                $currentStock = $product->stock;
+                $newStock = $currentStock + $detail->quantity;
 
-            // Obtener el stock actual del producto
-            $currentStock = $product->stock;
-
-            // Calcular el nuevo stock
-            $newStock = $currentStock + $detail->quantity;
-
-            // Registrar el movimiento de stock
-            StockMovement::create([
-                'product_id' => $detail->product_id,
-                'movement_type' => 'purchase',
-                'quantity' => $detail->quantity,
-                'new_stock' => $newStock,
-                'date' => now(),
-                'note' => "Purchase ID: {$purchase->id}, Supplier: {$purchase->supplier->name}"
-            ]);
+                StockMovement::create([
+                    'product_id' => $detail->product_id,
+                    'movement_type' => MovementType::PURCHASE,
+                    'unit_cost' => $detail->unit_price,
+                    'quantity' => $detail->quantity,
+                    'new_stock' => $newStock,
+                    'date' => now(),
+                    'note' => "Purchase ID: {$purchase->id}, Supplier: {$purchase->supplier->name}"
+                ]);
+            }
         }
     }
 }

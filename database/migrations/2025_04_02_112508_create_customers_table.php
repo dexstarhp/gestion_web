@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,11 +13,11 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)
-            ->unique();
+                ->unique();
             $table->string('document_number', 10)
-            ->unique();
+                ->unique();
             $table->foreignId('user_id')->constrained();
-            $table->softDeletes('deleted_at', precision: 0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
