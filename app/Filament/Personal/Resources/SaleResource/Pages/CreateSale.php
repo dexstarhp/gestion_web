@@ -18,7 +18,6 @@ class CreateSale extends CreateRecord
     {
         $sale = $this->record;
 
-        // Iteramos sobre los detalles de la venta
         foreach ($sale->saleDetails as $detail) {
             $product = $detail->product;
             if (!$product->isServise) {
@@ -40,5 +39,4 @@ class CreateSale extends CreateRecord
             }
         }
     }
-
 }

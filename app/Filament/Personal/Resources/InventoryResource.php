@@ -50,7 +50,8 @@ class InventoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\Action::make('ajustarStock')
-                    ->label('Ajustar Stock')
+                    ->tooltip('Ajustar Stock')
+                    ->hiddenLabel()
                     ->icon('heroicon-o-pencil')
                     ->form([
                         TextInput::make('cantidad')
@@ -74,7 +75,13 @@ class InventoryResource extends Resource
                             'note' => $data['nota'],
                             'date' => now(),
                         ]);
-                    })
+                    }),
+                Tables\Actions\Action::make('verMovimientos')
+                    ->tooltip('Ver movimientos')
+                    ->hiddenLabel()
+                    ->icon('heroicon-o-eye')
+                    ->url(fn($record) => route('filament.personal.resources.inventories.movement',
+                        ['product_id' => $record->id])),
             ])
             ->bulkActions([])
             ->filters([
@@ -119,6 +126,7 @@ class InventoryResource extends Resource
     {
         return [
             'index' => Pages\ListInventories::route('/'),
+            'movement' => Pages\ViewStockMovements::route('/{product_id}/movement'),
         ];
     }
 }
