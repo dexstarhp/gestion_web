@@ -5,6 +5,7 @@ namespace App\Filament\Personal\Resources\InventoryResource\Pages;
 use App\Filament\Personal\Resources\InventoryResource;
 use App\Models\Product;
 use App\Models\StockMovement;
+use App\Utils\AverageCostUtility;
 use Filament\Resources\Pages\Page;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -33,11 +34,14 @@ class ViewStockMovements extends Page implements HasTable
     {
 
         return $table
-            ->query(StockMovement::where('product_id', $this->product->id)->orderByDesc('date'))
+            ->query(StockMovement::where('product_id', $this->product->id)->orderBy('date')
+            )
+            ->description('Movimiento del producto ' . $this->product->name)
             ->columns([
                 TextColumn::make('date')
                     ->label('Fecha')
                     ->dateTime('d/m/Y H:i'),
+
                 TextColumn::make('movement_type')
                     ->label('Tipo')
                     ->formatStateUsing(fn($state) => match ($state) {
@@ -46,45 +50,90 @@ class ViewStockMovements extends Page implements HasTable
                         'ADJUSTMENT' => 'AJUSTE',
                         default => $state
                     }),
-
-                TextColumn::make('quantity')
-                    ->label('Cantidad'),
-
-                TextColumn::make('entrada')
-                    ->label('Entrada')
+                /* Entradas */
+                TextColumn::make('quantity_in')
+                    ->label('Cantidad Entradas')
+                    ->alignEnd()
+                    ->color('info')
+                    ->numeric()
                     ->state(function ($record) {
-                        return in_array($record->movement_type, ['PURCHASE', 'ADJUSTMENT']) && $record->quantity > 0
-                            ? $record->quantity
+                        if ($record->movement_type == 'PURCHASE') {
+                            return $record->quantity;
+                        }
+                        return null;
+                    }),
+                TextColumn::make('unit_cost_in')
+                    ->label('Costo unitario Entradas')
+                    ->alignEnd()
+                    ->numeric(decimalPlaces: 2)
+                    ->state(function ($record) {
+                        return in_array($record->movement_type, ['PURCHASE'])
+                            ? $record->unit_cost
                             : null;
                     }),
-                TextColumn::make('salida')
-                    ->label('Salida')
+                TextColumn::make('total_cost_in')
+                    ->label('Costo total entradas')
+                    ->numeric(decimalPlaces: 2)
+                    ->alignEnd()
                     ->state(function ($record) {
-                        return in_array($record->movement_type, ['SALE', 'ADJUSTMENT']) && $record->quantity < 0
-                            ? abs($record->quantity)
-                            : null;
-                    }),
-                TextColumn::make('total_entrada')
-                    ->label('Costo Total Entrada')
-                    ->money('BOB', locale: 'es')
-                    ->state(function ($record) {
-                        return in_array($record->movement_type, ['PURCHASE', 'ADJUSTMENT']) && $record->quantity > 0
+                        return in_array($record->movement_type, ['PURCHASE',])
                             ? $record->quantity * $record->unit_cost
                             : null;
                     }),
-                TextColumn::make('total_salida')
-                    ->label('Costo Total Salida')
-                    ->money('BOB', locale: 'es')
+
+                /*Salidas*/
+                TextColumn::make('quantity')
+                    ->label('Cantidad Salidas')
+                    ->alignEnd()
+                    ->numeric()
                     ->state(function ($record) {
-                        return in_array($record->movement_type, ['SALE', 'ADJUSTMENT']) && $record->quantity < 0
-                            ? abs($record->quantity * $record->unit_cost)
+                        if ($record->movement_type == 'SALE') {
+                            return $record->quantity;
+                        }
+                        return null;
+                    }),
+                TextColumn::make('unit_cost')
+                    ->label('Costo unitario salidas')
+                    ->alignEnd()
+                    ->numeric(decimalPlaces: 2)
+                    ->state(function ($record) {
+                        return in_array($record->movement_type, ['SALE'])
+                            ? $record->unit_cost
                             : null;
                     }),
-                TextColumn::make('new_stock')
-                    ->label('Stock Final'),
-                TextColumn::make('note')
-                    ->label('Nota')
-                    ->limit(50),
-            ]);
+                TextColumn::make('Costo total salidas')
+                    ->label('Costo total salidas')
+                    ->numeric(decimalPlaces: 2)
+                    ->alignEnd()
+                    ->state(function ($record) {
+                        return in_array($record->movement_type, ['SALE',])
+                            ? $record->quantity * $record->unit_cost
+                            : null;
+                    }),
+
+                /*Existencias*/
+                TextColumn::make('total_quantity')
+                    ->label('Cantitad total')
+                    ->numeric()
+                    ->alignEnd()
+                    ->state(function ($record) {
+                        return AverageCostUtility::getTotalQuantity($this->product->id, $record->date);
+                    }),
+                TextColumn::make('total_unit_cost')
+                    ->label('Costo unitario')
+                    ->numeric(decimalPlaces: 2)
+                    ->alignEnd()
+                    ->state(function ($record) {
+                        return AverageCostUtility::getTotalUnitCost($this->product->id, $record->date);
+                    }),
+                TextColumn::make('total_cost')
+                    ->label('Costo total')
+                    ->numeric(decimalPlaces: 2)
+                    ->alignEnd()
+                    ->state(function ($record) {
+                        return AverageCostUtility::getTotalCost($this->product->id, $record->date);
+                    }),
+            ])
+            ->striped();
     }
 }
