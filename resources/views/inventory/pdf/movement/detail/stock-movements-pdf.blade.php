@@ -46,7 +46,7 @@
     </style>
 </head>
 <body>
-<h2>MODELO DE TARJETA KARDEX</h2>
+<h2>TARJETA KARDEX</h2>
 
 <table class="header-info">
     <tr>
@@ -58,7 +58,13 @@
         <td></td>
     </tr>
 </table>
-
+@if($from || $until)
+    <p>
+        <strong>Rango de fechas:</strong>
+        Desde: {{ $from ? \Carbon\Carbon::parse($from)->format('d/m/Y H:i') : '---' }} <br>
+        Hasta: {{ $until ? \Carbon\Carbon::parse($until)->format('d/m/Y H:i') : '---' }}
+    </p>
+@endif
 <table>
     <thead>
     <tr>

@@ -172,7 +172,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 // nuevas rutas
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/personal/inventory/stok/detail/export-pdf/{product}',
+    Route::get('/personal/inventory/stock/detail/export-pdf/{product}',
         [PdfMovementDetailController::class, 'exportPdfMovementDetail'])
         ->name('personal.inventory.stock.detail.pdf');
 });

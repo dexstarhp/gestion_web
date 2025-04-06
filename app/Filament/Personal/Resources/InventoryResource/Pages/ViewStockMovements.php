@@ -6,11 +6,13 @@ use App\Filament\Personal\Resources\InventoryResource;
 use App\Models\Product;
 use App\Models\StockMovement;
 use App\Utils\AverageCostUtility;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Resources\Pages\Page;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 
 class ViewStockMovements extends Page implements HasTable
@@ -135,11 +137,27 @@ class ViewStockMovements extends Page implements HasTable
                         return AverageCostUtility::getTotalCost($this->product->id, $record->date);
                     }),
             ])
+            ->filters([
+                Filter::make('date_range')
+                    ->form([
+                        DateTimePicker::make('from')->label('Desde'),
+                        DateTimePicker::make('until')->label('Hasta'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query
+                            ->when($data['from'], fn($q) => $q->where('date', '>=', $data['from']))
+                            ->when($data['until'], fn($q) => $q->where('date', '<=', $data['until']));
+                    })
+            ])
             ->headerActions([
                 Action::make('export_pdf')
                     ->label('Exportar a PDF')
                     ->icon('heroicon-o-document-arrow-down')
-                    ->url(fn() => route('personal.inventory.stock.detail.pdf', $this->product->id))
+                    ->url(fn() => route('personal.inventory.stock.detail.pdf', [
+                        'product' => $this->product->id,
+                        'from' => request()->input('tableFilters.date_range.from'),  // Corregido
+                        'until' => request()->input('tableFilters.date_range.until'), // Corregido
+                    ]))
                     ->openUrlInNewTab()
                     ->color('success')
             ])

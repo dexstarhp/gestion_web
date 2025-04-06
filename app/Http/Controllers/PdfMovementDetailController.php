@@ -6,12 +6,22 @@ use App\Models\Product;
 use App\Models\StockMovement;
 use App\Utils\AverageCostUtility;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 
 class PdfMovementDetailController extends Controller
 {
-    public function exportPdfMovementDetail(Product $product)
+    public function exportPdfMovementDetail(Product $product, Request $request)
     {
+        $request->validate([
+            'from' => 'nullable|date',
+            'until' => 'nullable|date|after_or_equal:from',
+        ]);
+        $from = $request->input('from');
+        $until = $request->input('until');
+
         $stockMovements = StockMovement::where('product_id', $product->id)
+            ->when($from, fn($q) => $q->where('date', '>=', $from))
+            ->when($until, fn($q) => $q->where('date', '<=', $until))
             ->orderBy('date')
             ->get();
 
@@ -28,6 +38,8 @@ class PdfMovementDetailController extends Controller
         $pdf = Pdf::loadView('inventory.pdf..movement.detail.stock-movements-pdf', [
             'product' => $product,
             'stockMovements' => $averageData,
+            'from' => $from,
+            'until' => $until,
         ])->setPaper('letter', 'landscape');;
 
         return $pdf->stream('movimientos_producto_' . $product->id . '.pdf');
