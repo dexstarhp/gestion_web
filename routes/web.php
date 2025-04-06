@@ -1,5 +1,19 @@
 <?php
 
+use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\EntradaSalidaController;
+use App\Http\Controllers\FacturaReciboController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PdfMovementDetailController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\ResetPassword;
+use App\Http\Controllers\SalidaController;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\VentasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,21 +28,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\ResetPassword;
-use App\Http\Controllers\ChangePassword;
-use App\Http\Controllers\ClientesController;
-use App\Http\Controllers\EntradaSalidaController;
-use App\Http\Controllers\FacturaReciboController;
-use App\Http\Controllers\ItemsController;
-use App\Http\Controllers\ProveedorController;
-use App\Http\Controllers\SalidaController;
-use App\Http\Controllers\VentasController;
-
-Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
+Route::get('/', function () {
+    return redirect('/dashboard');
+})->middleware('auth');
 
 Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
@@ -39,14 +41,14 @@ Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
-	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
-	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
-	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
-	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');
-	Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
-	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');
-	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
+    Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
+    Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
+    Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');
+    Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
+    Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
     // rutas del sistema
     // proveedores
@@ -57,7 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('proveedores/editar/{proveedor}', [ProveedorController::class, 'update'])->name('proveedores.update');
 
     // Registro de compra
-    Route::prefix('compras')->group(function(){
+    Route::prefix('compras')->group(function () {
         Route::get('', [FacturaReciboController::class, 'index'])
             ->name('compra.index');
         Route::get('crear', [FacturaReciboController::class, 'create'])
@@ -74,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     // Items
-    Route::prefix('items')->group(function (){
+    Route::prefix('items')->group(function () {
         Route::get('', [ItemsController::class, 'index'])
             ->name('items.index');
         Route::get('crear', [ItemsController::class, 'create'])
@@ -92,7 +94,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('detalle/{itemId}', [ItemsController::class, 'kardexDetalle'])->name('item.getDetalle');
     });
     //entradas
-    Route::prefix('entradas')->group(function (){
+    Route::prefix('entradas')->group(function () {
         Route::get('', [EntradaSalidaController::class, 'index'])
             ->name('entrada.index');
         Route::get('crear', [EntradaSalidaController::class, 'create'])
@@ -110,7 +112,7 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('entrada.add_item');
     });
     //salidas
-    Route::prefix('salidas')->group(function (){
+    Route::prefix('salidas')->group(function () {
         Route::get('', [SalidaController::class, 'index'])
             ->name('salida.index');
         Route::get('crear', [SalidaController::class, 'create'])
@@ -126,7 +128,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     // Clientes
-    Route::prefix('clientes')->group(function(){
+    Route::prefix('clientes')->group(function () {
         Route::get('', [ClientesController::class, 'index'])
             ->name('cliente.index');
         Route::get('crear', [ClientesController::class, 'create'])
@@ -139,7 +141,7 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('cliente.update');
     });
     // venta
-    Route::prefix('venta')->group(function(){
+    Route::prefix('venta')->group(function () {
         Route::get('', [VentasController::class, 'index'])
             ->name('venta.index');
         Route::get('crear', [VentasController::class, 'create'])
@@ -156,7 +158,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     //reportes
-    Route::prefix('reportes')->group(function(){
+    Route::prefix('reportes')->group(function () {
         Route::get('kardex', [ItemsController::class, 'kardex'])
             ->name('kardex.index');
         Route::get('kardex/pdf', [ItemsController::class, 'kardexPdf'])
@@ -166,4 +168,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/{page}', [PageController::class, 'index'])->name('page');
+});
+
+// nuevas rutas
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/personal/inventory/stok/detail/export-pdf/{product}',
+        [PdfMovementDetailController::class, 'exportPdfMovementDetail'])
+        ->name('personal.inventory.stock.detail.pdf');
 });

@@ -10,6 +10,8 @@ class StockMovement extends Model
 {
     use HasFactory;
 
+    protected $dates = ['date'];
+
     protected $fillable = [
         'product_id',
         'movement_type',

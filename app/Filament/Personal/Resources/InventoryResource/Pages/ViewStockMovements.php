@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\StockMovement;
 use App\Utils\AverageCostUtility;
 use Filament\Resources\Pages\Page;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -133,6 +134,14 @@ class ViewStockMovements extends Page implements HasTable
                     ->state(function ($record) {
                         return AverageCostUtility::getTotalCost($this->product->id, $record->date);
                     }),
+            ])
+            ->headerActions([
+                Action::make('export_pdf')
+                    ->label('Exportar a PDF')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->url(fn() => route('personal.inventory.stock.detail.pdf', $this->product->id))
+                    ->openUrlInNewTab()
+                    ->color('success')
             ])
             ->striped();
     }
