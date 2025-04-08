@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\MovementType;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -71,12 +70,12 @@ class Product extends Model
     public function getAverageCostAttribute(): float
     {
         $cpp = $this->stockMovements()
-            ->where('movement_type', MovementType::PURCHASE)
+            ->whereIn('movement_type', ['purchase', 'adjustment'])
             ->selectRaw('SUM(quantity * unit_cost) as total_cost, SUM(quantity) as total_qty')
             ->first();
 
         if (!$cpp || $cpp->total_qty == 0) {
-            return 0; // o lanzar excepción dependiendo del uso
+            return 0;
         }
 
         return round($cpp->total_cost / $cpp->total_qty, 2);

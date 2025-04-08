@@ -37,25 +37,32 @@ class InventoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Producto')
+                    ->sortable()
                     ->searchable(),
+                Tables\Columns\ImageColumn::make('image_url')
+                    ->label('Imagen')
+                    ->checkFileExistence(false)
+                    ->default(function ($record) {
+                        return $record->image_url ? null : 'https://via.placeholder.com/100x100?text=Sin+Imagen';
+                    }),
                 Tables\Columns\TextColumn::make('current_stock')
                     ->label('Stock Actual')
-                    ->sortable()
                     ->formatStateUsing(fn($state) => $state . ' unidades')
                     ->color(fn($state) => $state <= 0 ? 'danger' : ($state <= 5 ? 'warning' : 'success')),
                 Tables\Columns\TextColumn::make('average_cost')
                     ->label('Costo Prom. Ponderado')
-                    ->money('BOB')
-                    ->sortable(),
+                    ->alignEnd()
+                    ->numeric(decimalPlaces: 2),
             ])
             ->actions([
                 Tables\Actions\Action::make('ajustarStock')
                     ->tooltip('Ajustar Stock')
                     ->hiddenLabel()
+                    ->color('warning')
                     ->icon('heroicon-o-pencil')
                     ->form([
                         TextInput::make('cantidad')
-                            ->label('Cantidad (+ / -)')
+                            ->label('Cantidad a incrementar o reducir (+ / -)')
                             ->numeric()
                             ->required(),
                         TextInput::make('nota')
@@ -76,9 +83,43 @@ class InventoryResource extends Resource
                             'date' => now(),
                         ]);
                     }),
+                Tables\Actions\Action::make('saldoInicial')
+                    ->tooltip('Registrar saldo inicial')
+                    ->hiddenLabel()
+                    ->color('success') // verde
+                    ->icon('heroicon-o-plus-circle')
+                    ->visible(fn($record) => $record->stockMovements()->count() === 0) // solo si no tiene movimientos
+                    ->form([
+                        TextInput::make('cantidad')
+                            ->label('Cantidad inicial')
+                            ->numeric()
+                            ->required(),
+                        TextInput::make('costo_unitario')
+                            ->label('Costo unitario')
+                            ->numeric()
+                            ->required(),
+                        TextInput::make('nota')
+                            ->label('Nota')
+                            ->default('Saldo inicial')
+                            ->required(),
+                    ])
+                    ->action(function ($record, array $data) {
+                        $quantity = $data['cantidad'];
+                        $unitCost = $data['costo_unitario'];
+
+                        $record->stockMovements()->create([
+                            'movement_type' => MovementType::ADJUSTMENT,
+                            'quantity' => $quantity,
+                            'unit_cost' => $unitCost,
+                            'new_stock' => $quantity,
+                            'note' => $data['nota'],
+                            'date' => now(),
+                        ]);
+                    }),
                 Tables\Actions\Action::make('verMovimientos')
                     ->tooltip('Ver movimientos')
                     ->hiddenLabel()
+                    ->color('primary')
                     ->icon('heroicon-o-eye')
                     ->url(fn($record) => route('filament.personal.resources.inventories.movement',
                         ['product_id' => $record->id])),

@@ -28,7 +28,7 @@ class CreatePurchase extends CreateRecord
                     'quantity' => $detail->quantity,
                     'new_stock' => $newStock,
                     'date' => now(),
-                    'note' => "Purchase ID: {$purchase->id}, Supplier: {$purchase->supplier->name}"
+                    'note' => "Compra: {$purchase->desciption}, Proveedor: {$purchase->supplier->name}"
                 ]);
             }
         }

@@ -45,6 +45,9 @@ class ViewStockMovements extends Page implements HasTable
                     ->label('Fecha')
                     ->dateTime('d/m/Y H:i'),
 
+                textColumn::make('note')
+                    ->label('Nota'),
+
                 TextColumn::make('movement_type')
                     ->label('Tipo')
                     ->formatStateUsing(fn($state) => match ($state) {
