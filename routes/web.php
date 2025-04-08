@@ -9,6 +9,7 @@ use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PdfMovementDetailController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\SalidaController;
@@ -176,3 +177,8 @@ Route::group(['middleware' => ['auth']], function () {
         [PdfMovementDetailController::class, 'exportPdfMovementDetail'])
         ->name('personal.inventory.stock.detail.pdf');
 });
+
+// acceso a cualqier persona
+
+Route::get('/products/{product}/technical-file',
+    [ProductController::class, 'file'])->name('product.file');

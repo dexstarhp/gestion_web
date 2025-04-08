@@ -4,8 +4,6 @@ namespace App\Filament\Personal\Resources;
 
 use App\Enums\MovementType;
 use App\Filament\Personal\Resources\InventoryResource\Pages;
-use App\Filament\Personal\Resources\InventoryResource\RelationManagers;
-use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\StockMovement;
 use Filament\Forms\Components\TextInput;
@@ -14,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+
 
 class InventoryResource extends Resource
 {
@@ -45,6 +44,7 @@ class InventoryResource extends Resource
                     ->default(function ($record) {
                         return $record->image_url ? null : 'https://via.placeholder.com/100x100?text=Sin+Imagen';
                     }),
+
                 Tables\Columns\TextColumn::make('current_stock')
                     ->label('Stock Actual')
                     ->formatStateUsing(fn($state) => $state . ' unidades')
