@@ -22,7 +22,6 @@ class TestDatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('secret')
         ]);
-        $this->call(DestinoSeeder::class);
         $this->call(AssignRolesSeeder::class);
 
         // Crear usuarios de prueba
