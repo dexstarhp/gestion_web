@@ -4,10 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Customer;
 use App\Models\Product;
-use App\Models\Purchase;
 use App\Models\Supplier;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +30,7 @@ class TestDatabaseSeeder extends Seeder
 
         // Crear proveedores, clientes y productos
         Supplier::factory()->count(10)->create();
-        Customer::factory()->count(20)->create();
-        Product::factory()->count(50)->create();
+        Customer::factory()->count(15)->create();
+        Product::factory()->count(12)->create();
     }
 }

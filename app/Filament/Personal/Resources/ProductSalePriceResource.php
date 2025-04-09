@@ -40,13 +40,7 @@ class ProductSalePriceResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label('Imagen')
-                    ->circular()
-                    ->defaultImageUrl(
-                        fn($record) => public_path('app/default/no-image.jpg')
-                    )
-                    ->getStateUsing(
-                        fn($record) => $record->image_url ?: null
-                    ),
+                    ->defaultImageUrl(url('app/default/no-image.jpg')),
 
                 Tables\Columns\TextColumn::make('current_sale_price')
                     ->label('Precio Venta')

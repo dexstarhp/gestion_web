@@ -57,10 +57,7 @@ class ProductResource extends Resource
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label('Imagen')
-                    ->checkFileExistence(false)
-                    ->default(function ($record) {
-                        return $record->image_url ? null : 'https://via.placeholder.com/100x100?text=Sin+Imagen';
-                    }),
+                    ->defaultImageUrl(url('app/default/no-image.jpg')),
                 Tables\Columns\IconColumn::make('is_service')
                     ->label('Es un servicio')
                     ->boolean(),
