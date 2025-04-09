@@ -3,7 +3,6 @@
 namespace App\Filament\Personal\Resources;
 
 use App\Filament\Personal\Resources\ProductSalePriceResource\Pages;
-use App\Filament\Personal\Resources\ProductSalePriceResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
