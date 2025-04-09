@@ -30,6 +30,7 @@ class PurchaseResource extends Resource
     protected static ?string $modelLabel = 'Compra';
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
+    protected static ?string $navigationGroup = 'Gestión Compras';
 
     public static function form(Form $form): Form
     {

@@ -22,6 +22,7 @@ class PersonalPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->viteTheme('resources/css/filament/personal/theme.css')
             ->id('personal')
             ->path('personal')
             ->colors([
