@@ -32,13 +32,33 @@ class ProductSalePriceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('Producto')->searchable(),
-                Tables\Columns\TextColumn::make('current_sale_price')->label('Precio Venta')->money('BOB'),
-                Tables\Columns\IconColumn::make('is_sellable')->label('¿Vendible?')->boolean(),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Producto')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Descripción')
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('image_url')
+                    ->label('Imagen')
+                    ->circular()
+                    ->defaultImageUrl(
+                        fn($record) => public_path('app/default/no-image.jpg')
+                    )
+                    ->getStateUsing(
+                        fn($record) => $record->image_url ?: null
+                    ),
+
+                Tables\Columns\TextColumn::make('current_sale_price')
+                    ->label('Precio Venta')
+                    ->money('BOB'),
+                Tables\Columns\IconColumn::make('is_sellable')
+                    ->label('¿Vendible?')
+                    ->boolean(),
             ])
             ->actions([
                 Tables\Actions\Action::make('Editar Precio')
                     ->icon('heroicon-o-pencil-square')
+                    ->tooltip('Editar precio de venta')
                     ->form([
                         TextInput::make('current_sale_price')
                             ->label('Precio de Venta')
@@ -46,25 +66,53 @@ class ProductSalePriceResource extends Resource
                             ->required()
                             ->prefix('Bs.')
                             ->rules(fn($record) => ['gte:' . $record->average_cost])
-                            ->helperText(fn($record) => 'Costo promedio: Bs. ' . number_format($record->average_cost,
-                                    2)),
-                        Toggle::make('is_sellable')->label('¿Es vendible?'),
+                            ->helperText(
+                                fn($record) => 'Costo unitario: Bs. ' . number_format($record->average_cost,
+                                        2)
+                            ),
+                        Toggle::make('is_sellable')
+                            ->label('¿Es vendible?(Si da un precio de venta  se pondra se habilitara para la venta)')
+                            ->default(true),
                     ])
                     ->action(function (array $data, Product $record) {
-                        $record->update($data);
+                        $record->update([
+                            'current_sale_price' => $data['current_sale_price'],
+                            'is_sellable' => true,
+                        ]);
                     })
-                    ->modalHeading('Editar precio de venta'),
+                    ->modalHeading('Editar precio de venta')
+                    ->color('warning')
+                    ->label('')
+                    ->visible(fn($record) => $record->average_cost > 0),
+
+                Tables\Actions\Action::make('habilitarVenta')
+                    ->icon('heroicon-o-check-circle')
+                    ->tooltip('Habilitar para venta')
+                    ->modalHeading('¿Habilitar para la venta?')
+                    ->color('success')
+                    ->visible(fn($record) => !$record->is_sellable)
+                    ->requiresConfirmation()
+                    ->label('')
+                    ->action(function (array $data, Product $record) {
+                        $record->update([
+                            'is_sellable' => true,
+                        ]);
+                    }),
+
             ])
             ->headerActions([
-                Tables\Actions\Action::make('Habilitar productos para venta')
-                    ->icon('heroicon-o-check-circle')
-                    ->label('Habilitar Vendibles')
-                    ->modalHeading('Seleccionar productos a habilitar')
-                    ->action(function () {
-                        // Aquí puedes abrir un modal con productos no vendibles para habilitarlos
-                    })
-                    ->requiresConfirmation()
-                    ->color('success'),
+
+            ])
+            ->recordUrl(null)
+            ->filters([
+                Tables\Filters\SelectFilter::make('is_sellable')
+                    ->label('¿Vendible?')
+                    ->options([
+                        '1' => 'Vendible',
+                        '0' => 'No vendible',
+                    ])
+                    ->default(1)
+                    ->placeholder('Todos'),
             ]);
     }
 
