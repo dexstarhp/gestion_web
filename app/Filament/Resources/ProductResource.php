@@ -60,6 +60,7 @@ class ProductResource extends Resource
                     ->defaultImageUrl(url('app/default/no-image.jpg')),
                 Tables\Columns\IconColumn::make('is_service')
                     ->label('Es un servicio')
+                    ->sortable()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Registrado por')

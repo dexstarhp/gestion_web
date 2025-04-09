@@ -70,18 +70,25 @@ class Product extends Model
     public function getAverageCostAttribute(): float
     {
         $cpp = $this->stockMovements()
-            ->whereIn('movement_type', ['purchase', 'adjustment'])
-            ->selectRaw('SUM(quantity * unit_cost) as total_cost, SUM(quantity) as total_qty')
-            ->first();
+            ->selectRaw('
+                sum(CASE WHEN movement_type = "PURCHASE" THEN quantity
+                    WHEN movement_type = "ADJUSTMENT" THEN quantity
+                     WHEN movement_type = "SALE" THEN -quantity
+                    ELSE 0 END) as total_quantity,
 
-        if (!$cpp || $cpp->total_qty == 0) {
-            return 0;
+                sum(CASE WHEN movement_type = "PURCHASE" THEN quantity * unit_cost
+                    WHEN movement_type = "ADJUSTMENT" THEN quantity * unit_cost                    
+                         WHEN movement_type = "SALE" THEN -quantity * unit_cost
+                         ELSE 0 END) as total_cost
+                ')
+            ->first();
+        if ($cpp && $cpp->total_quantity > 0) {
+            return $cpp->total_cost / $cpp->total_quantity;
         }
 
-        return round($cpp->total_cost / $cpp->total_qty, 2);
+        return 0;
     }
 
-    // en Product.php
     public function scopeOnlyPhysical(Builder $query): Builder
     {
         return $query->where('is_service', false);

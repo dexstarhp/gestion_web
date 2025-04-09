@@ -50,6 +50,7 @@ class InventoryResource extends Resource
                     ->formatStateUsing(fn($state) => $state . ' unidades')
                     ->color(fn($state) => $state <= 0 ? 'danger' : ($state <= 5 ? 'warning' : 'success')),
                 Tables\Columns\TextColumn::make('average_cost')
+                    ->state(fn($record) => $record->average_cost ?? 0)
                     ->label('Costo Prom. Ponderado')
                     ->alignEnd()
                     ->numeric(decimalPlaces: 2),

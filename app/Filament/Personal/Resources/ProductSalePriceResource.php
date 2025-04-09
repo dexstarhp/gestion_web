@@ -5,12 +5,14 @@ namespace App\Filament\Personal\Resources;
 use App\Filament\Personal\Resources\ProductSalePriceResource\Pages;
 use App\Filament\Personal\Resources\ProductSalePriceResource\RelationManagers;
 use App\Models\Product;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Http\UploadedFile;
 
 class ProductSalePriceResource extends Resource
 {
@@ -37,16 +39,34 @@ class ProductSalePriceResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Descripción')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label('Imagen')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->defaultImageUrl(url('app/default/no-image.jpg')),
-
+                Tables\Columns\TextColumn::make('unit_cost')
+                    ->label('Costo')
+                    ->state(fn($record) => $record->average_cost ?? 0)
+                    ->money('BOB')
+                    ->alignEnd()
+                    ->description(function ($record) {
+                        return ($record->average_cost ?? 0) <= 0
+                            ? 'Ir a Inventarios para inicializar saldos'
+                            : null;
+                    }),
+                Tables\Columns\TextColumn::make('stock')
+                    ->label('Cantidad')
+                    ->state(fn($record) => $record->current_stock ?? 0)
+                    ->numeric()
+                    ->alignEnd(),
                 Tables\Columns\TextColumn::make('current_sale_price')
                     ->label('Precio Venta')
-                    ->money('BOB'),
+                    ->money('BOB')
+                    ->alignEnd(),
                 Tables\Columns\IconColumn::make('is_sellable')
                     ->label('¿Vendible?')
+                    ->alignCenter()
                     ->boolean(),
             ])
             ->actions([
@@ -95,7 +115,51 @@ class ProductSalePriceResource extends Resource
 
             ])
             ->headerActions([
+                Tables\Actions\Action::make('addProduct')
+                    ->label('Registrar Producto')
+                    ->icon('heroicon-o-plus')
+                    ->modalHeading('Registrar nuevo producto')
+                    ->form([
+                        TextInput::make('name')
+                            ->label('Nombre del Producto')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('description')
+                            ->label('Descripción')
+                            ->maxLength(255),
+                        FileUpload::make('image_url')
+                            ->label('Imagen')
+                            ->image()
+                            ->imageEditor()
+                            ->directory('images/products'),
+                        TextInput::make('current_sale_price')
+                            ->label('Precio de Venta')
+                            ->required()
+                            ->numeric()
+                            ->prefix('Bs.'),
+                        Toggle::make('is_sellable')
+                            ->label('¿Es vendible?')
+                            ->default(true),
+                    ])
+                    ->modalButton('Registrar Producto')
+                    ->action(function (array $data) {
+                        $imagePath = $data['image_url'] ?? null;
 
+                        // Si es una instancia de UploadedFile, obtenemos el path
+                        if ($imagePath instanceof UploadedFile) {
+                            $imagePath = $imagePath->store('images/products', 'public');
+                        }
+
+                        Product::create([
+                            'name' => $data['name'],
+                            'description' => $data['description'],
+                            'image_url' => $imagePath,
+                            'current_sale_price' => $data['current_sale_price'],
+                            'is_sellable' => $data['is_sellable'],
+                            'user_id' => auth()->id(),
+                        ]);
+                    })
+                    ->color('success'),
             ])
             ->recordUrl(null)
             ->filters([
