@@ -14,7 +14,6 @@
         "filament/tables": "^3.3",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
-        "laravel-frontend-presets/argon": "^2.0",
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.8",

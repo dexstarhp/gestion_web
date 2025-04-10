@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de5d3485154428a092d21f88bb81a95f",
+    "content-hash": "02860a5333f3e6b274dd436cf338f50b",
     "packages": [
         {
             "name": "andreiio/blade-remix-icon",
@@ -2603,54 +2603,6 @@
             "time": "2025-04-01T14:41:56+00:00"
         },
         {
-            "name": "laravel-frontend-presets/argon",
-            "version": "v2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel-frontend-presets/argon.git",
-                "reference": "76720a39720d2bed7ea20b37170d61049ca99e26"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel-frontend-presets/argon/zipball/76720a39720d2bed7ea20b37170d61049ca99e26",
-                "reference": "76720a39720d2bed7ea20b37170d61049ca99e26",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "^11.0",
-                "laravel/legacy-factories": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "LaravelFrontendPresets\\ArgonPreset\\ArgonPresetServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "LaravelFrontendPresets\\ArgonPreset\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Laravel 11.x Front-end preset for argon",
-            "homepage": "https://github.com/creativetimofficial/argon-dashboard-laravel",
-            "keywords": [
-                "Argon",
-                "laravel",
-                "preset"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel-frontend-presets/argon/issues",
-                "source": "https://github.com/laravel-frontend-presets/argon/tree/v2.0.2"
-            },
-            "time": "2024-11-14T12:12:30+00:00"
-        },
-        {
             "name": "laravel/framework",
             "version": "v11.44.2",
             "source": {
@@ -2864,62 +2816,6 @@
                 "source": "https://github.com/laravel/framework"
             },
             "time": "2025-03-12T14:34:30+00:00"
-        },
-        {
-            "name": "laravel/legacy-factories",
-            "version": "v1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/legacy-factories.git",
-                "reference": "cd0f8c77d116bac121e9779fcff1f71801aaac50"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/legacy-factories/zipball/cd0f8c77d116bac121e9779fcff1f71801aaac50",
-                "reference": "cd0f8c77d116bac121e9779fcff1f71801aaac50",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/macroable": "^8.0|^9.0|^10.0|^11.0|^12.0",
-                "php": "^7.3|^8.0",
-                "symfony/finder": "^3.4|^4.0|^5.0|^6.0|^7.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Illuminate\\Database\\Eloquent\\LegacyFactoryServiceProvider"
-                    ]
-                },
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "helpers.php"
-                ],
-                "psr-4": {
-                    "Illuminate\\Database\\Eloquent\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "The legacy version of the Laravel Eloquent factories.",
-            "homepage": "http://laravel.com",
-            "support": {
-                "issues": "https://github.com/laravel/framework/issues",
-                "source": "https://github.com/laravel/framework"
-            },
-            "time": "2025-01-24T15:41:36+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -6407,16 +6303,16 @@
         },
         {
             "name": "spatie/laravel-package-tools",
-            "version": "1.92.0",
+            "version": "1.92.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "dd46cd0ed74015db28822d88ad2e667f4496a6f6"
+                "reference": "d55de371a6f609772c79a8d4d5e5b8fae11398f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/dd46cd0ed74015db28822d88ad2e667f4496a6f6",
-                "reference": "dd46cd0ed74015db28822d88ad2e667f4496a6f6",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/d55de371a6f609772c79a8d4d5e5b8fae11398f5",
+                "reference": "d55de371a6f609772c79a8d4d5e5b8fae11398f5",
                 "shasum": ""
             },
             "require": {
@@ -6455,7 +6351,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.92.0"
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.92.2"
             },
             "funding": [
                 {
@@ -6463,7 +6359,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-27T08:34:10+00:00"
+            "time": "2025-04-10T14:16:34+00:00"
         },
         {
             "name": "spatie/laravel-permission",

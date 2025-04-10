@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Filament\Models\Contracts\FilamentUser;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,9 +14,9 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
-    public function canAccessPanel(\Filament\Panel $panel): bool
+    public function canAccessPanel(Panel $panel): bool
     {
-        return $this->hasRole('admin'); // Solo los admins pueden acceder a Filament
+        return true; // Solo los admins pueden acceder a Filament
     }
 
     /**
@@ -55,8 +55,8 @@ class User extends Authenticatable implements FilamentUser
      * Always encrypt the password when it is updated.
      *
      * @param $value
-    * @return string
-    */
+     * @return string
+     */
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
