@@ -40,6 +40,7 @@ class ProductSalePriceResource extends Resource
                     ->label('Descripción')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
+
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label('Imagen')
                     ->toggleable(isToggledHiddenByDefault: true)
@@ -65,6 +66,10 @@ class ProductSalePriceResource extends Resource
                     ->alignEnd(),
                 Tables\Columns\IconColumn::make('is_sellable')
                     ->label('¿Vendible?')
+                    ->alignCenter()
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('is_service')
+                    ->label('¿Es Servicio?')
                     ->alignCenter()
                     ->boolean(),
             ])
@@ -96,7 +101,9 @@ class ProductSalePriceResource extends Resource
                     ->modalHeading('Editar precio de venta')
                     ->color('warning')
                     ->label('')
-                    ->visible(fn($record) => $record->average_cost > 0),
+                    ->visible(function ($record) {
+                        return $record->is_service || ($record->average_cost > 0 && $record->current_stock > 0);
+                    }),
 
                 Tables\Actions\Action::make('habilitarVenta')
                     ->icon('heroicon-o-check-circle')

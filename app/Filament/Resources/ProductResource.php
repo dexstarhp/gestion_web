@@ -4,7 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Product;
-use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -25,22 +30,50 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nombre')
-                    ->required()
-                    ->maxLength(50),
-                Forms\Components\TextInput::make('description')
-                    ->label('Descripción')
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('image_url')
-                    ->label('Imagen')
-                    ->directory('images/products')
-                    ->image()
-                    ->imageEditor(),
-                Forms\Components\Toggle::make('is_service')
-                    ->label('Es un servicio')
-                    ->required(),
-                Forms\Components\Hidden::make('user_id')
+                Grid::make(2)
+                    ->schema([
+                        // Columna izquierda (info del producto)
+                        Group::make()
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Nombre')
+                                    ->required()
+                                    ->maxLength(50),
+
+                                TextInput::make('description')
+                                    ->label('Descripción')
+                                    ->maxLength(255),
+
+                                Grid::make(2)->schema([
+                                    Toggle::make('is_sellable')
+                                        ->label('¿Es vendible?'),
+
+                                    Toggle::make('is_service')
+                                        ->label('¿Es un servicio?')
+                                        ->required()
+                                        ->reactive(),
+                                ]),
+
+                                TextInput::make('min_stock')
+                                    ->label('Stock mínimo')
+                                    ->numeric()
+                                    ->default(0)
+                                    ->minValue(0)
+                                    ->visible(fn(callable $get) => !$get('is_service')),
+                            ]),
+
+                        // Columna derecha (imagen)
+                        Group::make()
+                            ->schema([
+                                FileUpload::make('image_url')
+                                    ->label('Imagen')
+                                    ->directory('images/products')
+                                    ->image()
+                                    ->imageEditor(),
+                            ]),
+                    ]),
+
+                Hidden::make('user_id')
                     ->default(Auth::id()),
             ]);
     }
@@ -60,6 +93,10 @@ class ProductResource extends Resource
                     ->defaultImageUrl(url('app/default/no-image.jpg')),
                 Tables\Columns\IconColumn::make('is_service')
                     ->label('Es un servicio')
+                    ->sortable()
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('is_sellable')
+                    ->label('Para la venta')
                     ->sortable()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('user.name')
