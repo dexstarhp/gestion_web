@@ -17,6 +17,15 @@ class Customer extends Model
         'user_id'
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($customer) {
+            if (!$customer->user_id) {
+                $customer->user_id = auth()->id();
+            }
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -3,6 +3,7 @@
 namespace App\Filament\Personal\Resources;
 
 use App\Filament\Personal\Resources\SaleResource\Pages;
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
 use Awcodes\TableRepeater\Components\TableRepeater;
@@ -36,8 +37,31 @@ class SaleResource extends Resource
                         ->relationship('customer', 'name')
                         ->searchable()
                         ->preload()
+                        ->required()
                         ->placeholder('Seleccione un cliente')
-                        ->required(),
+                        ->getSearchResultsUsing(function (string $search) {
+                            return Customer::query()
+                                ->where('name', 'like', "%{$search}%")
+                                ->orWhere('document_number', 'like', "%{$search}%")
+                                ->limit(20)
+                                ->pluck('name', 'id');
+                        })
+                        ->getOptionLabelUsing(fn($value) => Customer::find($value)?->name)
+                        ->createOptionForm([
+                            Forms\Components\TextInput::make('name')
+                                ->label('Nombre')
+                                ->required(),
+                            Forms\Components\TextInput::make('document_number')
+                                ->label('N° Documento')
+                                ->required()
+                        ])
+                        ->createOptionAction(function (\Filament\Forms\Components\Actions\Action $action) {
+                            return $action
+                                ->modalHeading('Registrar nuevo cliente')
+                                ->modalButton('Guardar')
+                                ->closeModalByClickingAway(false);
+                        }),
+
                     Forms\Components\TextInput::make('total')
                         ->label('Total')
                         ->required()
