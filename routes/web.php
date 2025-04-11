@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return redirect('/login');
-});
-
 Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
 Route::post('/login',
     [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
@@ -29,7 +25,7 @@ Route::post('/login',
 
 // nuevas rutas
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/personal/inventory/stock/detail/export-pdf/{product}',
+    Route::get('/inventory/stock/detail/export-pdf/{product}',
         [PdfMovementDetailController::class, 'exportPdfMovementDetail'])
         ->name('personal.inventory.stock.detail.pdf');
 });

@@ -24,7 +24,7 @@ class PersonalPanelProvider extends PanelProvider
         return $panel
             ->viteTheme('resources/css/filament/personal/theme.css')
             ->id('personal')
-            ->path('personal')
+            ->path('')
             ->colors([
                 'primary' => Color::Blue,
             ])
