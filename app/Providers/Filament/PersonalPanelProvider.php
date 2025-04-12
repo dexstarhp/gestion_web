@@ -16,6 +16,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
 
 class PersonalPanelProvider extends PanelProvider
 {
@@ -51,6 +52,11 @@ class PersonalPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->databaseTransactions();
+            ->databaseTransactions()
+            ->plugins([
+                BreezyCore::make()
+                    ->myProfile()
+                    ->enableTwoFactorAuthentication(),
+            ]);;
     }
 }
