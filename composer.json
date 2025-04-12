@@ -9,6 +9,7 @@
         "andreiio/blade-remix-icon": "^3.6",
         "awcodes/filament-table-repeater": "^3.1",
         "barryvdh/laravel-dompdf": "^2.0",
+        "bezhansalleh/filament-shield": "^3.3",
         "filament/filament": "^3.3",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "filament/tables": "^3.3",
@@ -24,7 +25,7 @@
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/image-optimizer": "^1.7",
         "spatie/laravel-backup": "^9.2",
-        "spatie/laravel-permission": "^6.16",
+        "spatie/laravel-permission": "^6.17",
         "tightenco/ziggy": "^1.6"
     },
     "require-dev": {
