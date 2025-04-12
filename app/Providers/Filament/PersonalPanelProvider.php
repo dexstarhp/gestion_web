@@ -57,6 +57,6 @@ class PersonalPanelProvider extends PanelProvider
                 BreezyCore::make()
                     ->myProfile()
                     ->enableTwoFactorAuthentication(),
-            ]);;
+            ]);
     }
 }
