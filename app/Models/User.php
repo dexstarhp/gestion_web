@@ -58,7 +58,7 @@ class User extends Authenticatable implements FilamentUser
      * @param $value
      * @return string
      */
-    public function setPasswordAttribute($value)
+    public function setPasswordAttribute($value): string
     {
         $this->attributes['password'] = bcrypt($value);
     }
