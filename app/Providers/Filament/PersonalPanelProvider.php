@@ -52,11 +52,6 @@ class PersonalPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->databaseTransactions()
-            ->plugins([
-                BreezyCore::make()
-                    ->myProfile()
-                    ->enableTwoFactorAuthentication(),
-            ]);
+            ->databaseTransactions();
     }
 }
