@@ -9,16 +9,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
 
+    use HasRoles;
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true; // Solo los admins pueden acceder a Filament
+        return match ($panel->getId()) {
+            'admin' => $this->hasRole(['super_admin', 'admin']),
+            'personal' => $this->hasRole(['super_admin', 'vendedor', 'compras']),
+            default => false,
+        };
     }
 
     /**
@@ -57,9 +63,8 @@ class User extends Authenticatable implements FilamentUser
      * Always encrypt the password when it is updated.
      *
      * @param $value
-     * @return string
      */
-    public function setPasswordAttribute($value): string
+    public function setPasswordAttribute($value): void
     {
         $this->attributes['password'] = bcrypt($value);
     }
