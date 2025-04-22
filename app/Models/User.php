@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
 use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,15 +17,19 @@ class User extends Authenticatable implements FilamentUser
     use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
 
     use HasRoles;
+    use HasPanelShield;
 
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return match ($panel->getId()) {
-            'admin' => $this->hasRole(['super_admin', 'admin']),
-            'personal' => $this->hasRole(['super_admin', 'vendedor', 'compras']),
-            default => false,
-        };
-    }
+//    public function canAccessPanel(Panel $panel): bool
+//    {
+//        /*return match ($panel->getId()) {
+//            'admin' => $this->hasRole(['super_admin', 'admin']),
+//            'personal' => $this->hasRole(['super_admin', 'vendedor', 'compras']),
+//            default => false,
+//        };*/
+//        $permission = 'access_' . $panel->getId();
+//
+//        return $this->hasPermissionTo($permission);
+//    }
 
     /**
      * The attributes that are mass assignable.

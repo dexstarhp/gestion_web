@@ -22,9 +22,11 @@
         "laravel/tinker": "^2.8",
         "laraveles/spanish": "^1.5",
         "nesbot/carbon": "^2.72",
+        "shanerbaner82/panel-roles": "^0.0.3",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/image-optimizer": "^1.7",
         "spatie/laravel-backup": "^9.2",
+        "spatie/laravel-permission": "^6.17",
         "tightenco/ziggy": "^1.6"
     },
     "require-dev": {
