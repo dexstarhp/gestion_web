@@ -3,14 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -43,7 +41,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('password')
                     ->label('Contraseña')
                     ->password()
-                    ->dehydrateStateUsing(fn($state) => filled($state) ? Hash::make($state) : null)
+                    ->dehydrateStateUsing(fn($state) => filled($state) ? $state : null)
                     ->required(fn(string $context) => $context === 'create'),
 
                 Forms\Components\Select::make('roles')

@@ -7,6 +7,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -27,6 +28,7 @@ class PersonalPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/personal/theme.css')
             ->id('personal')
             ->path('')
+            ->loginRouteSlug('/login')
             ->colors([
                 'primary' => Color::Blue,
             ])
@@ -61,6 +63,26 @@ class PersonalPanelProvider extends PanelProvider
                         navigationGroup: 'Configuración',
                     ),
                 FilamentShieldPlugin::make(),
+            ])
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Panel Admin')
+                    ->url('/admin')
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->visible(function () {
+                        if (auth()->user()) {
+                            if (auth()->user()?->hasAnyRole([
+                                'super_admin',
+                                'admin'
+                            ])) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            return false;
+                        }
+                    }),
             ]);
     }
 }
