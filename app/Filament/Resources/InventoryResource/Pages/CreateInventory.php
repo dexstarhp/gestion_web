@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Personal\Resources\InventoryResource\Pages;
+namespace App\Filament\Resources\InventoryResource\Pages;
 
 use App\Filament\Personal\Resources\InventoryResource;
 use Filament\Resources\Pages\CreateRecord;

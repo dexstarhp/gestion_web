@@ -61,10 +61,7 @@ class AdminPanelProvider extends PanelProvider
             ->databaseTransactions()
             ->plugins([
                 BreezyCore::make()
-                    ->myProfile(
-                        shouldRegisterNavigation: true,
-                        navigationGroup: 'Configuración',
-                    )
+                    ->myProfile()
                     ->enableSanctumTokens()
                     ->enableTwoFactorAuthentication(),
                 FilamentShieldPlugin::make()
