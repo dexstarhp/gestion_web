@@ -20,6 +20,8 @@ class ProductSalePriceResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
     protected static ?string $navigationLabel = 'Precios de Venta';
     protected static ?string $pluralModelLabel = 'Precios de Venta';
+    protected static ?int $navigationSort = 4;
+
 
     public static function form(Form $form): Form
     {

@@ -21,6 +21,7 @@ class InventoryResource extends Resource
 
     protected static ?string $label = 'Inventario';
     protected static ?string $navigationIcon = 'heroicon-o-cube';
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {

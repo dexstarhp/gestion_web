@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CustomerResource\Pages;
-
 use App\Models\Customer;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
@@ -21,6 +20,9 @@ class CustomerResource extends Resource
     protected static ?string $modelLabel = 'Cliente';
     protected static ?string $pluralModelLabel = 'Clientes';
     protected static ?string $navigationIcon = 'heroicon-o-identification';
+
+    protected static ?string $navigationGroup = 'Paramétricas';
+    protected static ?int $navigationSort = 7;
 
     public static function form(Form $form): Form
     {

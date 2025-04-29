@@ -22,6 +22,8 @@ class SupplierResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-identification';
     protected static ?string $modelLabel = 'Proveedor';
     protected static ?string $pluralModelLabel = 'Proveedores';
+    protected static ?string $navigationGroup = 'Paramétricas';
+    protected static ?int $navigationSort = 9;
 
     public static function form(Form $form): Form
     {
@@ -36,7 +38,7 @@ class SupplierResource extends Resource
                     ->options(
                         collect(DocumentType::cases())
                             ->mapWithKeys(
-                                fn ($documentType) => [$documentType->value => $documentType->label()]
+                                fn($documentType) => [$documentType->value => $documentType->label()]
                             )->toArray(),
                     )
                     ->required(),
