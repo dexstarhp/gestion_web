@@ -77,7 +77,7 @@ class Product extends Model
                     ELSE 0 END) as total_quantity,
 
                 sum(CASE WHEN movement_type = "PURCHASE" THEN quantity * unit_cost
-                    WHEN movement_type = "ADJUSTMENT" THEN quantity * unit_cost                    
+                    WHEN movement_type = "ADJUSTMENT" THEN quantity * unit_cost
                          WHEN movement_type = "SALE" THEN -quantity * unit_cost
                          ELSE 0 END) as total_cost
                 ')
@@ -92,5 +92,10 @@ class Product extends Model
     public function scopeOnlyPhysical(Builder $query): Builder
     {
         return $query->where('is_service', false);
+    }
+
+    public function isStockLow(): bool
+    {
+        return $this->current_stock < $this->min_stock;
     }
 }
