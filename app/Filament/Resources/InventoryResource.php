@@ -6,6 +6,7 @@ use App\Enums\MovementType;
 use App\Filament\Personal\Resources\InventoryResource\Pages;
 use App\Models\Product;
 use App\Models\StockMovement;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,14 +15,24 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 
-class InventoryResource extends Resource
+class InventoryResource extends Resource implements HasShieldPermissions
 {
     protected static ?string $model = Product::class;
+
+    protected static ?string $modelLabel = 'Inventario';
     protected static ?string $navigationGroup = 'Inventario';
 
     protected static ?string $label = 'Inventario';
     protected static ?string $navigationIcon = 'heroicon-o-cube';
     protected static ?int $navigationSort = 5;
+
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            'view',
+
+        ];
+    }
 
     public static function form(Form $form): Form
     {

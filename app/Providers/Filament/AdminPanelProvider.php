@@ -81,8 +81,8 @@ class AdminPanelProvider extends PanelProvider
                     ]),
                 PanelRoles::make()
                     ->roleToAssign('super_admin')
-                    /*->roleToAssign('admin')*/
-                    ->restrictedRoles(['super_admin']),
+                    ->roleToAssign('admin')
+                    ->restrictedRoles(['super_admin', 'admin']),
             ])->userMenuItems([
                 MenuItem::make()
                     ->label('Panel Personal')

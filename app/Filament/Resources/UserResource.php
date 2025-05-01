@@ -42,6 +42,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('password')
                     ->label('Contraseña')
                     ->password()
+                    ->visible(fn(string $context): bool => $context === 'create')
                     ->dehydrateStateUsing(fn($state) => filled($state) ? $state : null)
                     ->required(fn(string $context) => $context === 'create'),
 
@@ -76,6 +77,24 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('resetPassword')
+                    ->label('Resetear contraseña')
+                    ->icon('heroicon-o-key')
+                    ->form([
+                        Forms\Components\TextInput::make('new_password')
+                            ->label('Nueva contraseña')
+                            ->password()
+                            ->required()
+                            ->minLength(8),
+                    ])
+                    ->action(function (array $data, $record): void {
+                        $record->update([
+                            'password' => $data['new_password'],
+                        ]);
+                    })
+                    ->modalHeading('Resetear contraseña')
+                    ->modalSubmitActionLabel("Guardar")
+                    ->color('warning'),
             ]);
     }
 
