@@ -28,7 +28,6 @@ class PurchaseResource extends Resource
 {
     protected static ?string $model = Purchase::class;
     protected static ?string $modelLabel = 'Compra';
-
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
     protected static ?string $navigationGroup = 'Gestión Compras';
 

@@ -30,7 +30,6 @@ class InventoryResource extends Resource implements HasShieldPermissions
     {
         return [
             'view',
-
         ];
     }
 

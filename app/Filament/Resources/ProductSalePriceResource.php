@@ -16,6 +16,7 @@ use Illuminate\Http\UploadedFile;
 class ProductSalePriceResource extends Resource
 {
     protected static ?string $model = Product::class;
+    protected static ?string $modelLabel = 'Precios de Venta';
     protected static ?string $navigationGroup = 'Gestión Ventas';
     protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
     protected static ?string $navigationLabel = 'Precios de Venta';
