@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        $this->call(ShieldSeeder::class);
+
+        // Creamos el usuario
+        $superAdmin = User::create([
             'name' => 'Administrador',
             'email' => 'super@admin.com',
-            'password' => bcrypt('secret')
+            'password' => 'secret',
         ]);
 
+        // Le asignamos el rol de super_admin
+        $superAdmin->assignRole('super_admin');
     }
 }
